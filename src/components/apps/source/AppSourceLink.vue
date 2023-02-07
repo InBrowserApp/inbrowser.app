@@ -21,7 +21,13 @@ const props = defineProps<{
 }>();
 
 // remove protocol from URL
-const urlDisplay = computed(() => props.source.replace(/(^\w+:|^)\/\//, ""));
+const urlDisplay = computed(() => {
+  if (props.source.startsWith("https://github.com/")) {
+    return props.source.slice("https://github.com/".length);
+  }
+
+  return props.source.replace(/(^\w+:|^)\/\//, "");
+});
 
 const icon = computed(() => {
   if (props.source.includes("github.com")) {
