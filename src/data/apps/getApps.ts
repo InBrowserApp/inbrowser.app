@@ -7,6 +7,10 @@ const apps: Record<string, AppInfo> = {
     features: {
       offline: true,
       darkMode: true,
+      printerFriendly: true,
+      mobileFriendly: true,
+      staticSite: true,
+      openSource: true,
     },
   },
 };

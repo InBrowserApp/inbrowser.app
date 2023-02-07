@@ -4,5 +4,9 @@ export type AppInfo = {
   features: {
     offline?: boolean;
     darkMode?: boolean;
+    printerFriendly?: boolean;
+    mobileFriendly?: boolean;
+    staticSite?: boolean;
+    openSource?: boolean;
   };
 };
