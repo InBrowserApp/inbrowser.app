@@ -1,7 +1,7 @@
 <template>
   <n-tooltip trigger="hover">
     <template #trigger>
-      <n-button quaternary circle text>
+      <n-button text>
         <template #icon>
           <n-icon :component="icon" />
         </template>

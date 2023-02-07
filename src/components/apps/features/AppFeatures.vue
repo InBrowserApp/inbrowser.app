@@ -9,8 +9,7 @@
 import type { AppInfo } from "@/data/apps";
 
 import { NSpace } from "naive-ui";
-import FeatureDarkMode from "./feature/FeatureDarkMode.vue";
-import FeatureOffline from "./feature/FeatureOffline.vue";
+import { FeatureDarkMode, FeatureOffline } from "./feature";
 
 defineProps<{
   info: AppInfo;
