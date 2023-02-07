@@ -7,6 +7,9 @@
     <div>
       <AppURL :info="app" />
     </div>
+    <div>
+      <AppSourceLink :source="app.source" v-if="app.source" />
+    </div>
   </main>
 </template>
 
@@ -18,6 +21,7 @@ import { NH1 } from "naive-ui";
 
 import AppURL from "@/components/apps/url/AppURL.vue";
 import AppFeatures from "@/components/apps/features/AppFeatures.vue";
+import AppSourceLink from "@/components/apps/source/AppSourceLink.vue";
 
 const appId = useRouteParams("appId");
 const app = computed(() => getApp(appId.value as string));

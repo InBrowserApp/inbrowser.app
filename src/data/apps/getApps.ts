@@ -12,6 +12,7 @@ const apps: Record<string, AppInfo> = {
       staticSite: true,
       openSource: true,
     },
+    source: "https://github.com/InBrowserApp/tldr.inbrowser.app",
   },
 };
 
