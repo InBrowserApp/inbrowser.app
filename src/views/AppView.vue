@@ -1,7 +1,12 @@
 <template>
   <main>
     <n-h1 prefix="bar" align-text>{{ app.title }}</n-h1>
-    <AppURL :info="app" />
+    <div>
+      <AppFeatures :info="app" />
+    </div>
+    <div>
+      <AppURL :info="app" />
+    </div>
   </main>
 </template>
 
@@ -12,6 +17,7 @@ import { getApp } from "@/data/apps";
 import { NH1 } from "naive-ui";
 
 import AppURL from "@/components/apps/url/AppURL.vue";
+import AppFeatures from "@/components/apps/features/AppFeatures.vue";
 
 const appId = useRouteParams("appId");
 const app = computed(() => getApp(appId.value as string));
