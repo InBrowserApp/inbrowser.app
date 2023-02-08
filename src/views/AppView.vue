@@ -1,9 +1,21 @@
 <template>
   <main>
-    <n-h1 prefix="bar" align-text>{{ app.title }}</n-h1>
-    <div>
-      <AppFeatures :info="app" />
+    <div
+      style="
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+      "
+    >
+      <n-h1 style="margin-block-end: 0px" prefix="bar" align-text>{{
+        app.title
+      }}</n-h1>
+      <div>
+        <AppFeatures :info="app" />
+      </div>
     </div>
+
     <div>
       <AppURL :info="app" />
     </div>
