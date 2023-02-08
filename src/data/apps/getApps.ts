@@ -1,21 +1,6 @@
 import type { AppInfo } from "./types";
+import apps from "@/data/temp/infos.json";
 
-const apps: Record<string, AppInfo> = {
-  "tldr.inbrowser.app": {
-    title: "tldr",
-    url: "https://tldr.inbrowser.app",
-    features: {
-      offline: true,
-      darkMode: true,
-      printerFriendly: true,
-      mobileFriendly: true,
-      staticSite: true,
-      openSource: true,
-    },
-    source: "https://github.com/InBrowserApp/tldr.inbrowser.app",
-  },
-};
-
-export function getApps() {
+export function getApps(): Record<string, AppInfo> {
   return apps;
 }
