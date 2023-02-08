@@ -10,7 +10,7 @@
 <script setup lang="ts">
 import { NButton, NIcon } from "naive-ui";
 import IconLink from "@vicons/fluent/Link16Regular";
-import IconGithub from "@vicons/fa/Github";
+import IconGithub from "@vicons/ionicons4/LogoGithub";
 import IconGitlab from "@vicons/fa/Gitlab";
 import IconBitbucket from "@vicons/fa/Bitbucket";
 
