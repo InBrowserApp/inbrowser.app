@@ -28,6 +28,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from "vue";
 import { useRouteParams } from "@vueuse/router";
 import { getApp, getDescription } from "@/data/apps";
 import { NH1, NP, NDivider } from "naive-ui";
@@ -39,13 +40,32 @@ import AppURL from "@/components/apps/url/AppURL.vue";
 import AppFeatures from "@/components/apps/features/AppFeatures.vue";
 import AppSourceLink from "@/components/apps/source/AppSourceLink.vue";
 import DescriptionMarkdown from "@/components/apps/description/DescriptionMarkdown/DescriptionMarkdown.vue";
+import { useHead } from "@vueuse/head";
 
 const appId = useRouteParams("appId");
 
-const app = computedAsync(() => getApp(appId.value as string), undefined);
+const app = computed(() => getApp(appId.value as string), undefined);
 const description = computedAsync(
   () => getDescription(appId.value as string),
   undefined
+);
+
+useHead(
+  computed(() => ({
+    title: `${app.value.title} | InBrowser.App`,
+    meta: [
+      {
+        name: "description",
+        content: app.value.description,
+      },
+    ],
+    link: [
+      {
+        rel: "canonical",
+        href: "https://inbrowser.app/apps/" + appId.value,
+      },
+    ],
+  }))
 );
 </script>
 
