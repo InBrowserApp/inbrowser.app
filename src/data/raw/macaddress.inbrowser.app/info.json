@@ -1,0 +1,12 @@
+{
+    "title": "MAC Address",
+    "url": "https://macaddress.inbrowser.app",
+    "features": {
+        "offline": true,
+        "darkMode": true,
+        "mobileFriendly": true,
+        "staticSite": true,
+        "openSource": true
+    },
+    "source": "https://github.com/InBrowserApp/macaddress.inbrowser.app"
+}

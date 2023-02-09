@@ -1,0 +1,12 @@
+{
+    "title": "Authenticator",
+    "url": "https://authenticator.inbrowser.app",
+    "features": {
+        "offline": true,
+        "darkMode": true,
+        "mobileFriendly": true,
+        "staticSite": true,
+        "openSource": true
+    },
+    "source": "https://github.com/InBrowserApp/authenticator.inbrowser.app"
+}
