@@ -1,5 +1,6 @@
 <template>
   <main>
+    <BackToHome style="margin-bottom: 1em" />
     <div v-if="app">
       <div class="head-wrapper">
         <n-h1 style="margin-block-end: 0px" prefix="bar" align-text>{{
@@ -31,6 +32,8 @@ import { useRouteParams } from "@vueuse/router";
 import { getApp, getDescription } from "@/data/apps";
 import { NH1, NP, NDivider } from "naive-ui";
 import { computedAsync } from "@vueuse/core";
+
+import BackToHome from "@/components/misc/BackToHome.vue";
 
 import AppURL from "@/components/apps/url/AppURL.vue";
 import AppFeatures from "@/components/apps/features/AppFeatures.vue";
