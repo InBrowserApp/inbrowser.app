@@ -11,7 +11,7 @@
       </div>
 
       <n-p v-if="description">
-        {{ description }}
+        <DescriptionMarkdown :markdown="description" />
       </n-p>
 
       <n-divider />
@@ -35,6 +35,7 @@ import { computedAsync } from "@vueuse/core";
 import AppURL from "@/components/apps/url/AppURL.vue";
 import AppFeatures from "@/components/apps/features/AppFeatures.vue";
 import AppSourceLink from "@/components/apps/source/AppSourceLink.vue";
+import DescriptionMarkdown from "@/components/apps/description/DescriptionMarkdown/DescriptionMarkdown.vue";
 
 const appId = useRouteParams("appId");
 
