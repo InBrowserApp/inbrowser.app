@@ -8,5 +8,6 @@
         "staticSite": true,
         "openSource": true
     },
-    "source": "https://github.com/InBrowserApp/authenticator.inbrowser.app"
+    "source": "https://github.com/InBrowserApp/authenticator.inbrowser.app",
+    "description": "Authenticator InBrowser.App is an offline-capable TOTP & HOTP Authenticator. All data stay securely in your browser."
 }

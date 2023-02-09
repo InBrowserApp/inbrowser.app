@@ -1,1 +1,14 @@
-{"title":"tldr","url":"https://tldr.inbrowser.app","features":{"offline":true,"darkMode":true,"printerFriendly":true,"mobileFriendly":true,"staticSite":true,"openSource":true},"source":"https://github.com/InBrowserApp/tldr.inbrowser.app"}
+{
+    "title": "tldr",
+    "url": "https://tldr.inbrowser.app",
+    "features": {
+        "offline": true,
+        "darkMode": true,
+        "printerFriendly": true,
+        "mobileFriendly": true,
+        "staticSite": true,
+        "openSource": true
+    },
+    "source": "https://github.com/InBrowserApp/tldr.inbrowser.app",
+    "description": "tldr InBrowser.App is an offline-capable PWA for tldr-pages. Fully runs in your browser. Zero API latency."
+}

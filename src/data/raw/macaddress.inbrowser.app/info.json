@@ -8,5 +8,6 @@
         "staticSite": true,
         "openSource": true
     },
-    "source": "https://github.com/InBrowserApp/macaddress.inbrowser.app"
+    "source": "https://github.com/InBrowserApp/macaddress.inbrowser.app",
+    "description": "MAC Address InBrowser.App is an offline-capable PWA for MAC Address. Fully runs in your browser. Zero API latency."
 }
