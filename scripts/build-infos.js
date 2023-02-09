@@ -13,4 +13,7 @@ for (const file of files) {
   result[key] = json;
 }
 
+// makedirs
+fs.mkdirSync("src/data/temp", { recursive: true });
+
 fs.writeFileSync("src/data/temp/infos.json", JSON.stringify(result, null, 2));
