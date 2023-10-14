@@ -1,0 +1,13 @@
+{
+    "title": "PDF",
+    "url": "https://pdf.inbrowser.app",
+    "features": {
+        "offline": true,
+        "darkMode": true,
+        "mobileFriendly": true,
+        "staticSite": true,
+        "openSource": true
+    },
+    "source": "https://github.com/InBrowserApp/pdf.inbrowser.app",
+    "description": "PDF InBrowser.App is a tool to handle PDFs. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable."
+}
