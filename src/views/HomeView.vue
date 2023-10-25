@@ -2,20 +2,53 @@
   <main>
     <n-h2 prefix="bar" align-text>Apps</n-h2>
     <n-list>
-      <n-list-item v-for="appId of appIds" :key="appId">
-        <router-link :to="{ name: 'app', params: { appId } }" class="link">
-          {{ getApp(appId).title }}
-        </router-link>
+      <n-list-item v-for="app of apps" :key="app.url">
+        <a :href="app.url" target="_blank" class="link">
+          {{ app.name }}
+        </a>
       </n-list-item>
     </n-list>
   </main>
 </template>
 
 <script setup lang="ts">
-import { getApps } from "@/data/apps";
 import { NH2, NList, NListItem } from "naive-ui";
-import { getApp } from "@/data/apps";
 import { useHead } from "@vueuse/head";
+
+const apps = [
+  {
+    name: "Look Scanned",
+    url: "https://lookscanned.io",
+  },
+  {
+    name: "DNS",
+    url: "https://dns.inbrowser.app",
+  },
+  {
+    name: "IP",
+    url: "https://ip.inbrowser.app",
+  },
+  {
+    name: "Authenticator",
+    url: "https://authenticator.inbrowser.app",
+  },
+  {
+    name: "MAC Address",
+    url: "https://macaddress.inbrowser.app",
+  },
+  {
+    name: "PDF",
+    url: "https://pdf.inbrowser.app",
+  },
+  {
+    name: "tldr-pages",
+    url: "https://tldr.inbrowser.app",
+  },
+  {
+    name: "UUID",
+    url: "https://uuid.inbrowser.app",
+  },
+];
 
 useHead({
   title: "InBrowser.App",
@@ -33,9 +66,6 @@ useHead({
     },
   ],
 });
-
-const apps = getApps();
-const appIds = Object.keys(apps);
 </script>
 
 <style scoped>
