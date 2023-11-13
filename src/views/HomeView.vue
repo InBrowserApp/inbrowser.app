@@ -48,6 +48,10 @@ const apps = [
     name: "UUID",
     url: "https://uuid.inbrowser.app",
   },
+  {
+    name: "Favicon",
+    url: "https://favicon.inbrowser.app",
+  },
 ];
 
 useHead({
