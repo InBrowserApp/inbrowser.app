@@ -1,8 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { mount } from '@vue/test-utils'
 import NamespaceInput from './NamespaceInput.vue'
-import { NMessageProvider } from 'naive-ui'
-import { h } from 'vue'
 
 describe('uuid NamespaceInput', () => {
   it('renders properly', async () => {
