@@ -2,7 +2,7 @@ import type { Ref } from 'vue'
 import { h } from 'vue'
 import { get } from '@vueuse/core'
 import { useMessage, NIcon } from 'naive-ui'
-import ClipboardCheckmark20Regular from '@vicons/fluent'
+import { ClipboardCheckmark20Regular } from '@vicons/fluent'
 
 export function useCopyToClipboard(text: Ref<string> | string) {
   const message = useMessage()
