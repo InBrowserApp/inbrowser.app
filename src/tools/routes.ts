@@ -1,5 +1,6 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { routes as uuidRoutes } from './uuid/routes'
+import { routes as pdfRoutes } from './pdf/routes'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -7,5 +8,6 @@ export const routes: RouteRecordRaw[] = [
     name: 'tools',
     component: () => import('./views/ToolsHomeView.vue')
   },
-  ...uuidRoutes
+  ...uuidRoutes,
+  ...pdfRoutes
 ]

@@ -11,6 +11,9 @@ importers:
       '@faker-js/faker':
         specifier: ^9.0.3
         version: 9.0.3
+      '@jspawn/qpdf-wasm':
+        specifier: ^0.0.2
+        version: 0.0.2
       '@vicons/antd':
         specifier: ^0.12.0
         version: 0.12.0
@@ -72,6 +75,9 @@ importers:
       '@tsconfig/node20':
         specifier: ^20.1.4
         version: 20.1.4
+      '@types/emscripten':
+        specifier: ^1.39.13
+        version: 1.39.13
       '@types/jsdom':
         specifier: ^21.1.7
         version: 21.1.7
@@ -452,6 +458,9 @@ packages:
   '@jridgewell/sourcemap-codec@1.5.0':
     resolution: {integrity: sha512-gv3ZRaISU3fjPAgNsriBRqGWQL6quFx04YMPW/zD8XMLsU32mhCCbfbO6KZFLjvYpCZ8zyDEgqsgf+PwPaM7GQ==}
 
+  '@jspawn/qpdf-wasm@0.0.2':
+    resolution: {integrity: sha512-yPFv/0o5fvVEkJjEoXf393hfpZYUZfrRY8DaLq4AVw+KWZK0GiTVAecpYdxxVACbVKMHvBa+uHxtWlilYRiLzA==}
+
   '@juggle/resize-observer@3.4.0':
     resolution: {integrity: sha512-dfLbk+PwWvFzSxwk3n5ySL0hfBog779o8h68wK/7/APo/7cgyWp5jcXockbxdk5kFRkbeXWm4Fbi9FrdN381sA==}
 
@@ -578,6 +587,9 @@ packages:
 
   '@types/conventional-commits-parser@5.0.0':
     resolution: {integrity: sha512-loB369iXNmAZglwWATL+WRe+CRMmmBPtpolYzIebFaX4YA3x+BEfLqhUAV9WanycKI3TG1IMr5bMJDajDKLlUQ==}
+
+  '@types/emscripten@1.39.13':
+    resolution: {integrity: sha512-cFq+fO/isvhvmuP/+Sl4K4jtU6E23DoivtbO4r50e3odaxAiVdbfSYRDdJ4gCdxx+3aRjhphS5ZMwIH4hFy/Cw==}
 
   '@types/estree@1.0.6':
     resolution: {integrity: sha512-AYnb1nQyY49te+VRAVgmzfcgjYS91mY5P0TKUDCLEM+gNnA+3T6rWITXRLYCpahpqSQbN5cE+gHpnPyXjHWxcw==}
@@ -3176,6 +3188,8 @@ snapshots:
 
   '@jridgewell/sourcemap-codec@1.5.0': {}
 
+  '@jspawn/qpdf-wasm@0.0.2': {}
+
   '@juggle/resize-observer@3.4.0': {}
 
   '@nodelib/fs.scandir@2.1.5':
@@ -3262,6 +3276,8 @@ snapshots:
   '@types/conventional-commits-parser@5.0.0':
     dependencies:
       '@types/node': 20.16.11
+
+  '@types/emscripten@1.39.13': {}
 
   '@types/estree@1.0.6': {}
 
