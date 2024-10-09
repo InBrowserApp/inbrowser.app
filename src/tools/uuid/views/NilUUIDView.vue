@@ -4,13 +4,15 @@
     <n-h1 prefix="bar" align-text>Nil UUID</n-h1>
     <NilUUIDGenerator />
     <n-h2 prefix="bar" align-text>What is a Nil UUID</n-h2>
-    <NilUUIDDescription />
+    <n-p>
+      The "nil" UUID, a special case, is the UUID 00000000-0000-0000-0000-000000000000; that is, all
+      bits set to zero.
+    </n-p>
   </main>
 </template>
 
 <script setup lang="ts">
-import { NH2, NH1 } from 'naive-ui'
-import NilUUIDDescription from '../components/uuid/description/NilUUIDDescription.vue'
+import { NH2, NH1, NP } from 'naive-ui'
 import NilUUIDGenerator from '../components/uuid/generator/NilUUIDGenerator.vue'
 import BackButton from '@/components/navigate/BackButton.vue'
 import { useTitle, useDescription } from '@/composables/head'
