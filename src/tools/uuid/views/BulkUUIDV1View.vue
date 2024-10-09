@@ -17,16 +17,16 @@ import { NH2, NH1 } from 'naive-ui'
 import UUIDV1Description from '../components/uuid/description/UUIDV1Description.vue'
 import BulkUUIDV1Generator from '../components/uuid/generator/BulkUUIDV1Generator.vue'
 import BulkSizeInput from '../components/uuid/config/BulkSizeInput.vue'
-import { generateMACAddress } from '../utils/mac'
 import UUIDV1Config from '../components/uuid/config/UUIDV1Config.vue'
 import BackButton from '@/components/navigate/BackButton.vue'
 import { useTitle, useDescription } from '@/composables/head'
+import { faker } from '@faker-js/faker'
 
 useTitle('Bulk Version 1 UUID Generator')
 useDescription('Generate bulk version 1 UUIDs.')
 
 const size = ref(10)
 const config = ref({
-  macAddress: generateMACAddress()
+  macAddress: faker.internet.mac().toUpperCase()
 })
 </script>

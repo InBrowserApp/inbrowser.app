@@ -16,14 +16,14 @@ import { NH2, NH1 } from 'naive-ui'
 import UUIDV1Description from '../components/uuid/description/UUIDV1Description.vue'
 import UUIDV1Generator from '../components/uuid/generator/UUIDV1Generator.vue'
 import UUIDV1Config from '../components/uuid/config/UUIDV1Config.vue'
-import { generateMACAddress } from '../utils/mac'
 import BackButton from '@/components/navigate/BackButton.vue'
 import { useTitle, useDescription } from '@/composables/head'
+import { faker } from '@faker-js/faker'
 
 useTitle('Version 1 UUID Generator')
 useDescription('Generate version 1 UUID.')
 
 const config = ref({
-  macAddress: generateMACAddress()
+  macAddress: faker.internet.mac().toUpperCase()
 })
 </script>

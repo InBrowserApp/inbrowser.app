@@ -8,7 +8,7 @@
       ><n-icon
         style="cursor: pointer"
         :component="RefreshOutline"
-        @click="addressRef = generateMACAddress()"
+        @click="addressRef = faker.internet.mac().toUpperCase()"
     /></template>
   </n-input>
 </template>
@@ -19,7 +19,7 @@ import { ref, computed, watch } from 'vue'
 import { NInput, NIcon } from 'naive-ui'
 import validator from 'validator'
 import RefreshOutline from '@vicons/ionicons5/RefreshOutline'
-import { generateMACAddress } from '../../utils/mac'
+import { faker } from '@faker-js/faker'
 
 const props = defineProps<{
   address: string
