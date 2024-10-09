@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
+    "@jspawn/qpdf-wasm": "^0.0.2",
     "@vicons/antd": "^0.12.0",
     "@vicons/carbon": "^0.12.0",
     "@vicons/fa": "^0.12.0",
@@ -43,6 +44,7 @@
     "@commitlint/config-conventional": "^19.5.0",
     "@rushstack/eslint-patch": "^1.8.0",
     "@tsconfig/node20": "^20.1.4",
+    "@types/emscripten": "^1.39.13",
     "@types/jsdom": "^21.1.7",
     "@types/node": "^20.14.5",
     "@types/uuid": "^10.0.0",
