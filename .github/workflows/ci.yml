@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - all-tools
+  pull_request:
+    branches:
+      - all-tools
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: ESLint Check
+        run: pnpm run lint-check
+
+      - name: Format Check
+        run: pnpm run format-check
+
+      - name: TypeScript Check
+        run: pnpm run type-check
+
+      - name: Run build
+        run: pnpm run build
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
