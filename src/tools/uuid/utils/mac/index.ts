@@ -1,0 +1,1 @@
+export { parseMACAddress } from './parseMACAddress'
