@@ -1,4 +1,4 @@
-export type UUIDV35Config = {
+export interface UUIDV35Config {
   namespace: string
   name: string
 }

@@ -1,3 +1,3 @@
-export type UUIDV1Config = {
+export interface UUIDV1Config {
   macAddress: string
 }
