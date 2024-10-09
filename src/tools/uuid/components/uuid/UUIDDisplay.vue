@@ -13,7 +13,7 @@
 import { toRef } from 'vue'
 import { NText, NTooltip, NIcon } from 'naive-ui'
 import Clipboard16Regular from '@vicons/fluent/Clipboard16Regular'
-import { useCopyToClipboard } from '../../composables/useCopyToClipboard'
+import { useCopyToClipboard } from '@/composables/misc/clipboard'
 
 const props = defineProps<{
   uuid: string

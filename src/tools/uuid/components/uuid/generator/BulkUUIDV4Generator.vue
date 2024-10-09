@@ -19,7 +19,7 @@ import { NSpace } from 'naive-ui'
 import RegenerateButton from '../../controls/RegenerateButton.vue'
 import CopyToClipboardButton from '../../controls/CopyToClipboardButton.vue'
 import UUIDsDownloadButton from '../../controls/UUIDsDownloadButton.vue'
-import { useCopyToClipboard } from '../../../composables/useCopyToClipboard'
+import { useCopyToClipboard } from '@/composables/misc/clipboard'
 
 const props = defineProps<{
   size: number

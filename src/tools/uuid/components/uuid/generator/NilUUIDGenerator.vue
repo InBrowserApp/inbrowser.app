@@ -14,7 +14,7 @@ import { ref } from 'vue'
 import UUIDDisplay from '../../../components/uuid/UUIDDisplay.vue'
 import { NSpace } from 'naive-ui'
 import CopyToClipboardButton from '../../../components/controls/CopyToClipboardButton.vue'
-import { useCopyToClipboard } from '../../../composables/useCopyToClipboard'
+import { useCopyToClipboard } from '@/composables/misc/clipboard'
 
 const uuid = ref('00000000-0000-0000-0000-000000000000')
 

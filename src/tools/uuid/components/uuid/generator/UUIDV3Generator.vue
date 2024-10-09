@@ -15,7 +15,7 @@ import { v3 as uuidv3 } from 'uuid'
 import UUIDDisplay from '../../../components/uuid/UUIDDisplay.vue'
 import { NSpace } from 'naive-ui'
 import CopyToClipboardButton from '../../../components/controls/CopyToClipboardButton.vue'
-import { useCopyToClipboard } from '../../../composables/useCopyToClipboard'
+import { useCopyToClipboard } from '@/composables/misc/clipboard'
 import type { UUIDV35Config } from '../../../utils/uuid/config/UUIDV35Config'
 
 const props = defineProps<{

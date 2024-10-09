@@ -19,7 +19,7 @@ import { NSpace } from 'naive-ui'
 import RegenerateButton from '../../controls/RegenerateButton.vue'
 import CopyToClipboardButton from '../../controls/CopyToClipboardButton.vue'
 import UUIDsDownloadButton from '../../controls/UUIDsDownloadButton.vue'
-import { useCopyToClipboard } from '../../../composables/useCopyToClipboard'
+import { useCopyToClipboard } from '@/composables/misc/clipboard'
 import type { UUIDV1Config } from '../../../utils/uuid/config/UUIDV1Config'
 import { parseMACAddress } from '../../../utils/mac'
 

@@ -17,7 +17,7 @@ import UUIDDisplay from '../../../components/uuid/UUIDDisplay.vue'
 import { NSpace } from 'naive-ui'
 import RegenerateButton from '../../../components/controls/RegenerateButton.vue'
 import CopyToClipboardButton from '../../../components/controls/CopyToClipboardButton.vue'
-import { useCopyToClipboard } from '../../../composables/useCopyToClipboard'
+import { useCopyToClipboard } from '@/composables/misc/clipboard'
 
 const uuid = ref(uuidv4())
 
