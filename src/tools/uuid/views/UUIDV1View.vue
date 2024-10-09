@@ -18,18 +18,10 @@ import UUIDV1Generator from '../components/uuid/generator/UUIDV1Generator.vue'
 import UUIDV1Config from '../components/uuid/config/UUIDV1Config.vue'
 import { generateMACAddress } from '../utils/mac'
 import BackButton from '@/components/navigate/BackButton.vue'
-import { useHead } from '@vueuse/head'
+import { useTitle, useDescription } from '@/composables/head'
 
-useHead({
-  title: 'Version 1 UUID Generator | InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Generate version 1 UUID. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable.'
-    }
-  ]
-})
+useTitle('Version 1 UUID Generator')
+useDescription('Generate version 1 UUID.')
 
 const config = ref({
   macAddress: generateMACAddress()

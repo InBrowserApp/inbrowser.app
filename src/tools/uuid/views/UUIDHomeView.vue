@@ -92,17 +92,8 @@
 <script setup lang="ts">
 import { NH2, NDivider, NA, NH1 } from 'naive-ui'
 import UUIDV4Generator from '../components/uuid/generator/UUIDV4Generator.vue'
+import { useTitle, useDescription } from '@/composables/head'
 
-import { useHead } from '@vueuse/head'
-
-useHead({
-  title: 'UUID Tools | InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'UUID Tools. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable.'
-    }
-  ]
-})
+useTitle('UUID Tools')
+useDescription('UUID Tools.')
 </script>

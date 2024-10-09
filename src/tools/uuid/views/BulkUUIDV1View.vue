@@ -20,18 +20,10 @@ import BulkSizeInput from '../components/uuid/config/BulkSizeInput.vue'
 import { generateMACAddress } from '../utils/mac'
 import UUIDV1Config from '../components/uuid/config/UUIDV1Config.vue'
 import BackButton from '@/components/navigate/BackButton.vue'
-import { useHead } from '@vueuse/head'
+import { useTitle, useDescription } from '@/composables/head'
 
-useHead({
-  title: 'Bulk Version 1 UUID Generator | InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Generate bulk version 1 UUIDs. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable.'
-    }
-  ]
-})
+useTitle('Bulk Version 1 UUID Generator')
+useDescription('Generate bulk version 1 UUIDs.')
 
 const size = ref(10)
 const config = ref({

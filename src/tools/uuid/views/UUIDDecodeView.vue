@@ -16,18 +16,10 @@ import DecodeResult from '../components/uuid/decode/DecodeResult.vue'
 import UUIDInput from '../components/misc/UUIDInput.vue'
 import { v4 as uuidv4 } from 'uuid'
 import BackButton from '@/components/navigate/BackButton.vue'
-import { useHead } from '@vueuse/head'
+import { useTitle, useDescription } from '@/composables/head'
 
-useHead({
-  title: 'Decode UUID | InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Decode your UUID, get the version, variant, and other information. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable.'
-    }
-  ]
-})
+useTitle('Decode UUID')
+useDescription('Decode your UUID, get the version, variant, and other information.')
 
 const uuid = ref(uuidv4())
 </script>

@@ -17,18 +17,10 @@ import UUIDV4Description from '../components/uuid/description/UUIDV4Description.
 import BulkUUIDV4Generator from '../components/uuid/generator/BulkUUIDV4Generator.vue'
 import BulkSizeInput from '../components/uuid/config/BulkSizeInput.vue'
 import BackButton from '@/components/navigate/BackButton.vue'
-import { useHead } from '@vueuse/head'
+import { useTitle, useDescription } from '@/composables/head'
 
-useHead({
-  title: 'Bulk Version 4 UUID Generator | InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Generate bulk version 4 UUIDs. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable.'
-    }
-  ]
-})
+useTitle('Bulk Version 4 UUID Generator')
+useDescription('Generate bulk version 4 UUIDs.')
 
 const size = ref(10)
 </script>

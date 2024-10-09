@@ -19,18 +19,10 @@ import UUIDV5Generator from '../components/uuid/generator/UUIDV5Generator.vue'
 import UUIDV35Config from '../components/uuid/config/UUIDV35Config.vue'
 import { v4 as uuidv4 } from 'uuid'
 import BackButton from '@/components/navigate/BackButton.vue'
-import { useHead } from '@vueuse/head'
+import { useTitle, useDescription } from '@/composables/head'
 
-useHead({
-  title: 'Version 5 UUID Generator | InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Generate version 5 UUID. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable.'
-    }
-  ]
-})
+useTitle('Version 5 UUID Generator')
+useDescription('Generate version 5 UUID.')
 
 const config = ref<UUIDV35ConfigType>({
   namespace: uuidv4(),

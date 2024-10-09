@@ -13,16 +13,8 @@ import { NH2, NH1 } from 'naive-ui'
 import NilUUIDDescription from '../components/uuid/description/NilUUIDDescription.vue'
 import NilUUIDGenerator from '../components/uuid/generator/NilUUIDGenerator.vue'
 import BackButton from '@/components/navigate/BackButton.vue'
-import { useHead } from '@vueuse/head'
+import { useTitle, useDescription } from '@/composables/head'
 
-useHead({
-  title: 'Nil UUID Generator | InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Generate Nil UUID. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable.'
-    }
-  ]
-})
+useTitle('Nil UUID Generator')
+useDescription('Generate Nil UUID.')
 </script>

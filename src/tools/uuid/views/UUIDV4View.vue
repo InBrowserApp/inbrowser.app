@@ -13,16 +13,8 @@ import { NH2, NH1 } from 'naive-ui'
 import UUIDV4Description from '../components/uuid/description/UUIDV4Description.vue'
 import UUIDV4Generator from '../components/uuid/generator/UUIDV4Generator.vue'
 import BackButton from '@/components/navigate/BackButton.vue'
-import { useHead } from '@vueuse/head'
+import { useTitle, useDescription } from '@/composables/head'
 
-useHead({
-  title: 'Version 4 UUID Generator | InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'Generate version 4 UUID. Fully runs in your browser, no data is sent to the server. Fast, secure, and offline capable.'
-    }
-  ]
-})
+useTitle('Version 4 UUID Generator')
+useDescription('Generate version 4 UUID.')
 </script>
