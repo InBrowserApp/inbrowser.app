@@ -1,5 +1,7 @@
 <template>
   <main>
+    <BackButton />
+
     <n-h1 prefix="bar" align-text>UUID Tools</n-h1>
     <n-h2 prefix="bar" align-text>Get a Random UUID</n-h2>
     <UUIDV4Generator />
@@ -93,6 +95,7 @@
 import { NH2, NDivider, NA, NH1 } from 'naive-ui'
 import UUIDV4Generator from '../components/uuid/generator/UUIDV4Generator.vue'
 import { useTitle, useDescription } from '@/composables/head'
+import BackButton from '@/components/navigate/BackButton.vue'
 
 useTitle('UUID Tools')
 useDescription('UUID Tools.')
