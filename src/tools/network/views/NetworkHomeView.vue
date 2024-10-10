@@ -120,8 +120,7 @@ import {
   Merge24Regular,
   ArrowAutofitWidth20Regular,
   TextGrammarCheckmark20Regular,
-  ArrowStepInRight24Regular,
-  ArrowStepInLeft24Regular
+  ArrowStepInRight24Regular
 } from '@vicons/fluent'
 import { LanguageOutline } from '@vicons/ionicons5'
 import { useTitle, useDescription } from '@/composables/head'
