@@ -1,6 +1,7 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { routes as uuidRoutes } from './uuid/routes'
 import { routes as pdfRoutes } from './pdf/routes'
+import { routes as faviconRoutes } from './favicon/routes'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -9,5 +10,6 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('./views/ToolsHomeView.vue')
   },
   ...uuidRoutes,
-  ...pdfRoutes
+  ...pdfRoutes,
+  ...faviconRoutes
 ]
