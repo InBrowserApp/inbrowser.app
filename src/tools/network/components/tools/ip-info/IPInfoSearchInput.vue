@@ -30,12 +30,12 @@ const value = ref('')
 const goToIPInfo = () => {
   if (value.value === '') return
 
-  router.push(`/tools/ip-info/${value.value}`)
+  router.push(`/tools/network/ip-info/${value.value}`)
 }
 
 const href = computed(() => {
   if (value.value === '') return undefined
 
-  return `/tools/ip-info/${value.value}`
+  return `/tools/network/ip-info/${value.value}`
 })
 </script>

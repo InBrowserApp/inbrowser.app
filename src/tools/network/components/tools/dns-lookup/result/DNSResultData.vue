@@ -1,7 +1,7 @@
 <template>
   <template v-if="isIP">
     <a
-      :href="`https://ip.inbrowser.app/tools/ip-info/${data}`"
+      :href="`https://inbrowser.app/tools/network/ip-info/${data}`"
       target="_blank"
       rel="noopener noreferrer"
       class="ip-link"
