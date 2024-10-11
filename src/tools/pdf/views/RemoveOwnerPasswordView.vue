@@ -1,5 +1,5 @@
 <template>
-  <ToolViewTemplate title="Remove PDF Owner Password">
+  <ToolViewTemplate>
     <PDFUpload @upload:file="handlePDFUpload" />
 
     <n-h2 prefix="bar" align-text>What is PDF Owner Password?</n-h2>
@@ -32,11 +32,7 @@
 import { removeOwnerPassword } from '../utils/qpdf/remove-owner-password'
 import { NH2, NP, NUl, NLi } from 'naive-ui'
 import PDFUpload from '../components/pdf/upload/PDFUpload.vue'
-import { useTitle, useDescription } from '@/composables/head'
 import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
-
-useTitle('Remove PDF Owner Password')
-useDescription('Remove PDF owner password online.')
 
 const handlePDFUpload = async (file: File) => {
   const newBlob = await removeOwnerPassword(file)
