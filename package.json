@@ -19,7 +19,7 @@
     "format-check": "prettier --check src/",
     "prepare": "husky",
     "build:prepare": "run-p build:prepare:optimize-png-worker",
-    "build:prepare:optimize-png-worker": "esbuild --bundle --minify --sourcemap --target=es2018 --platform=node --outfile=src/tools/favicon/utils/image/optimize-png.worker.js src/tools/favicon/utils/image/optimize-png.worker.raw.ts"
+    "build:prepare:optimize-png-worker": "esbuild --bundle --minify --sourcemap --target=es2018 --platform=node --outfile=src/tools/favicon/favicon-generator/utils/image/optimize-png.worker.js src/tools/favicon/favicon-generator/utils/image/optimize-png.worker.raw.ts"
   },
   "dependencies": {
     "@faker-js/faker": "^9.0.3",
