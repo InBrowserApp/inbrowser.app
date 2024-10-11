@@ -1,16 +1,5 @@
 import type { RouteRecordRaw } from 'vue-router'
+import { route as faviconToolsRoute } from './favicon-tools'
+import { route as faviconGeneratorRoute } from './favicon-generator'
 
-const prefix = '/tools/favicon'
-
-export const routes: RouteRecordRaw[] = [
-  {
-    path: prefix,
-    name: 'tools-favicon',
-    component: () => import('./views/FaviconHomeView.vue')
-  },
-  {
-    path: prefix + '/favicon-generator',
-    name: 'tools-favicon-favicon-generator',
-    component: () => import('./views/FaviconGeneratorView.vue')
-  }
-]
+export const routes: RouteRecordRaw[] = [faviconToolsRoute, faviconGeneratorRoute]
