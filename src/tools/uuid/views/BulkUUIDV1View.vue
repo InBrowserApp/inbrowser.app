@@ -1,6 +1,5 @@
 <template>
-  <main>
-    <BackButton />
+  <ToolViewTemplate title="Bulk Version 1 UUID Generator">
     <n-h1 prefix="bar" align-text>Bulk Version 1 UUID</n-h1>
     <BulkUUIDV1Generator :size="size" :config="config" />
     <n-h2 prefix="bar" align-text>Config</n-h2>
@@ -17,7 +16,7 @@
       treats the timestamp as unsigned, putting the rollover time in 5236 AD. The rollover time as
       defined by ITU-T Rec. X.667 is 3603 AD.
     </n-p>
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
@@ -26,9 +25,9 @@ import { NH2, NH1, NP } from 'naive-ui'
 import BulkUUIDV1Generator from '../components/uuid/generator/BulkUUIDV1Generator.vue'
 import BulkSizeInput from '../components/uuid/config/BulkSizeInput.vue'
 import UUIDV1Config from '../components/uuid/config/UUIDV1Config.vue'
-import BackButton from '@/components/navigate/BackButton.vue'
 import { useTitle, useDescription } from '@/composables/head'
 import { faker } from '@faker-js/faker'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 useTitle('Bulk Version 1 UUID Generator')
 useDescription('Generate bulk version 1 UUIDs.')

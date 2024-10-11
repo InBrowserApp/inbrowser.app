@@ -1,16 +1,13 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h1 prefix="bar" align-text>Favicon Generator</n-h1>
+  <ToolViewTemplate title="Favicon Generator">
     <FaviconGenerator />
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
-import { NH1 } from 'naive-ui'
-import BackButton from '@/components/navigate/BackButton.vue'
 import FaviconGenerator from '../components/tools/favicon-generator/FaviconGenerator.vue'
 import { useTitle, useDescription } from '@/composables/head'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 useTitle('Favicon Generator')
 useDescription('Generate Favicon.')

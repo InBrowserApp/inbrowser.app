@@ -1,36 +1,22 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h2 prefix="bar" align-text>CIDRs Merger & Excluder</n-h2>
-    <n-p
-      >This tool efficiently merges multiple CIDR blocks and can exclude specified CIDRs, supporting
+  <ToolViewTemplate title="CIDRs Merger & Excluder">
+    <n-p>
+      This tool efficiently merges multiple CIDR blocks and can exclude specified CIDRs, supporting
       both IPv4 and IPv6 formats. Enter the CIDRs to be merged or excluded, and get the resulting
-      CIDR blocks instantly.</n-p
-    >
+      CIDR blocks instantly.
+    </n-p>
     <CIDRMergeExclude />
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
-import { NH2, NP } from 'naive-ui'
-import { useHead } from '@vueuse/head'
-import BackButton from '@/components/navigate/BackButton.vue'
+import { NP } from 'naive-ui'
 import CIDRMergeExclude from '../components/tools/cidr-merge-exclude/CIDRMergeExclude.vue'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
+import { useTitle, useDescription } from '@/composables/head'
 
-useHead({
-  title: 'CIDRs Merger & Excluder | IP InBrowser.App',
-  meta: [
-    {
-      name: 'description',
-      content:
-        'This tool efficiently merges multiple CIDR blocks and can exclude specified CIDRs, supporting both IPv4 and IPv6 formats. Enter the CIDRs to be merged or excluded, and get the resulting CIDR blocks instantly.'
-    }
-  ],
-  link: [
-    {
-      rel: 'canonical',
-      href: 'https://ip.inbrowser.app/tools/cidr-merge-exclude'
-    }
-  ]
-})
+useTitle('CIDRs Merger & Excluder')
+useDescription(
+  'This tool efficiently merges multiple CIDR blocks and can exclude specified CIDRs, supporting both IPv4 and IPv6 formats. Enter the CIDRs to be merged or excluded, and get the resulting CIDR blocks instantly.'
+)
 </script>

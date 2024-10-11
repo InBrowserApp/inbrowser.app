@@ -1,8 +1,5 @@
 <template>
-  <main>
-    <BackButton />
-
-    <n-h1 prefix="bar" align-text>Remove PDF Owner Password</n-h1>
+  <ToolViewTemplate title="Remove PDF Owner Password">
     <PDFUpload @upload:file="handlePDFUpload" />
 
     <n-h2 prefix="bar" align-text>What is PDF Owner Password?</n-h2>
@@ -28,15 +25,15 @@
         <n-li>Creation of template pages</n-li>
       </n-ul>
     </n-p>
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
 import { removeOwnerPassword } from '../utils/qpdf/remove-owner-password'
-import { NH1, NH2, NP, NUl, NLi } from 'naive-ui'
+import { NH2, NP, NUl, NLi } from 'naive-ui'
 import PDFUpload from '../components/pdf/upload/PDFUpload.vue'
 import { useTitle, useDescription } from '@/composables/head'
-import BackButton from '@/components/navigate/BackButton.vue'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 useTitle('Remove PDF Owner Password')
 useDescription('Remove PDF owner password online.')

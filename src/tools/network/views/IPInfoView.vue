@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h2 prefix="bar" align-text>IP Info - {{ ipdomain }}</n-h2>
+  <ToolViewTemplate :title="`IP Info - ${ipdomain}`">
     <template v-if="ips === undefined">
       <IPInfo :ip="undefined" />
     </template>
@@ -20,13 +18,11 @@
         </n-collapse-item>
       </n-collapse>
     </template>
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
-import { NH2, NResult, NCollapse, NCollapseItem } from 'naive-ui'
-import { useHead } from '@vueuse/head'
-import BackButton from '@/components/navigate/BackButton.vue'
+import { NResult, NCollapse, NCollapseItem } from 'naive-ui'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import IPInfo from '../components/tools/ip-info/IPInfo.vue'
@@ -35,6 +31,8 @@ import { getDomainIPs } from '../utils/ip/get-domain-ips'
 import IPVersionTag from '../components/tools/ip-info/IPVersionTag.vue'
 import { computedAsync } from '@vueuse/core'
 import { ref, watch } from 'vue'
+import { useTitle, useDescription } from '@/composables/head'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 const route = useRoute()
 const ipdomain = computed(() => route.params.ipdomain as string)
@@ -57,21 +55,6 @@ watch(ips, () => {
   expandedNames.value = ips.value ?? []
 })
 
-useHead(
-  computed(() => ({
-    title: `IP Info for ${ipdomain.value} | IP InBrowser.App`,
-    meta: [
-      {
-        name: 'description',
-        content: `IP Info for ${ipdomain.value}. Fully runs in your browser. No server-side code.`
-      }
-    ],
-    link: [
-      {
-        rel: 'canonical',
-        href: `https://ip.inbrowser.app/tools/ip-info/${ipdomain.value}`
-      }
-    ]
-  }))
-)
+useTitle(`IP Info for ${ipdomain.value}`)
+useDescription(`IP Info for ${ipdomain.value}. Fully runs in your browser. No server-side code.`)
 </script>

@@ -1,16 +1,15 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h2 prefix="bar" align-text>Reverse IP Lookup</n-h2>
+  <ToolViewTemplate title="Reverse IP Lookup">
+    <n-p> Reverse IP Lookup. </n-p>
     <ReverseIPLookup />
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
-import { NH2 } from 'naive-ui'
+import { NP } from 'naive-ui'
 import ReverseIPLookup from '../components/tools/reverse-ip-lookup/ReverseIPLookup.vue'
 import { useTitle, useDescription } from '@/composables/head'
-import BackButton from '@/components/navigate/BackButton.vue'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 useTitle('Reverse IP Lookup')
 useDescription('Reverse IP Lookup.')

@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h2 prefix="bar" align-text>DoH servers</n-h2>
+  <ToolViewTemplate title="DoH servers">
     <n-list>
       <n-list-item v-for="server in servers" :key="server.name">
         <n-thing :title="server.name">
@@ -16,14 +14,14 @@
         </n-thing>
       </n-list-item>
     </n-list>
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
-import { NH2, NList, NListItem, NThing, NButton, NIcon } from 'naive-ui'
-import BackButton from '@/components/navigate/BackButton.vue'
+import { NList, NListItem, NThing, NButton, NIcon } from 'naive-ui'
 import { Info16Regular } from '@vicons/fluent'
 import { useTitle, useDescription } from '@/composables/head'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 const servers = [
   {

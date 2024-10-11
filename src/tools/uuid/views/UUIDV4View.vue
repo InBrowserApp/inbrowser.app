@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h1 prefix="bar" align-text>Version 4 UUID</n-h1>
+  <ToolViewTemplate title="Version 4 UUID Generator">
     <UUIDV4Generator />
     <n-h2 prefix="bar" align-text>What is a version 4 UUID?</n-h2>
     <n-p>
@@ -13,14 +11,14 @@
       possible version-4 variant-2 UUIDs (legacy GUIDs) because there is one less random bit
       available, 3 bits being consumed for the variant.
     </n-p>
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
-import { NH2, NH1, NP } from 'naive-ui'
+import { NH2, NP } from 'naive-ui'
 import UUIDV4Generator from '../components/uuid/generator/UUIDV4Generator.vue'
-import BackButton from '@/components/navigate/BackButton.vue'
 import { useTitle, useDescription } from '@/composables/head'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 useTitle('Version 4 UUID Generator')
 useDescription('Generate version 4 UUID.')

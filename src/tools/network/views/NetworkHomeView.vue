@@ -1,13 +1,10 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h1 prefix="bar" align-text>Network Tools</n-h1>
+  <ToolViewTemplate title="Network Tools">
     <ToolsList :tools="tools" />
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
-import { NH1 } from 'naive-ui'
 import { DocumentSearch16Regular, Server20Regular } from '@vicons/fluent'
 import {
   Person16Regular,
@@ -19,7 +16,7 @@ import {
 } from '@vicons/fluent'
 import { LanguageOutline } from '@vicons/ionicons5'
 import { useTitle, useDescription } from '@/composables/head'
-import BackButton from '@/components/navigate/BackButton.vue'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 import { ToolsList, type ToolItem } from '@/components/layouts/tools-list'
 
 useTitle('Network Tools')
