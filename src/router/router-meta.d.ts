@@ -11,5 +11,6 @@ declare module 'vue-router' {
   interface RouteMeta {
     locales?: Record<string, Record<string, string>>
     icon?: Component
+    tags?: string[]
   }
 }

@@ -31,7 +31,7 @@
 <script setup lang="ts">
 import { removeOwnerPassword } from './utils/qpdf/remove-owner-password'
 import { NH2, NP, NUl, NLi } from 'naive-ui'
-import PDFUpload from '../components/pdf/upload/PDFUpload.vue'
+import PDFUpload from './components/pdf/upload/PDFUpload.vue'
 import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 const handlePDFUpload = async (file: File) => {
