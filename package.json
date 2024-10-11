@@ -36,14 +36,21 @@
     "@vueuse/core": "^11.1.0",
     "@vueuse/head": "^2.0.0",
     "@zip.js/zip.js": "^2.7.52",
+    "cidr-calc": "^1.0.4",
+    "cidr-tools": "^7.0.7",
     "highlight.js": "^11.10.0",
+    "ip-bigint": "^8.0.0",
+    "is-cidr": "^5.1.0",
+    "is-ip": "^5.0.1",
     "naive-ui": "^2.40.1",
     "pinia": "^2.1.7",
+    "punycode": "^2.3.1",
     "svgo": "^3.3.2",
     "uuid": "^10.0.0",
     "validator": "^13.12.0",
     "vue": "^3.4.29",
-    "vue-router": "^4.3.3"
+    "vue-router": "^4.3.3",
+    "webrtc-ips": "^0.2.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.5.0",
@@ -71,7 +78,7 @@
     "npm-run-all2": "^6.2.0",
     "prettier": "^3.2.5",
     "start-server-and-test": "^2.0.4",
-    "typescript": "~5.4.0",
+    "typescript": "~5.4.5",
     "vite": "^5.3.1",
     "vitest": "^1.6.0",
     "vue-tsc": "^2.0.21"
