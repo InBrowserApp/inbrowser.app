@@ -1,8 +1,8 @@
 import type { RouteRecordRaw } from 'vue-router'
 import { routes as uuidRoutes } from './uuid/routes'
-import { route as removePDFOwnerPasswordRoute } from './remove-pdf-owner-password'
-import { route as faviconGeneratorRoute } from './favicon-generator'
 import { routes as networkRoutes } from './network/routes'
+import { routes as pdfRoutes } from './pdf'
+import { routes as faviconRoutes } from './favicon'
 
 export const routes: RouteRecordRaw[] = [
   {
@@ -11,7 +11,7 @@ export const routes: RouteRecordRaw[] = [
     component: () => import('./views/ToolsHomeView.vue')
   },
   ...uuidRoutes,
-  removePDFOwnerPasswordRoute,
-  faviconGeneratorRoute,
+  ...pdfRoutes,
+  ...faviconRoutes,
   ...networkRoutes
 ]
