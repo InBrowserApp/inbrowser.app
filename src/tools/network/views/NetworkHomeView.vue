@@ -26,67 +26,67 @@ const tools: ToolItem[] = [
   {
     icon: DocumentSearch16Regular,
     title: 'DNS Lookup',
-    to: '/tools/network/dns-lookup'
+    to: '/tools/dns-lookup'
   },
   {
     icon: DocumentSearch16Regular,
     title: 'Reverse IP Lookup',
-    to: '/tools/network/reverse-ip-lookup'
+    to: '/tools/reverse-ip-lookup'
   },
   {
     icon: LanguageOutline,
     title: 'Punycode Tool',
-    to: '/tools/network/punycode-tool'
+    to: '/tools/punycode-tool'
   },
   {
     icon: Server20Regular,
     title: 'DoH servers',
-    to: '/tools/network/doh-servers'
+    to: '/tools/doh-servers'
   },
   {
     icon: Server20Regular,
     title: 'DoT servers',
-    to: '/tools/network/dot-servers'
+    to: '/tools/dot-servers'
   },
   {
     icon: Server20Regular,
     title: 'UDP servers',
-    to: '/tools/network/udp-servers'
+    to: '/tools/udp-servers'
   },
   {
     icon: Person16Regular,
     title: 'My IP Address',
-    to: '/tools/network/my-ip'
+    to: '/tools/my-ip'
   },
   {
     icon: DocumentSearch16Regular,
     title: 'IP Info Lookup',
-    to: '/tools/network/ip-info'
+    to: '/tools/ip-info'
   },
   {
     icon: AutoFitWidth20Regular,
     title: 'CIDR Parser',
-    to: '/tools/network/cidr-parse'
+    to: '/tools/cidr-parse'
   },
   {
     icon: Merge24Regular,
     title: 'CIDRs Merger & Excluder',
-    to: '/tools/network/cidr-merge-exclude'
+    to: '/tools/cidr-merge-exclude'
   },
   {
     icon: ArrowAutofitWidth20Regular,
     title: 'IP Range to CIDR Converter',
-    to: '/tools/network/ip-range-to-cidr'
+    to: '/tools/ip-range-to-cidr'
   },
   {
     icon: TextGrammarCheckmark20Regular,
     title: 'IP/CIDR Normalizer',
-    to: '/tools/network/ip-cidr-normalize'
+    to: '/tools/ip-cidr-normalize'
   },
   {
     icon: ArrowStepInRight24Regular,
     title: 'MAC address to IPv6 Link Local Address Converter',
-    to: '/tools/network/mac-to-ipv6-link-local'
+    to: '/tools/mac-to-ipv6-link-local'
   }
 ]
 </script>

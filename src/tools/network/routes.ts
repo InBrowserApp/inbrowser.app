@@ -1,63 +1,131 @@
 import type { RouteRecordRaw } from 'vue-router'
+import {
+  DocumentSearch16Regular,
+  Server20Regular,
+  Person16Regular,
+  AutoFitWidth20Regular,
+  Merge24Regular,
+  ArrowAutofitWidth20Regular,
+  TextGrammarCheckmark20Regular,
+  ArrowStepInRight24Regular
+} from '@vicons/fluent'
+import { LanguageOutline } from '@vicons/ionicons5'
+import { messages as DNSLookupLocales } from './locales/DNSLookupView.vue.locales'
+import { messages as DOHServersLocales } from './locales/DOHServersView.vue.locales'
+import { messages as DOTServersLocales } from './locales/DOTServersView.vue.locales'
+import { messages as UDPServersLocales } from './locales/UDPServersView.vue.locales'
+import { messages as PunycodeToolLocales } from './locales/PunycodeToolView.vue.locales'
+import { messages as ReverseIPLookupLocales } from './locales/ReverseIPLookupView.vue.locales'
+import { messages as MyIPLocales } from './locales/MyIPView.vue.locales'
+import { messages as IPInfoLookupLocales } from './locales/IPInfoLookupView.vue.locales'
+import { messages as IPInfoLocales } from './locales/IPInfoView.vue.locales'
+import { messages as CIDRParseLocales } from './locales/CIDRParseView.vue.locales'
+import { messages as CIDRMergeExcludeLocales } from './locales/CIDRMergeExcludeView.vue.locales'
+import { messages as IPRangeToCIDRLocales } from './locales/IPRangeToCIDRView.vue.locales'
+import { messages as IPCIDRNormalizeLocales } from './locales/IPCIDRNormalizeView.vue.locales'
+import { messages as MACToIPv6LinkLocalLocales } from './locales/MACToIPv6LinkLocalView.vue.locales'
 
-const prefix = '/tools/network'
+const prefix = '/tools'
 
 export const routes: RouteRecordRaw[] = [
   {
-    path: prefix,
-    name: 'tools-network',
-    component: () => import('./views/NetworkHomeView.vue')
-  },
-  {
     path: prefix + '/dns-lookup',
     name: 'tools-network-dns-lookup',
-    component: () => import('./views/DNSLookupView.vue')
+    component: () => import('./views/DNSLookupView.vue'),
+    meta: {
+      locales: DNSLookupLocales,
+      icon: DocumentSearch16Regular,
+      tags: ['dns', 'lookup', 'network']
+    }
   },
   {
     path: prefix + '/doh-servers',
     name: 'tools-network-doh-servers',
-    component: () => import('./views/DOHServersView.vue')
+    component: () => import('./views/DOHServersView.vue'),
+    meta: {
+      locales: DOHServersLocales,
+      icon: Server20Regular,
+      tags: ['dns', 'doh', 'servers']
+    }
   },
   {
     path: prefix + '/dot-servers',
     name: 'tools-network-dot-servers',
-    component: () => import('./views/DOTServersView.vue')
+    component: () => import('./views/DOTServersView.vue'),
+    meta: {
+      locales: DOTServersLocales,
+      icon: Server20Regular,
+      tags: ['dns', 'dot', 'servers']
+    }
   },
   {
-    path: prefix + '/udp-servers',
-    name: 'tools-network-udp-servers',
-    component: () => import('./views/UDPServersView.vue')
+    path: prefix + '/dns-udp-servers',
+    name: 'tools-network-dns-udp-servers',
+    component: () => import('./views/UDPServersView.vue'),
+    meta: {
+      locales: UDPServersLocales,
+      icon: Server20Regular,
+      tags: ['dns', 'udp', 'servers']
+    }
   },
   {
     path: prefix + '/punycode-tool',
     name: 'tools-network-punycode-tool',
-    component: () => import('./views/PunycodeToolView.vue')
+    component: () => import('./views/PunycodeToolView.vue'),
+    meta: {
+      locales: PunycodeToolLocales,
+      icon: LanguageOutline,
+      tags: ['punycode', 'idn', 'domain']
+    }
   },
   {
     path: prefix + '/reverse-ip-lookup',
     name: 'tools-network-reverse-ip-lookup',
-    component: () => import('./views/ReverseIPLookupView.vue')
+    component: () => import('./views/ReverseIPLookupView.vue'),
+    meta: {
+      locales: ReverseIPLookupLocales,
+      icon: DocumentSearch16Regular,
+      tags: ['reverse', 'ip', 'lookup']
+    }
   },
   {
     path: prefix + '/my-ip',
     name: 'tools-network-my-ip',
-    component: () => import('./views/MyIPView.vue')
+    component: () => import('./views/MyIPView.vue'),
+    meta: {
+      locales: MyIPLocales,
+      icon: Person16Regular,
+      tags: ['ip', 'address']
+    }
   },
   {
     path: prefix + '/ip-info',
     name: 'tools-network-ip-info-lookup',
-    component: () => import('./views/IPInfoLookupView.vue')
+    component: () => import('./views/IPInfoLookupView.vue'),
+    meta: {
+      locales: IPInfoLookupLocales,
+      icon: DocumentSearch16Regular,
+      tags: ['ip', 'info', 'lookup']
+    }
   },
   {
     path: prefix + '/ip-info/:ipdomain',
     name: 'tools-network-ip-info',
-    component: () => import('./views/IPInfoView.vue')
+    component: () => import('./views/IPInfoView.vue'),
+    meta: {
+      locales: IPInfoLocales,
+      icon: DocumentSearch16Regular,
+      tags: ['ip', 'info']
+    }
   },
   {
     path: prefix + '/cidr-parse',
     name: 'tools-network-cidr-parse',
     component: () => import('./views/CIDRParseView.vue'),
     meta: {
+      locales: CIDRParseLocales,
+      icon: AutoFitWidth20Regular,
+      tags: ['cidr', 'parse', 'ip'],
       keepAlive: true
     }
   },
@@ -66,6 +134,9 @@ export const routes: RouteRecordRaw[] = [
     name: 'tools-network-cidr-merge-exclude',
     component: () => import('./views/CIDRMergeExcludeView.vue'),
     meta: {
+      locales: CIDRMergeExcludeLocales,
+      icon: Merge24Regular,
+      tags: ['cidr', 'merge', 'exclude'],
       keepAlive: true
     }
   },
@@ -74,6 +145,9 @@ export const routes: RouteRecordRaw[] = [
     name: 'tools-network-ip-range-to-cidr',
     component: () => import('./views/IPRangeToCIDRView.vue'),
     meta: {
+      locales: IPRangeToCIDRLocales,
+      icon: ArrowAutofitWidth20Regular,
+      tags: ['ip', 'range', 'cidr'],
       keepAlive: true
     }
   },
@@ -82,6 +156,9 @@ export const routes: RouteRecordRaw[] = [
     name: 'tools-network-ip-cidr-normalize',
     component: () => import('./views/IPCIDRNormalizeView.vue'),
     meta: {
+      locales: IPCIDRNormalizeLocales,
+      icon: TextGrammarCheckmark20Regular,
+      tags: ['ip', 'cidr', 'normalize'],
       keepAlive: true
     }
   },
@@ -90,6 +167,9 @@ export const routes: RouteRecordRaw[] = [
     name: 'tools-network-mac-to-ipv6-link-local',
     component: () => import('./views/MACToIPv6LinkLocalView.vue'),
     meta: {
+      locales: MACToIPv6LinkLocalLocales,
+      icon: ArrowStepInRight24Regular,
+      tags: ['mac', 'ipv6', 'link-local'],
       keepAlive: true
     }
   }

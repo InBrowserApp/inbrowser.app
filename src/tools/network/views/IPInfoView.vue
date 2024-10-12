@@ -1,5 +1,5 @@
 <template>
-  <ToolViewTemplate :title="`IP Info - ${ipdomain}`">
+  <ToolViewTemplate>
     <template v-if="ips === undefined">
       <IPInfo :ip="undefined" />
     </template>
@@ -31,7 +31,6 @@ import { getDomainIPs } from '../utils/ip/get-domain-ips'
 import IPVersionTag from '../components/tools/ip-info/IPVersionTag.vue'
 import { computedAsync } from '@vueuse/core'
 import { ref, watch } from 'vue'
-import { useTitle, useDescription } from '@/composables/head'
 import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 const route = useRoute()
@@ -54,7 +53,4 @@ const ips = computedAsync<string[] | undefined>(async () => {
 watch(ips, () => {
   expandedNames.value = ips.value ?? []
 })
-
-useTitle(`IP Info for ${ipdomain.value}`)
-useDescription(`IP Info for ${ipdomain.value}. Fully runs in your browser. No server-side code.`)
 </script>

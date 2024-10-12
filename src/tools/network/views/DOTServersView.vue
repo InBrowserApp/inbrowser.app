@@ -1,5 +1,5 @@
 <template>
-  <ToolViewTemplate title="DoT servers">
+  <ToolViewTemplate>
     <n-list>
       <n-list-item v-for="server in servers" :key="server.name">
         <n-thing :title="server.name">
@@ -19,7 +19,6 @@
 
 <script setup lang="ts">
 import { NList, NListItem, NThing, NButton, NIcon } from 'naive-ui'
-import { useTitle, useDescription } from '@/composables/head'
 import { Info16Regular } from '@vicons/fluent'
 import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
@@ -60,7 +59,4 @@ const servers = [
     about: 'https://dns.sb/'
   }
 ]
-
-useTitle('DoT servers')
-useDescription('DNS over TLS (DoT) servers list.')
 </script>

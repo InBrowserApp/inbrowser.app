@@ -1,5 +1,5 @@
 <template>
-  <ToolViewTemplate title="UDP servers">
+  <ToolViewTemplate>
     <n-list>
       <n-list-item v-for="server in servers" :key="server.name">
         <n-thing :title="server.name">
@@ -21,7 +21,6 @@
 
 <script setup lang="ts">
 import { NList, NListItem, NThing, NButton, NIcon } from 'naive-ui'
-import { useTitle, useDescription } from '@/composables/head'
 import { Info16Regular } from '@vicons/fluent'
 import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
@@ -69,7 +68,4 @@ const servers = [
     about: 'https://www.alidns.com/'
   }
 ]
-
-useTitle('UDP servers')
-useDescription('DNS over UDP servers list.')
 </script>

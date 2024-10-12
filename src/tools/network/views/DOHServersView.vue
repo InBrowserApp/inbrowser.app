@@ -1,5 +1,5 @@
 <template>
-  <ToolViewTemplate title="DoH servers">
+  <ToolViewTemplate>
     <n-list>
       <n-list-item v-for="server in servers" :key="server.name">
         <n-thing :title="server.name">
@@ -20,7 +20,6 @@
 <script setup lang="ts">
 import { NList, NListItem, NThing, NButton, NIcon } from 'naive-ui'
 import { Info16Regular } from '@vicons/fluent'
-import { useTitle, useDescription } from '@/composables/head'
 import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 const servers = [
@@ -111,7 +110,4 @@ const servers = [
     about: 'https://docs.dnspod.cn/public-dns/dot-doh/'
   }
 ]
-
-useTitle('DoH servers')
-useDescription('DNS over HTTPS (DoH) servers list.')
 </script>

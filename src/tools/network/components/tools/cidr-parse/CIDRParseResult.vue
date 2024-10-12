@@ -9,7 +9,7 @@
   >
     <n-descriptions-item label="IP Version"> IPv{{ parsed.version }} </n-descriptions-item>
     <n-descriptions-item label="Start IP">
-      <router-link :to="`/tools/network/ip-info/${startIP}`" class="link">
+      <router-link :to="`/tools/ip-info/${startIP}`" class="link">
         {{ startIP }}
       </router-link>
     </n-descriptions-item>
@@ -17,7 +17,7 @@
       {{ startIPInt }}
     </n-descriptions-item>
     <n-descriptions-item label="End IP">
-      <router-link :to="`/tools/network/ip-info/${endIP}`" class="link">
+      <router-link :to="`/tools/ip-info/${endIP}`" class="link">
         {{ endIP }}
       </router-link>
     </n-descriptions-item>
