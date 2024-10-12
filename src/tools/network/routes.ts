@@ -35,7 +35,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: DNSLookupLocales,
       icon: DocumentSearch16Regular,
-      tags: ['dns', 'lookup', 'network']
+      tags: ['dns', 'lookup', 'domain', 'ip', 'network', 'resolver']
     }
   },
   {
@@ -45,7 +45,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: DOHServersLocales,
       icon: Server20Regular,
-      tags: ['dns', 'doh', 'servers']
+      tags: ['dns', 'doh', 'dns-over-https', 'servers', 'network', 'security']
     }
   },
   {
@@ -55,7 +55,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: DOTServersLocales,
       icon: Server20Regular,
-      tags: ['dns', 'dot', 'servers']
+      tags: ['dns', 'dot', 'dns-over-tls', 'servers', 'network', 'security']
     }
   },
   {
@@ -65,7 +65,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: UDPServersLocales,
       icon: Server20Regular,
-      tags: ['dns', 'udp', 'servers']
+      tags: ['dns', 'udp', 'servers', 'network', 'protocol']
     }
   },
   {
@@ -75,7 +75,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: PunycodeToolLocales,
       icon: LanguageOutline,
-      tags: ['punycode', 'idn', 'domain']
+      tags: ['punycode', 'idn', 'internationalized-domain-names', 'unicode', 'domain', 'converter']
     }
   },
   {
@@ -85,7 +85,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: ReverseIPLookupLocales,
       icon: DocumentSearch16Regular,
-      tags: ['reverse', 'ip', 'lookup']
+      tags: ['reverse-ip', 'ip', 'dns', 'domain', 'network', 'ptr-record']
     }
   },
   {
@@ -95,7 +95,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: MyIPLocales,
       icon: Person16Regular,
-      tags: ['ip', 'address']
+      tags: ['ip', 'network', 'my-ip', 'public-ip', 'geolocation']
     }
   },
   {
@@ -105,7 +105,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: IPInfoLookupLocales,
       icon: DocumentSearch16Regular,
-      tags: ['ip', 'info', 'lookup']
+      tags: ['ip', 'network', 'geolocation', 'whois', 'ip-info']
     }
   },
   {
@@ -115,7 +115,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: IPInfoLocales,
       icon: DocumentSearch16Regular,
-      tags: ['ip', 'info'],
+      tags: ['ip', 'network'],
       hidden: true
     }
   },
@@ -126,7 +126,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: CIDRParseLocales,
       icon: AutoFitWidth20Regular,
-      tags: ['cidr', 'parse', 'ip'],
+      tags: ['cidr', 'parse', 'ip', 'network', 'subnet', 'ip-range'],
       keepAlive: true
     }
   },
@@ -137,7 +137,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: CIDRMergeExcludeLocales,
       icon: Merge24Regular,
-      tags: ['cidr', 'merge', 'exclude'],
+      tags: ['cidr', 'merge', 'exclude', 'network', 'ip-range', 'subnet-calculator'],
       keepAlive: true
     }
   },
@@ -148,7 +148,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: IPRangeToCIDRLocales,
       icon: ArrowAutofitWidth20Regular,
-      tags: ['ip', 'range', 'cidr'],
+      tags: ['ip', 'cidr', 'network', 'ip-range', 'subnet', 'converter'],
       keepAlive: true
     }
   },
@@ -159,7 +159,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: IPCIDRNormalizeLocales,
       icon: TextGrammarCheckmark20Regular,
-      tags: ['ip', 'cidr', 'normalize'],
+      tags: ['ip', 'cidr', 'normalize', 'network', 'subnet', 'standardize'],
       keepAlive: true
     }
   },
@@ -170,7 +170,7 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: MACToIPv6LinkLocalLocales,
       icon: ArrowStepInRight24Regular,
-      tags: ['mac', 'ipv6', 'link-local'],
+      tags: ['mac', 'ipv6', 'link-local', 'ip', 'network', 'eui-64', 'converter'],
       keepAlive: true
     }
   }
