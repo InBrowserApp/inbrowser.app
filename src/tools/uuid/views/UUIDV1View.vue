@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h1 prefix="bar" align-text>Version 1 UUID</n-h1>
+  <ToolViewTemplate title="Version 1 UUID Generator">
     <UUIDV1Generator :config="config" />
     <n-h2 prefix="bar" align-text>Config</n-h2>
     <UUIDV1Config v-model:config="config" />
@@ -17,17 +15,17 @@
       treats the timestamp as unsigned, putting the rollover time in 5236 AD. The rollover time as
       defined by ITU-T Rec. X.667 is 3603 AD.
     </n-p>
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NH2, NH1, NP } from 'naive-ui'
+import { NH2, NP } from 'naive-ui'
 import UUIDV1Generator from '../components/uuid/generator/UUIDV1Generator.vue'
 import UUIDV1Config from '../components/uuid/config/UUIDV1Config.vue'
-import BackButton from '@/components/navigate/BackButton.vue'
 import { useTitle, useDescription } from '@/composables/head'
 import { faker } from '@faker-js/faker'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 useTitle('Version 1 UUID Generator')
 useDescription('Generate version 1 UUID.')

@@ -4,7 +4,7 @@
       <n-skeleton text style="width: 8.5em" />
     </template>
     <template v-if="typeof ip === 'string'">
-      <router-link :to="`/tools/network/ip-info/${ip}`" class="link">
+      <router-link :to="`/tools/ip-info/${ip}`" class="link">
         {{ ip }}
       </router-link>
     </template>

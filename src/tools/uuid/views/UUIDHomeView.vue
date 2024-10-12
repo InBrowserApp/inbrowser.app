@@ -1,8 +1,5 @@
 <template>
-  <main>
-    <BackButton />
-
-    <n-h1 prefix="bar" align-text>UUID Tools</n-h1>
+  <ToolViewTemplate title="UUID Tools">
     <n-h2 prefix="bar" align-text>Get a Random UUID</n-h2>
     <UUIDV4Generator />
     <n-h2 prefix="bar" align-text>Tools List</n-h2>
@@ -88,14 +85,14 @@
     >
       <n-a :href="href" @click="navigate">Decode UUID</n-a>
     </router-link>
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
-import { NH2, NDivider, NA, NH1 } from 'naive-ui'
+import { NH2, NDivider, NA } from 'naive-ui'
 import UUIDV4Generator from '../components/uuid/generator/UUIDV4Generator.vue'
 import { useTitle, useDescription } from '@/composables/head'
-import BackButton from '@/components/navigate/BackButton.vue'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 useTitle('UUID Tools')
 useDescription('UUID Tools.')

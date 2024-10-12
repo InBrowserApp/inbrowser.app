@@ -1,7 +1,5 @@
 <template>
-  <main>
-    <BackButton />
-    <n-h1 prefix="bar" align-text>Bulk Version 4 UUID</n-h1>
+  <ToolViewTemplate title="Bulk Version 4 UUID Generator">
     <BulkUUIDV4Generator :size="size" />
     <n-h2 prefix="bar" align-text>Config</n-h2>
     <BulkSizeInput v-model:size="size" />
@@ -15,16 +13,16 @@
       possible version-4 variant-2 UUIDs (legacy GUIDs) because there is one less random bit
       available, 3 bits being consumed for the variant.
     </n-p>
-  </main>
+  </ToolViewTemplate>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { NH2, NH1, NP } from 'naive-ui'
+import { NH2, NP } from 'naive-ui'
 import BulkUUIDV4Generator from '../components/uuid/generator/BulkUUIDV4Generator.vue'
 import BulkSizeInput from '../components/uuid/config/BulkSizeInput.vue'
-import BackButton from '@/components/navigate/BackButton.vue'
 import { useTitle, useDescription } from '@/composables/head'
+import ToolViewTemplate from '@/components/layouts/tool-view-template/ToolViewTemplate.vue'
 
 useTitle('Bulk Version 4 UUID Generator')
 useDescription('Generate bulk version 4 UUIDs.')
