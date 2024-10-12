@@ -1,6 +1,8 @@
 <template>
-  <n-h1 prefix="bar" align-text>Tag: {{ tag }}</n-h1>
-  <ToolsListMeta :tool-names="toolNames" />
+  <main>
+    <n-h1 prefix="bar" align-text>Tag: {{ tag }}</n-h1>
+    <ToolsListMeta :tool-names="toolNames" />
+  </main>
 </template>
 
 <script setup lang="ts">
