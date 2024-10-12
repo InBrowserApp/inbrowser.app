@@ -12,5 +12,6 @@ declare module 'vue-router' {
     locales?: Record<string, Record<string, string>>
     icon?: Component
     tags?: string[]
+    hidden?: boolean
   }
 }

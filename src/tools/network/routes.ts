@@ -115,7 +115,8 @@ export const routes: RouteRecordRaw[] = [
     meta: {
       locales: IPInfoLocales,
       icon: DocumentSearch16Regular,
-      tags: ['ip', 'info']
+      tags: ['ip', 'info'],
+      hidden: true
     }
   },
   {
