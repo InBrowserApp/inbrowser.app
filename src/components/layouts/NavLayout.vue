@@ -17,4 +17,11 @@ import NavBar from '@/components/layouts/nav/NavBar.vue'
   padding-bottom: 4em;
   transition: padding 0.3s;
 }
+
+@media (min-width: 1200px) {
+  .main-container {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+}
 </style>
