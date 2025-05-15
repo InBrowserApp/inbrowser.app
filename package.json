@@ -15,6 +15,16 @@
     "prepare": "husky"
   },
   "dependencies": {
+    "@vicons/antd": "^0.13.0",
+    "@vicons/carbon": "^0.13.0",
+    "@vicons/fa": "^0.13.0",
+    "@vicons/fluent": "^0.13.0",
+    "@vicons/ionicons4": "^0.13.0",
+    "@vicons/ionicons5": "^0.13.0",
+    "@vicons/material": "^0.13.0",
+    "@vicons/tabler": "^0.13.0",
+    "@vueuse/core": "^13.2.0",
+    "naive-ui": "^2.41.0",
     "vue": "^3.5.13",
     "vue-router": "^4.5.0"
   },
