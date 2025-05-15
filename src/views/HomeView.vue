@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
-
 <template>
-  <main>
-    <h1>Home</h1>
-  </main>
+  <TheDeveloperSay />
 </template>
+
+<script setup lang="ts">
+import TheDeveloperSay from '@/components/miscellaneous/the-developer-says/TheDeveloperSay.vue'
+</script>
