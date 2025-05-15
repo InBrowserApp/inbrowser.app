@@ -10,9 +10,12 @@ import {
 } from 'naive-ui'
 import { computed } from 'vue'
 import AppView from './AppView.vue'
+import { useSetSiteLanguage } from '@/locale'
 
 const osThemeRef = useOsTheme()
 const theme = computed(() => (osThemeRef.value === 'dark' ? darkTheme : null))
+
+useSetSiteLanguage()
 </script>
 
 <template>
