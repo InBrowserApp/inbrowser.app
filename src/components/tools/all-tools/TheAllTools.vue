@@ -5,7 +5,14 @@
 </template>
 
 <script setup lang="ts">
-import { tools } from '@/tools'
+import { tools as allTools, type ToolInfo } from '@/tools'
 import ToolItem from './ToolItem.vue'
 import { NUl } from 'naive-ui'
+import { computed } from 'vue'
+
+const props = defineProps<{
+  tools?: ToolInfo[]
+}>()
+
+const tools = computed(() => props.tools ?? allTools)
 </script>
