@@ -3,6 +3,27 @@ import type { Component } from 'vue'
 import type { RouteRecordRaw } from 'vue-router'
 
 /**
+ * Interface representing the basic metadata for a tool.
+ * This interface defines the structure for tool metadata including name and description.
+ *
+ * @interface ToolMeta
+ * @property {string} name - The display name of the tool
+ * @property {string} description - A brief description of what the tool does
+ */
+export type ToolMeta = {
+  name: string
+  description: string
+}
+
+/**
+ * Type representing internationalized metadata for a tool.
+ * Maps each supported language to its corresponding tool metadata.
+ *
+ * @type {Record<SupportedLanguage, ToolMeta>}
+ */
+export type I18nToolMeta = { [K in SupportedLanguage]: ToolMeta }
+
+/**
  * Interface representing information about a tool in the application.
  * This interface defines the structure for tool metadata, including internationalized
  * names and descriptions, icon components, routing configuration, and feature flags.
@@ -19,15 +40,9 @@ export interface ToolInfo {
 
   /**
    * Internationalized metadata containing name and description for each supported language
-   * @type {Record<SupportedLanguage, {name: string, description: string}>}
+   * @type {I18nToolMeta}
    */
-  meta: Record<
-    SupportedLanguage,
-    {
-      name: string
-      description: string
-    }
-  >
+  meta: I18nToolMeta
 
   /**
    * Vue component to be used as the tool's icon

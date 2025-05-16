@@ -10,8 +10,14 @@
 import { NH1, NP } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import TheAllTools from '@/components/tools/all-tools/TheAllTools.vue'
+import { useHead } from '@unhead/vue'
 
 const { t } = useI18n()
+
+useHead({
+  title: t('base.all_tools') + ' - InBrowser.App',
+  meta: [{ name: 'description', content: t('description') }],
+})
 </script>
 
 <i18n lang="json">

@@ -12,6 +12,11 @@ import { NH2, NP } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import TheDeveloperSay from '@/components/miscellaneous/the-developer-says/TheDeveloperSay.vue'
 import TheAllTools from '@/components/tools/all-tools/TheAllTools.vue'
+import { useHead } from '@unhead/vue'
 
 const { t } = useI18n()
+
+useHead({
+  title: 'InBrowser.App',
+})
 </script>

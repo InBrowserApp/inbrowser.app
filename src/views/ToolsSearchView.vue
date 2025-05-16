@@ -12,6 +12,7 @@ import TheAllTools from '@/components/tools/all-tools/TheAllTools.vue'
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
 import { useSearchTools } from '@/composables/tools/use-search-tools'
+import { useHead } from '@unhead/vue'
 
 const route = useRoute()
 const searchQuery = computed<string>(() => {
@@ -26,6 +27,11 @@ const searchQuery = computed<string>(() => {
 const { t } = useI18n()
 
 const { toolsResults } = useSearchTools(searchQuery)
+
+useHead({
+  title: searchQuery.value + ' - InBrowser.App',
+  meta: [{ name: 'description', content: t('description', { query: searchQuery.value }) }],
+})
 </script>
 
 <i18n lang="json">
