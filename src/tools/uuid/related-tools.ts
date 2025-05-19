@@ -6,6 +6,7 @@ import { toolInfo as uuidV6GeneratorToolInfo } from './uuid-v6-generator'
 import { toolInfo as uuidV7GeneratorToolInfo } from './uuid-v7-generator'
 import { toolInfo as uuidNilGeneratorToolInfo } from './uuid-nil-generator'
 import { toolInfo as uuidDecoderToolInfo } from './uuid-decoder'
+import { toolInfo as uuidV1V6ConverterToolInfo } from './uuid-v1-v6-converter'
 import { toolInfo as uuidToolsToolInfo } from './uuid-tools'
 
 export const relatedTools = [
@@ -18,4 +19,5 @@ export const relatedTools = [
   uuidNilGeneratorToolInfo,
   uuidDecoderToolInfo,
   uuidToolsToolInfo,
+  uuidV1V6ConverterToolInfo,
 ]

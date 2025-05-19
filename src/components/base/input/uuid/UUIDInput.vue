@@ -1,10 +1,10 @@
 <template>
   <n-input
     v-model:value="uuidRef"
-    :placeholder="placeholder"
+    :placeholder="placeholder ?? uuidv4()"
     :status="validated ? undefined : 'error'"
   >
-    <template #suffix>
+    <template #suffix v-if="showRandom ?? true">
       <n-icon style="cursor: pointer" :component="RefreshOutline" @click="uuidRef = uuidv4()" />
     </template>
   </n-input>
@@ -18,10 +18,11 @@ import RefreshOutline from '@vicons/ionicons5/RefreshOutline'
 import { v4 as uuidv4, validate } from 'uuid'
 import type { UUID } from '@/utils/base/uuid'
 
-const placeholder = uuidv4()
-
 const props = defineProps<{
   uuid?: string
+  showRandom?: boolean
+  showError?: boolean
+  placeholder?: string
 }>()
 
 const emit = defineEmits<{
