@@ -1,7 +1,7 @@
 <template>
   <n-h2 prefix="bar" align-text>{{ t('related-tools') }}</n-h2>
   <n-p>
-    <ToolsGrid :tools="filteredTools" />
+    <ToolsGrid :tools="tools" :hide="hide" />
   </n-p>
 </template>
 
@@ -10,25 +10,11 @@ import { NH2, NP } from 'naive-ui'
 import ToolsGrid from './ToolsGrid.vue'
 import type { ToolInfo } from '@/tools/interface'
 import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
 
-const props = defineProps<{
+defineProps<{
   tools: ToolInfo[]
   hide?: string[] | string // toolID[]
 }>()
-
-const filteredTools = computed(() => {
-  const hide = props.hide
-  if (!hide) {
-    return props.tools
-  } else {
-    if (Array.isArray(hide)) {
-      return props.tools.filter((tool) => !hide.includes(tool.toolID))
-    } else {
-      return props.tools.filter((tool) => tool.toolID !== hide)
-    }
-  }
-})
 
 const { t } = useI18n()
 </script>
