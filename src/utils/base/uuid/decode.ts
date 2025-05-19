@@ -1,4 +1,4 @@
-import { validate, version as uuidVersion } from 'uuid'
+import { validate, version as uuidVersion, parse as parseUUID } from 'uuid'
 import type { UUID, UUIDv1 } from './types'
 
 /**
@@ -11,6 +11,10 @@ interface DecodeResult {
   version: number
   /** The UUID variant (0-3) */
   variant: number
+  /** The base64 representation of the UUID */
+  base64: string
+  /** The integer representation of the UUID */
+  integer: bigint
   /** The hashing algorithm used for v3/v5 UUIDs */
   algorithm?: 'sha1' | 'md5'
   /** The MAC address for v1 UUIDs */
@@ -33,11 +37,15 @@ export function decode(uuid_: string): DecodeResult {
   const uuid = uuid_ as UUID
   const version = uuidVersion(uuid)
   const variant = getVariant(uuid)
+  const base64 = uuidToBase64(uuid)
+  const integer = uuidToInteger(uuid)
 
   const result: DecodeResult = {
     uuid,
     version,
     variant,
+    base64,
+    integer,
   }
 
   if (version === 1) {
@@ -55,6 +63,36 @@ export function decode(uuid_: string): DecodeResult {
   }
 
   return result
+}
+
+/**
+ * Converts a UUID to base64 string
+ * @param uuid - The UUID string to convert
+ * @returns The base64 encoded string
+ */
+export function uuidToBase64(uuid: UUID): string {
+  const bytes = parseUUID(uuid)
+  // Convert to base64 and remove padding
+  // Convert the byte array to a binary string...
+  let binary = ''
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i])
+  }
+
+  // …then Base64‐encode
+  const base64 = btoa(binary)
+  return base64
+}
+
+/**
+ * Converts a UUID to a BigInt
+ * @param uuid - The UUID string to convert
+ * @returns The UUID as a BigInt
+ */
+export function uuidToInteger(uuid: UUID): bigint {
+  // Remove hyphens and convert to BigInt
+  const hexString = uuid.replace(/-/g, '')
+  return BigInt('0x' + hexString)
 }
 
 /**

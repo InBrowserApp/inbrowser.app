@@ -15,6 +15,12 @@
     <n-descriptions-item :label="t('variant')">
       <VariantDisplay :variant="result.variant" />
     </n-descriptions-item>
+    <n-descriptions-item label="Base64">
+      <n-text code>{{ result.base64 }}</n-text>
+    </n-descriptions-item>
+    <n-descriptions-item :label="t('integer')">
+      <n-text code>{{ result.integer }}</n-text>
+    </n-descriptions-item>
     <n-descriptions-item :label="t('algorithm')" v-if="result.algorithm">
       {{ t('algorithm.' + result.algorithm) }}
     </n-descriptions-item>
@@ -42,6 +48,8 @@ defineProps<{
     uuid: UUID
     version: number
     variant: number
+    base64: string
+    integer: bigint
     algorithm?: 'sha1' | 'md5'
     macAddress?: string
     timestamp?: number
@@ -64,175 +72,200 @@ defineProps<{
     "macAddress": "MAC Address",
     "timestamp": "Timestamp",
     "algorithm.sha1": "SHA1",
-    "algorithm.md5": "MD5"
+    "algorithm.md5": "MD5",
+    "integer": "Integer"
   },
   "zh": {
     "version": "版本",
     "variant": "变体",
     "algorithm": "算法",
     "macAddress": "MAC 地址",
-    "timestamp": "时间戳"
+    "timestamp": "时间戳",
+    "integer": "整数"
   },
   "zh-CN": {
     "version": "版本",
     "variant": "变体",
     "algorithm": "算法",
     "macAddress": "MAC 地址",
-    "timestamp": "时间戳"
+    "timestamp": "时间戳",
+    "integer": "整数"
   },
   "zh-TW": {
     "version": "版本",
     "variant": "變體",
     "algorithm": "演算法",
     "macAddress": "MAC 位址",
-    "timestamp": "時間戳"
+    "timestamp": "時間戳",
+    "integer": "整數"
   },
   "zh-HK": {
     "version": "版本",
     "variant": "變體",
     "algorithm": "演算法",
     "macAddress": "MAC 位址",
-    "timestamp": "時間戳"
+    "timestamp": "時間戳",
+    "integer": "整數"
   },
   "es": {
     "version": "Versión",
     "variant": "Variante",
     "algorithm": "Algoritmo",
     "macAddress": "Dirección MAC",
-    "timestamp": "Marca de tiempo"
+    "timestamp": "Marca de tiempo",
+    "integer": "Entero"
   },
   "fr": {
     "version": "Version",
     "variant": "Variante",
     "algorithm": "Algorithme",
     "macAddress": "Adresse MAC",
-    "timestamp": "Horodatage"
+    "timestamp": "Horodatage",
+    "integer": "Entier"
   },
   "de": {
     "version": "Version",
     "variant": "Variante",
     "algorithm": "Algorithmus",
     "macAddress": "MAC-Adresse",
-    "timestamp": "Zeitstempel"
+    "timestamp": "Zeitstempel",
+    "integer": "Ganzzahl"
   },
   "it": {
     "version": "Versione",
     "variant": "Variante",
     "algorithm": "Algoritmo",
     "macAddress": "Indirizzo MAC",
-    "timestamp": "Timestamp"
+    "timestamp": "Timestamp",
+    "integer": "Intero"
   },
   "ja": {
     "version": "バージョン",
     "variant": "バリアント",
     "algorithm": "アルゴリズム",
     "macAddress": "MAC アドレス",
-    "timestamp": "タイムスタンプ"
+    "timestamp": "タイムスタンプ",
+    "integer": "整数"
   },
   "ko": {
     "version": "버전",
     "variant": "변형",
     "algorithm": "알고리즘",
     "macAddress": "MAC 주소",
-    "timestamp": "타임스탬프"
+    "timestamp": "타임스탬프",
+    "integer": "정수"
   },
   "ru": {
     "version": "Версия",
     "variant": "Вариант",
     "algorithm": "Алгоритм",
     "macAddress": "MAC-адрес",
-    "timestamp": "Временная метка"
+    "timestamp": "Временная метка",
+    "integer": "Целое число"
   },
   "pt": {
     "version": "Versão",
     "variant": "Variante",
     "algorithm": "Algoritmo",
     "macAddress": "Endereço MAC",
-    "timestamp": "Timestamp"
+    "timestamp": "Timestamp",
+    "integer": "Inteiro"
   },
   "ar": {
     "version": "الإصدار",
     "variant": "المتغير",
     "algorithm": "الخوارزمية",
     "macAddress": "عنوان MAC",
-    "timestamp": "الطابع الزمني"
+    "timestamp": "الطابع الزمني",
+    "integer": "عدد صحيح"
   },
   "hi": {
     "version": "संस्करण",
     "variant": "वेरिएंट",
     "algorithm": "एल्गोरिथम",
     "macAddress": "MAC पता",
-    "timestamp": "टाइमस्टैम्प"
+    "timestamp": "टाइमस्टैम्प",
+    "integer": "पूर्णांक"
   },
   "tr": {
     "version": "Sürüm",
     "variant": "Varyant",
     "algorithm": "Algoritma",
     "macAddress": "MAC Adresi",
-    "timestamp": "Zaman damgası"
+    "timestamp": "Zaman damgası",
+    "integer": "Tamsayı"
   },
   "nl": {
     "version": "Versie",
     "variant": "Variant",
     "algorithm": "Algoritme",
     "macAddress": "MAC-adres",
-    "timestamp": "Tijdstempel"
+    "timestamp": "Tijdstempel",
+    "integer": "Geheel getal"
   },
   "sv": {
     "version": "Version",
     "variant": "Variant",
     "algorithm": "Algoritm",
     "macAddress": "MAC-adress",
-    "timestamp": "Tidsstämpel"
+    "timestamp": "Tidsstämpel",
+    "integer": "Heltal"
   },
   "pl": {
     "version": "Wersja",
     "variant": "Wariant",
     "algorithm": "Algorytm",
     "macAddress": "Adres MAC",
-    "timestamp": "Znacznik czasu"
+    "timestamp": "Znacznik czasu",
+    "integer": "Liczba całkowita"
   },
   "vi": {
     "version": "Phiên bản",
     "variant": "Biến thể",
     "algorithm": "Thuật toán",
     "macAddress": "Địa chỉ MAC",
-    "timestamp": "Dấu thời gian"
+    "timestamp": "Dấu thời gian",
+    "integer": "Số nguyên"
   },
   "th": {
     "version": "เวอร์ชัน",
     "variant": "ตัวแปร",
     "algorithm": "อัลกอริทึม",
     "macAddress": "ที่อยู่ MAC",
-    "timestamp": "การประทับเวลา"
+    "timestamp": "การประทับเวลา",
+    "integer": "จำนวนเต็ม"
   },
   "id": {
     "version": "Versi",
     "variant": "Varian",
     "algorithm": "Algoritma",
     "macAddress": "Alamat MAC",
-    "timestamp": "Timestamp"
+    "timestamp": "Timestamp",
+    "integer": "Bilangan bulat"
   },
   "he": {
     "version": "גרסה",
     "variant": "וריאנט",
     "algorithm": "אלגוריתם",
     "macAddress": "כתובת MAC",
-    "timestamp": "חותמת זמן"
+    "timestamp": "חותמת זמן",
+    "integer": "מספר שלם"
   },
   "ms": {
     "version": "Versi",
     "variant": "Varian",
     "algorithm": "Algoritma",
     "macAddress": "Alamat MAC",
-    "timestamp": "Cop masa"
+    "timestamp": "Cop masa",
+    "integer": "Integer"
   },
   "no": {
     "version": "Versjon",
     "variant": "Variant",
     "algorithm": "Algoritme",
     "macAddress": "MAC-adresse",
-    "timestamp": "Tidsstempel"
+    "timestamp": "Tidsstempel",
+    "integer": "Heltall"
   }
 }
 </i18n>
