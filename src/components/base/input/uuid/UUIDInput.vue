@@ -39,8 +39,6 @@ watch(
   (uuid?: string) => {
     if (uuid && validate(uuid)) {
       emit('update:uuid', uuid)
-    } else {
-      emit('update:uuid', undefined)
     }
   },
 )
