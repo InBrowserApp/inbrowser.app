@@ -17,7 +17,7 @@
       <NameInput v-model:name="name" />
     </n-p>
 
-    <WhatIsUUIDv1 />
+    <WhatIsUUIDv3 />
   </div>
 </template>
 
@@ -29,7 +29,7 @@ import { useViewHead } from '@/tools/composables/use-view-head'
 import CopyToClipboardButton from '@/components/base/buttons/CopyToClipboardButton.vue'
 import { ref, computed } from 'vue'
 import UUIDDisplay from '@/components/base/display/uuid/UUIDDisplay.vue'
-import WhatIsUUIDv1 from './WhatIsUUIDv3.vue'
+import WhatIsUUIDv3 from './WhatIsUUIDv3.vue'
 import NamespaceInput from './NamespaceInput.vue'
 import NameInput from './NameInput.vue'
 
