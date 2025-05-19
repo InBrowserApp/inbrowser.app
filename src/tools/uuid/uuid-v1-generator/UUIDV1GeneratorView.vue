@@ -1,0 +1,85 @@
+<template>
+  <div>
+    <n-h1 prefix="bar" align-text>{{ t('name') }}</n-h1>
+    <n-p>{{ t('description') }}</n-p>
+    <n-h2 prefix="bar" align-text>UUID v1</n-h2>
+    <n-p>
+      <UUIDDisplay :uuid="uuid" />
+    </n-p>
+
+    <n-p>
+      <RegenerateButton @click="regenerateUUID" />
+      <n-divider vertical />
+      <CopyToClipboardButton :content="uuid" />
+    </n-p>
+
+    <n-h2 prefix="bar" align-text>{{ t('config') }}</n-h2>
+    <n-p>
+      <MACAddressInputFormItem v-model:address="macAddress" />
+      <ClockSeqInput v-model:clockSeq="clockSeq" />
+    </n-p>
+
+    <WhatIsUUIDv1 />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { meta } from './i18n'
+import { useI18n } from 'vue-i18n'
+import { NH1, NP, NH2, NDivider } from 'naive-ui'
+import { useViewHead } from '@/tools/composables/use-view-head'
+import CopyToClipboardButton from '@/components/base/buttons/CopyToClipboardButton.vue'
+import { ref, watch } from 'vue'
+import UUIDDisplay from '@/components/base/display/uuid/UUIDDisplay.vue'
+import RegenerateButton from '@/components/base/buttons/RegenerateButton.vue'
+import WhatIsUUIDv1 from './WhatIsUUIDv1.vue'
+import MACAddressInputFormItem from '@/components/base/input/mac-address/MACAddressInputFormItem.vue'
+import { randomMACAddress, parseMACAddressToArrayBuffer } from '@/utils/base/mac-address'
+import ClockSeqInput from './ClockSeqInput.vue'
+
+import { v1 as uuidV1 } from 'uuid'
+
+type UUIDV1 = `${string}-${string}-1${string}-${string}-${string}`
+
+const { t } = useI18n({
+  messages: meta,
+})
+
+const macAddress = ref(randomMACAddress())
+const clockSeq = ref(Math.floor(Math.random() * 0x3fff))
+
+const uuid = ref<UUIDV1>(
+  uuidV1({
+    node: new Uint8Array(parseMACAddressToArrayBuffer(macAddress.value)),
+    clockseq: clockSeq.value,
+  }) as UUIDV1,
+)
+
+useViewHead(t)
+
+function regenerateUUID() {
+  uuid.value = uuidV1({
+    node: new Uint8Array(parseMACAddressToArrayBuffer(macAddress.value)),
+    clockseq: clockSeq.value,
+  }) as UUIDV1
+}
+
+watch(macAddress, () => {
+  regenerateUUID()
+})
+
+watch(clockSeq, () => {
+  regenerateUUID()
+})
+</script>
+
+<i18n lang="json">
+{
+  "en": {
+    "config": "Configuration"
+  },
+  "zh": {
+    "config": "配置"
+  }
+}
+</i18n>
