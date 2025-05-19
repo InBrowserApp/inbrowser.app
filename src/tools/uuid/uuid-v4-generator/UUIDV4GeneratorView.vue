@@ -27,16 +27,17 @@ import { ref } from 'vue'
 import UUIDDisplay from '@/components/base/display/uuid/UUIDDisplay.vue'
 import RegenerateButton from '@/components/base/buttons/RegenerateButton.vue'
 import WhatIsUUIDv4 from './WhatIsUUIDv4.vue'
+import type { UUIDv4 } from '@/utils/base/uuid'
 
 const { t } = useI18n({
   messages: meta,
 })
 
-const uuid = ref(crypto.randomUUID())
+const uuid = ref<UUIDv4>(crypto.randomUUID() as UUIDv4)
 
 useViewHead(t)
 
 function regenerateUUID() {
-  uuid.value = crypto.randomUUID()
+  uuid.value = crypto.randomUUID() as UUIDv4
 }
 </script>

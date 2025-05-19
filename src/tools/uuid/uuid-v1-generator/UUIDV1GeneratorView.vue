@@ -36,32 +36,33 @@ import WhatIsUUIDv1 from './WhatIsUUIDv1.vue'
 import MACAddressInputFormItem from '@/components/base/input/mac-address/MACAddressInputFormItem.vue'
 import { randomMACAddress, parseMACAddressToArrayBuffer } from '@/utils/base/mac-address'
 import ClockSeqInput from './ClockSeqInput.vue'
+import type { UUIDv1 } from '@/utils/base/uuid'
+import { useStorage } from '@vueuse/core'
 
 import { v1 as uuidV1 } from 'uuid'
-
-type UUIDV1 = `${string}-${string}-1${string}-${string}-${string}`
 
 const { t } = useI18n({
   messages: meta,
 })
 
-const macAddress = ref(randomMACAddress())
-const clockSeq = ref(Math.floor(Math.random() * 0x3fff))
+const macAddress = useStorage<string>('tools:uuid-v1-generator:mac-address', randomMACAddress())
+const clockSeq = useStorage<number>(
+  'tools:uuid-v1-generator:clock-seq',
+  Math.floor(Math.random() * 0x3fff),
+)
 
-const uuid = ref<UUIDV1>(
+const getUUIDv1 = (): UUIDv1 =>
   uuidV1({
     node: new Uint8Array(parseMACAddressToArrayBuffer(macAddress.value)),
     clockseq: clockSeq.value,
-  }) as UUIDV1,
-)
+  }) as UUIDv1
+
+const uuid = ref<UUIDv1>(getUUIDv1())
 
 useViewHead(t)
 
 function regenerateUUID() {
-  uuid.value = uuidV1({
-    node: new Uint8Array(parseMACAddressToArrayBuffer(macAddress.value)),
-    clockseq: clockSeq.value,
-  }) as UUIDV1
+  uuid.value = getUUIDv1()
 }
 
 watch(macAddress, () => {

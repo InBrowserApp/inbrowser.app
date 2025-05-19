@@ -16,6 +16,7 @@ import { ref, computed, watch, toRef } from 'vue'
 import { NInput, NIcon } from 'naive-ui'
 import RefreshOutline from '@vicons/ionicons5/RefreshOutline'
 import { v4 as uuidv4, validate } from 'uuid'
+import type { UUID } from '@/utils/base/uuid'
 
 const placeholder = uuidv4()
 
@@ -24,7 +25,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (event: 'update:uuid', uuid?: string): void
+  (event: 'update:uuid', uuid: UUID): void
 }>()
 
 const uuidRef = ref(props.uuid)
@@ -38,7 +39,7 @@ watch(
   () => uuidRef.value,
   (uuid?: string) => {
     if (uuid && validate(uuid)) {
-      emit('update:uuid', uuid)
+      emit('update:uuid', uuid as UUID)
     }
   },
 )

@@ -27,11 +27,12 @@ import { useI18n } from 'vue-i18n'
 import { NH1, NP, NH2 } from 'naive-ui'
 import { useViewHead } from '@/tools/composables/use-view-head'
 import CopyToClipboardButton from '@/components/base/buttons/CopyToClipboardButton.vue'
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import UUIDDisplay from '@/components/base/display/uuid/UUIDDisplay.vue'
 import WhatIsUUIDv5 from './WhatIsUUIDv5.vue'
 import NamespaceInput from '../uuid-v3-generator/NamespaceInput.vue'
-import NameInput from '../uuid-v3-generator/NameInput.vue'
+import type { UUID, UUIDv5 } from '@/utils/base/uuid'
+import { useStorage } from '@vueuse/core'
 
 import { v5 as uuidV5 } from 'uuid'
 
@@ -39,12 +40,13 @@ const { t } = useI18n({
   messages: meta,
 })
 
-type UUIDV5 = `${string}-${string}-5${string}-${string}-${string}`
+const namespace = useStorage<UUID>(
+  'tools:uuid-v5-generator:namespace',
+  '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
+)
+const name = useStorage<string>('tools:uuid-v5-generator:name', 'example.com')
 
-const namespace = ref<string>('6ba7b810-9dad-11d1-80b4-00c04fd430c8')
-const name = ref<string>('example.com')
-
-const uuid = computed<UUIDV5>(() => uuidV5(name.value, namespace.value) as UUIDV5)
+const uuid = computed<UUIDv5>(() => uuidV5(name.value, namespace.value) as UUIDv5)
 
 useViewHead(t)
 </script>

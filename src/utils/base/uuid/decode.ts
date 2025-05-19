@@ -1,5 +1,5 @@
 import { validate, version as uuidVersion } from 'uuid'
-import type { UUID } from '.'
+import type { UUID, UUIDv1 } from './types'
 
 /**
  * Represents the decoded information from a UUID
@@ -25,34 +25,25 @@ interface DecodeResult {
  * @returns A DecodeResult object containing the decoded UUID information
  * @throws Error if the UUID is invalid
  */
-export function decode(uuid: string): DecodeResult {
-  if (!validate(uuid)) {
+export function decode(uuid_: string): DecodeResult {
+  if (!validate(uuid_)) {
     throw new Error('Invalid UUID')
   }
 
+  const uuid = uuid_ as UUID
   const version = uuidVersion(uuid)
-
-  const uuidBytes = uuid.split('-').join('')
-  const variantByte = parseInt(uuidBytes[16], 16)
-  let variant = 0
-  if (variantByte >= 8 && variantByte <= 11) {
-    variant = 1
-  } else if (variantByte === 12 || variantByte === 13) {
-    variant = 2
-  } else if (variantByte === 14 || variantByte === 15) {
-    variant = 3
-  }
+  const variant = getVariant(uuid)
 
   const result: DecodeResult = {
-    uuid: uuid as UUID,
+    uuid,
     version,
     variant,
   }
 
   if (version === 1) {
-    const { macAddress, timestamp } = decodeV1(uuid)
-    result.macAddress = macAddress
-    result.timestamp = timestamp
+    const v1uuid = uuid as UUIDv1
+    result.macAddress = extractMacAddressFromUUIDv1(v1uuid)
+    result.timestamp = extractTimeFromUUIDv1(v1uuid)
   }
 
   if (version === 3) {
@@ -67,15 +58,22 @@ export function decode(uuid: string): DecodeResult {
 }
 
 /**
- * Decodes a version 1 UUID into its MAC address and timestamp
- * @param uuid - The version 1 UUID to decode
- * @returns Object containing the MAC address and timestamp
+ * Gets the variant of a UUID
+ * @param uuid - The UUID string
+ * @returns The variant number (0, 1, 2, or 3)
  */
-export function decodeV1(uuid: string) {
-  return {
-    macAddress: extractMacAddressFromUUIDv1(uuid),
-    timestamp: extractTimeFromUUIDv1(uuid),
+export function getVariant(uuid: UUID): number {
+  const uuidBytes = uuid.split('-').join('')
+  const variantByte = parseInt(uuidBytes[16], 16)
+
+  if (variantByte >= 8 && variantByte <= 11) {
+    return 1
+  } else if (variantByte === 12 || variantByte === 13) {
+    return 2
+  } else if (variantByte === 14 || variantByte === 15) {
+    return 3
   }
+  return 0
 }
 
 /**
@@ -83,7 +81,7 @@ export function decodeV1(uuid: string) {
  * @param uuid - The version 1 UUID
  * @returns The MAC address in format "XX:XX:XX:XX:XX:XX"
  */
-function extractMacAddressFromUUIDv1(uuid: string) {
+function extractMacAddressFromUUIDv1(uuid: UUIDv1) {
   return uuid
     .split('-')[4]
     .toUpperCase()
@@ -96,7 +94,7 @@ function extractMacAddressFromUUIDv1(uuid: string) {
  * @param uuid - The version 1 UUID
  * @returns The timestamp in milliseconds since Unix epoch
  */
-function extractTimeFromUUIDv1(uuid: string) {
+function extractTimeFromUUIDv1(uuid: UUIDv1) {
   const uuidParts = uuid.split('-')
   const timeStr = [uuidParts[2].substring(1), uuidParts[1], uuidParts[0]].join('')
   const timeInt = BigInt('0x' + timeStr)

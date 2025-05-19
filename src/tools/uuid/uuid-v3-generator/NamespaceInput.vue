@@ -19,12 +19,13 @@
 import { NFormItem, NSpace, NTag } from 'naive-ui'
 import UUIDInput from '@/components/base/input/uuid/UUIDInput.vue'
 import { useI18n } from 'vue-i18n'
+import type { UUID } from '@/utils/base/uuid'
 
 const { t } = useI18n()
 
-const namespace = defineModel<string>('namespace', { required: true })
+const namespace = defineModel<UUID>('namespace', { required: true })
 
-const predefinedNamespaces = [
+const predefinedNamespaces: { name: string; value: UUID }[] = [
   {
     name: 'ns:DNS',
     value: '6ba7b810-9dad-11d1-80b4-00c04fd430c8',
