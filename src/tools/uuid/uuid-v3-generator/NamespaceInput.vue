@@ -1,6 +1,6 @@
 <template>
   <n-form-item :label="t('namespace')" :show-feedback="false">
-    <UUIDInput v-model:uuid="namespace" />
+    <UUIDInput v-model:uuid="namespace" :show-random="true" />
   </n-form-item>
   <n-space style="margin-top: 0.3em; margin-bottom: 1em">
     <n-tag
