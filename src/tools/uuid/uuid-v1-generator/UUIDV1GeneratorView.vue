@@ -20,6 +20,8 @@
     </n-p>
 
     <WhatIsUUIDv1 />
+
+    <RelatedTools :tools="relatedTools" hide="uuid-v1-generator" />
   </div>
 </template>
 
@@ -38,6 +40,8 @@ import { randomMACAddress, parseMACAddressToArrayBuffer } from '@/utils/base/mac
 import ClockSeqInput from './ClockSeqInput.vue'
 import type { UUIDv1 } from '@/utils/base/uuid'
 import { useStorage } from '@vueuse/core'
+import { relatedTools } from '../related-tools'
+import RelatedTools from '@/components/tools/tool/RelatedTools.vue'
 
 import { v1 as uuidV1 } from 'uuid'
 

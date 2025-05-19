@@ -12,6 +12,8 @@
     </n-p>
 
     <WhatIsNilUUID />
+
+    <RelatedTools :tools="relatedTools" hide="uuid-nil-generator" />
   </div>
 </template>
 
@@ -23,6 +25,8 @@ import { useViewHead } from '@/tools/composables/use-view-head'
 import CopyToClipboardButton from '@/components/base/buttons/CopyToClipboardButton.vue'
 import UUIDDisplay from '@/components/base/display/uuid/UUIDDisplay.vue'
 import WhatIsNilUUID from './WhatIsNilUUID.vue'
+import { relatedTools } from '../related-tools'
+import RelatedTools from '@/components/tools/tool/RelatedTools.vue'
 
 const { t } = useI18n({
   messages: meta,

@@ -10,6 +10,8 @@
     <UUIDDecoderResult :uuid="uuid" />
 
     <WhatIsNilUUID />
+
+    <RelatedTools :tools="relatedTools" hide="uuid-decoder" />
   </div>
 </template>
 
@@ -27,6 +29,8 @@ import { useRoute } from 'vue-router'
 import { validate } from 'uuid'
 import { computed } from 'vue'
 import { watch } from 'vue'
+import { relatedTools } from '../related-tools'
+import RelatedTools from '@/components/tools/tool/RelatedTools.vue'
 
 const { t } = useI18n({
   messages: meta,

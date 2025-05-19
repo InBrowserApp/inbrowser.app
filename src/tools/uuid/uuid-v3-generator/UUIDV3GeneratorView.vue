@@ -18,6 +18,8 @@
     </n-p>
 
     <WhatIsUUIDv3 />
+
+    <RelatedTools :tools="relatedTools" hide="uuid-v3-generator" />
   </div>
 </template>
 
@@ -34,6 +36,8 @@ import NamespaceInput from './NamespaceInput.vue'
 import NameInput from './NameInput.vue'
 import { useStorage } from '@vueuse/core'
 import type { UUID, UUIDv3 } from '@/utils/base/uuid'
+import { relatedTools } from '../related-tools'
+import RelatedTools from '@/components/tools/tool/RelatedTools.vue'
 
 import { v3 as uuidV3 } from 'uuid'
 

@@ -18,6 +18,8 @@
     </n-p>
 
     <WhatIsUUIDv5 />
+
+    <RelatedTools :tools="relatedTools" hide="uuid-v5-generator" />
   </div>
 </template>
 
@@ -35,6 +37,8 @@ import type { UUID, UUIDv5 } from '@/utils/base/uuid'
 import { useStorage } from '@vueuse/core'
 
 import { v5 as uuidV5 } from 'uuid'
+import { relatedTools } from '../related-tools'
+import RelatedTools from '@/components/tools/tool/RelatedTools.vue'
 
 const { t } = useI18n({
   messages: meta,
