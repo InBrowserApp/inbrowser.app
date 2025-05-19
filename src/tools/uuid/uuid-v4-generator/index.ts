@@ -6,13 +6,7 @@ export const toolInfo: ToolInfo = {
   toolID: 'uuid-v4-generator',
   meta,
   icon: Id,
-  routes: [
-    {
-      name: 'uuid-v4-generator',
-      path: '/tools/uuid-v4-generator',
-      component: () => import('./UUIDV4GeneratorView.vue'),
-    },
-  ],
+  path: '/tools/uuid-v4-generator',
   tags: ['uuid'],
   features: ['offline'],
-}
+} as const

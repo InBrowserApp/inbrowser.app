@@ -1,13 +1,12 @@
 import type { RouteRecordRaw } from 'vue-router'
-import HomeView from '../views/HomeView.vue'
 import { supportedLanguages } from '@/locale'
-import { tools } from '@/tools'
+import { routes as toolRoutes } from '@/tools/routes'
 
 export const routesWithoutI18n: RouteRecordRaw[] = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: () => import('@/views/HomeView.vue'),
   },
   {
     path: '/tools',
@@ -19,7 +18,7 @@ export const routesWithoutI18n: RouteRecordRaw[] = [
     name: 'search-tools',
     component: () => import('@/views/ToolsSearchView.vue'),
   },
-  ...tools.flatMap((tool) => tool.routes),
+  ...toolRoutes,
 ]
 
 export const routes = routesWithoutI18n.map((route) => ({

@@ -18,7 +18,7 @@ const props = defineProps<{
   tool: ToolInfo
 }>()
 
-const rawPath = computed(() => props.tool.routes[0].path)
+const rawPath = computed(() => props.tool.path)
 
 const { path } = useSiteLanguagePath(rawPath)
 

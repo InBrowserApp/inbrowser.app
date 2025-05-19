@@ -1,6 +1,6 @@
 import type { SupportedLanguage } from '@/locale'
 import type { Component } from 'vue'
-import type { RouteRecordRaw } from 'vue-router'
+export type { RouteRecordRaw as ToolRoute } from 'vue-router'
 
 /**
  * Interface representing the basic metadata for a tool.
@@ -11,8 +11,8 @@ import type { RouteRecordRaw } from 'vue-router'
  * @property {string} description - A brief description of what the tool does
  */
 export type ToolMeta = {
-  name: string
-  description: string
+  readonly name: string
+  readonly description: string
 }
 
 /**
@@ -21,7 +21,7 @@ export type ToolMeta = {
  *
  * @type {Record<SupportedLanguage, ToolMeta>}
  */
-export type I18nToolMeta = { [K in SupportedLanguage]: ToolMeta }
+export type I18nToolMeta = { readonly [K in SupportedLanguage]: ToolMeta }
 
 /**
  * Interface representing information about a tool in the application.
@@ -36,35 +36,35 @@ export type I18nToolMeta = { [K in SupportedLanguage]: ToolMeta }
  * @property {string[]} features - Features associated with the tool for feature flagging
  */
 export interface ToolInfo {
-  toolID: string
+  readonly toolID: string
 
   /**
    * Internationalized metadata containing name and description for each supported language
    * @type {I18nToolMeta}
    */
-  meta: I18nToolMeta
+  readonly meta: I18nToolMeta
 
   /**
    * Vue component to be used as the tool's icon
    * @type {Component}
    */
-  icon?: Component
-
-  /**
-   * Vue Router routes associated with this tool
-   * @type {RouteRecordRaw[]}
-   */
-  routes: RouteRecordRaw[]
+  readonly icon?: Component
 
   /**
    * Tags associated with the tool for categorization and filtering
    * @type {string[]}
    */
-  tags: string[]
+  readonly tags: readonly string[]
 
   /**
    * Features associated with the tool for feature flagging and capability detection
    * @type {string[]}
    */
-  features: string[]
+  readonly features: readonly string[]
+
+  /**
+   * Path associated with the tool for routing
+   * @type {string}
+   */
+  readonly path: string
 }
