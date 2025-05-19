@@ -6,6 +6,7 @@ import { toolInfo as uuidV5GeneratorToolInfo } from './uuid-v5-generator'
 import { toolInfo as uuidV6GeneratorToolInfo } from './uuid-v6-generator'
 import { toolInfo as uuidV7GeneratorToolInfo } from './uuid-v7-generator'
 import { toolInfo as uuidNilGeneratorToolInfo } from './uuid-nil-generator'
+import { toolInfo as uuidMaxGeneratorToolInfo } from './uuid-max-generator'
 import { toolInfo as uuidDecoderToolInfo } from './uuid-decoder'
 import { toolInfo as uuidToolsToolInfo } from './uuid-tools'
 import { toolInfo as uuidV1V6ConverterToolInfo } from './uuid-v1-v6-converter'
@@ -18,6 +19,7 @@ export const tools: ToolInfo[] = [
   uuidV6GeneratorToolInfo,
   uuidV7GeneratorToolInfo,
   uuidNilGeneratorToolInfo,
+  uuidMaxGeneratorToolInfo,
   uuidDecoderToolInfo,
   uuidV1V6ConverterToolInfo,
   uuidToolsToolInfo,

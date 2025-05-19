@@ -6,8 +6,8 @@ import { routes as uuidV5GeneratorRoutes } from './uuid-v5-generator/routes'
 import { routes as uuidV6GeneratorRoutes } from './uuid-v6-generator/routes'
 import { routes as uuidV7GeneratorRoutes } from './uuid-v7-generator/routes'
 import { routes as uuidV1V6ConverterRoutes } from './uuid-v1-v6-converter/routes'
-
 import { routes as uuidNilGeneratorRoutes } from './uuid-nil-generator/routes'
+import { routes as uuidMaxGeneratorRoutes } from './uuid-max-generator/routes'
 import { routes as uuidDecoderRoutes } from './uuid-decoder/routes'
 import { routes as uuidToolsRoutes } from './uuid-tools/routes'
 
@@ -19,6 +19,7 @@ export const routes: ToolRoute[] = [
   ...uuidV6GeneratorRoutes,
   ...uuidV7GeneratorRoutes,
   ...uuidNilGeneratorRoutes,
+  ...uuidMaxGeneratorRoutes,
   ...uuidDecoderRoutes,
   ...uuidToolsRoutes,
   ...uuidV1V6ConverterRoutes,
