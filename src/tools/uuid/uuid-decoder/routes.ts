@@ -6,4 +6,9 @@ export const routes: ToolRoute[] = [
     path: '/tools/uuid-decoder',
     component: () => import('./UUIDDecoderView.vue'),
   },
+  {
+    name: 'uuid-decoder-uuid',
+    path: '/tools/uuid-decoder/:uuid',
+    component: () => import('./UUIDDecoderView.vue'),
+  },
 ] as const
