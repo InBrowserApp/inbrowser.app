@@ -1,0 +1,50 @@
+name: Build and Deploy
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build-web:
+    name: Build Website
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        name: Install pnpm
+        with:
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: ESLint Check
+        run: pnpm run lint-check
+
+      - name: Prettier Format Check
+        run: pnpm run format-check
+
+      - name: TypeScript Check
+        run: pnpm run type-check
+
+      - name: Build site
+        run: pnpm run build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  # TODO: Add deploy jobs

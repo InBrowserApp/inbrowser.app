@@ -2,7 +2,7 @@
   <div>
     <n-h1 prefix="bar" align-text>{{ t('name') }}</n-h1>
     <n-p>{{ t('description') }}</n-p>
-    <n-h2 prefix="bar" align-text>UUID v4</n-h2>
+    <n-h2 prefix="bar" align-text>UUID v7</n-h2>
     <n-p>
       <UUIDDisplay :uuid="uuid" />
     </n-p>
@@ -13,9 +13,9 @@
       <CopyToClipboardButton :content="uuid" />
     </n-p>
 
-    <WhatIsUUIDv4 />
+    <WhatIsUUIDv7 />
 
-    <RelatedTools :tools="relatedTools" hide="uuid-v4-generator" />
+    <RelatedTools :tools="relatedTools" hide="uuid-v7-generator" />
   </div>
 </template>
 
@@ -28,20 +28,21 @@ import CopyToClipboardButton from '@/components/base/buttons/CopyToClipboardButt
 import { ref } from 'vue'
 import UUIDDisplay from '@/components/base/display/uuid/UUIDDisplay.vue'
 import RegenerateButton from '@/components/base/buttons/RegenerateButton.vue'
-import WhatIsUUIDv4 from '../descriptions/WhatIsUUIDv4.vue'
-import type { UUIDv4 } from '@/utils/base/uuid'
+import WhatIsUUIDv7 from '../descriptions/WhatIsUUIDv7.vue'
+import type { UUIDv7 } from '@/utils/base/uuid'
 import { relatedTools } from '../related-tools'
 import RelatedTools from '@/components/tools/tool/RelatedTools.vue'
+import { v7 as uuidv7 } from 'uuid'
 
 const { t } = useI18n({
   messages: meta,
 })
 
-const uuid = ref<UUIDv4>(crypto.randomUUID() as UUIDv4)
+const uuid = ref<UUIDv7>(uuidv7() as UUIDv7)
 
 useViewHead(t)
 
 function regenerateUUID() {
-  uuid.value = crypto.randomUUID() as UUIDv4
+  uuid.value = uuidv7() as UUIDv7
 }
 </script>

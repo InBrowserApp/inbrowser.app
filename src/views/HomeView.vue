@@ -3,7 +3,7 @@
 
   <n-h2 prefix="bar" align-text>{{ t('base.all_tools') }}</n-h2>
   <n-p>
-    <TheAllTools />
+    <ToolsGrid :tools="allTools" />
   </n-p>
 </template>
 
@@ -11,8 +11,9 @@
 import { NH2, NP } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import TheDeveloperSay from '@/components/miscellaneous/the-developer-says/TheDeveloperSay.vue'
-import TheAllTools from '@/components/tools/all-tools/TheAllTools.vue'
 import { useHead } from '@unhead/vue'
+import ToolsGrid from '@/components/tools/tool/ToolsGrid.vue'
+import { tools as allTools } from '@/tools'
 
 const { t } = useI18n()
 
