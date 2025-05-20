@@ -2,47 +2,47 @@ export const meta = {
   en: {
     name: 'UUID Validator',
     description:
-      'Validate UUIDs and check if they conform to the UUID specification. Verify UUID format, version, and ensure they are valid according to RFC 4122.',
+      'Validate UUID and check if it conforms to the UUID specification. Verify UUID format, version, and ensure it is valid according to RFC 4122.',
   },
   zh: {
     name: 'UUID 验证器',
     description:
-      '验证 UUID 并检查其是否符合 UUID 规范。验证 UUID 格式、版本，并确保它们符合 RFC 4122 标准。',
+      '验证 UUID 并检查其是否符合 UUID 规范。验证 UUID 格式、版本，并确保它符合 RFC 4122 标准。',
   },
   'zh-CN': {
     name: 'UUID 验证器',
     description:
-      '验证 UUID 并检查其是否符合 UUID 规范。验证 UUID 格式、版本，并确保它们符合 RFC 4122 标准。',
+      '验证 UUID 并检查其是否符合 UUID 规范。验证 UUID 格式、版本，并确保它符合 RFC 4122 标准。',
   },
   'zh-TW': {
     name: 'UUID 驗證器',
     description:
-      '驗證 UUID 並檢查其是否符合 UUID 規範。驗證 UUID 格式、版本，並確保它們符合 RFC 4122 標準。',
+      '驗證 UUID 並檢查其是否符合 UUID 規範。驗證 UUID 格式、版本，並確保它符合 RFC 4122 標準。',
   },
   'zh-HK': {
     name: 'UUID 驗證器',
     description:
-      '驗證 UUID 並檢查其是否符合 UUID 規範。驗證 UUID 格式、版本，並確保它們符合 RFC 4122 標準。',
+      '驗證 UUID 並檢查其是否符合 UUID 規範。驗證 UUID 格式、版本，並確保它符合 RFC 4122 標準。',
   },
   es: {
     name: 'Validador UUID',
     description:
-      'Valide UUIDs y verifique si cumplen con la especificación UUID. Verifique el formato UUID, la versión y asegúrese de que sean válidos según RFC 4122.',
+      'Valide UUID y verifique si cumple con la especificación UUID. Verifique el formato UUID, la versión y asegúrese de que sea válido según RFC 4122.',
   },
   fr: {
     name: 'Validateur UUID',
     description:
-      "Validez les UUID et vérifiez s'ils sont conformes à la spécification UUID. Vérifiez le format UUID, la version et assurez-vous qu'ils sont valides selon RFC 4122.",
+      "Validez l'UUID et vérifiez s'il est conforme à la spécification UUID. Vérifiez le format UUID, la version et assurez-vous qu'il est valide selon RFC 4122.",
   },
   de: {
     name: 'UUID-Validator',
     description:
-      'Validieren Sie UUIDs und prüfen Sie, ob sie der UUID-Spezifikation entsprechen. Überprüfen Sie das UUID-Format, die Version und stellen Sie sicher, dass sie gemäß RFC 4122 gültig sind.',
+      'Validieren Sie UUID und prüfen Sie, ob es der UUID-Spezifikation entspricht. Überprüfen Sie das UUID-Format, die Version und stellen Sie sicher, dass es gemäß RFC 4122 gültig ist.',
   },
   it: {
     name: 'Validatore UUID',
     description:
-      'Valida gli UUID e verifica se sono conformi alla specifica UUID. Verifica il formato UUID, la versione e assicurati che siano validi secondo RFC 4122.',
+      'Valida UUID e verifica se è conforme alla specifica UUID. Verifica il formato UUID, la versione e assicurati che sia valido secondo RFC 4122.',
   },
   ja: {
     name: 'UUID バリデーター',
@@ -57,47 +57,47 @@ export const meta = {
   ru: {
     name: 'Валидатор UUID',
     description:
-      'Проверяйте UUID и убедитесь, что они соответствуют спецификации UUID. Проверяйте формат UUID, версию и убедитесь, что они действительны согласно RFC 4122.',
+      'Проверьте UUID и убедитесь, что он соответствует спецификации UUID. Проверьте формат UUID, версию и убедитесь, что он действителен согласно RFC 4122.',
   },
   pt: {
     name: 'Validador UUID',
     description:
-      'Valide UUIDs e verifique se estão em conformidade com a especificação UUID. Verifique o formato UUID, a versão e certifique-se de que são válidos de acordo com RFC 4122.',
+      'Valide UUID e verifique se está em conformidade com a especificação UUID. Verifique o formato UUID, a versão e certifique-se de que é válido de acordo com RFC 4122.',
   },
   ar: {
     name: 'التحقق من صحة UUID',
     description:
-      'تحقق من صحة UUID وتأكد من امتثالها لمواصفات UUID. تحقق من تنسيق UUID والإصدار وتأكد من صلاحيتها وفقًا لـ RFC 4122.',
+      'تحقق من صحة UUID وتأكد من امتثاله لمواصفات UUID. تحقق من تنسيق UUID والإصدار وتأكد من صلاحيته وفقًا لـ RFC 4122.',
   },
   hi: {
     name: 'UUID वैलिडेटर',
     description:
-      'UUID को मान्य करें और जांचें कि वे UUID विनिर्देश का पालन करते हैं। UUID प्रारूप, संस्करण को सत्यापित करें और सुनिश्चित करें कि वे RFC 4122 के अनुसार मान्य हैं।',
+      'UUID को मान्य करें और जांचें कि वह UUID विनिर्देश का पालन करता है। UUID प्रारूप, संस्करण को सत्यापित करें और सुनिश्चित करें कि वह RFC 4122 के अनुसार मान्य है।',
   },
   tr: {
     name: 'UUID Doğrulayıcı',
     description:
-      "UUID'leri doğrulayın ve UUID özelliklerine uygun olup olmadığını kontrol edin. UUID formatını, sürümünü doğrulayın ve RFC 4122'ye göre geçerli olduklarından emin olun.",
+      "UUID'yi doğrulayın ve UUID özelliklerine uygun olup olmadığını kontrol edin. UUID formatını, sürümünü doğrulayın ve RFC 4122'ye göre geçerli olduğundan emin olun.",
   },
   nl: {
     name: 'UUID Validator',
     description:
-      'Valideer UUIDs en controleer of ze voldoen aan de UUID-specificatie. Verifieer UUID-formaat, versie en zorg ervoor dat ze geldig zijn volgens RFC 4122.',
+      'Valideer UUID en controleer of het voldoet aan de UUID-specificatie. Verifieer UUID-formaat, versie en zorg ervoor dat het geldig is volgens RFC 4122.',
   },
   sv: {
     name: 'UUID Validerare',
     description:
-      'Validera UUID och kontrollera om de följer UUID-specifikationen. Verifiera UUID-format, version och se till att de är giltiga enligt RFC 4122.',
+      'Validera UUID och kontrollera om det följer UUID-specifikationen. Verifiera UUID-format, version och se till att det är giltigt enligt RFC 4122.',
   },
   pl: {
     name: 'Walidator UUID',
     description:
-      'Sprawdź poprawność UUID i sprawdź, czy są zgodne ze specyfikacją UUID. Zweryfikuj format UUID, wersję i upewnij się, że są prawidłowe zgodnie z RFC 4122.',
+      'Sprawdź poprawność UUID i sprawdź, czy jest zgodne ze specyfikacją UUID. Zweryfikuj format UUID, wersję i upewnij się, że jest prawidłowe zgodnie z RFC 4122.',
   },
   vi: {
     name: 'Trình xác thực UUID',
     description:
-      'Xác thực UUID và kiểm tra xem chúng có tuân theo đặc tả UUID hay không. Xác minh định dạng UUID, phiên bản và đảm bảo chúng hợp lệ theo RFC 4122.',
+      'Xác thực UUID và kiểm tra xem nó có tuân theo đặc tả UUID hay không. Xác minh định dạng UUID, phiên bản và đảm bảo nó hợp lệ theo RFC 4122.',
   },
   th: {
     name: 'ตัวตรวจสอบ UUID',
@@ -112,7 +112,7 @@ export const meta = {
   he: {
     name: 'בודק תקינות UUID',
     description:
-      'אמת UUID ובדוק אם הם תואמים למפרט UUID. ודא את פורמט ה-UUID, הגרסה ווודא שהם תקינים לפי RFC 4122.',
+      'אמת UUID ובדוק אם הוא תואם למפרט UUID. ודא את פורמט ה-UUID, הגרסה ווודא שהוא תקין לפי RFC 4122.',
   },
   ms: {
     name: 'Pengesah UUID',
@@ -122,6 +122,6 @@ export const meta = {
   no: {
     name: 'UUID Validering',
     description:
-      'Valider UUID og sjekk om de følger UUID-spesifikasjonen. Verifiser UUID-format, versjon og sørg for at de er gyldige i henhold til RFC 4122.',
+      'Valider UUID og sjekk om det følger UUID-spesifikasjonen. Verifiser UUID-format, versjon og sørg for at det er gyldig i henhold til RFC 4122.',
   },
 }
