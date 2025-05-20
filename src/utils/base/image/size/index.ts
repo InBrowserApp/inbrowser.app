@@ -1,3 +1,16 @@
+/**
+ * Gets the dimensions (height and width) of an image from a Blob
+ *
+ * @param blob - The image Blob to get dimensions from
+ * @returns Promise that resolves with the image height and width in pixels
+ * @throws Error if the image fails to load
+ *
+ * @example
+ * ```ts
+ * const { height, width } = await getImageSize(imageBlob);
+ * console.log(`Image dimensions: ${width}x${height}`);
+ * ```
+ */
 export async function getImageSize(blob: Blob): Promise<{
   height: number
   width: number

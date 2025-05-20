@@ -1,5 +1,27 @@
-import { getImageSize } from './get-image-size'
+import { getImageSize } from '@/utils/base/image/size'
 
+/**
+ * Preprocesses an image by centering it on a square canvas.
+ * The canvas size will match the larger dimension of the input image.
+ * This ensures the image is centered and padded appropriately while maintaining aspect ratio.
+ *
+ * The preprocessing steps are:
+ * 1. Get the image dimensions
+ * 2. Create a square canvas sized to the larger dimension
+ * 3. Draw the original image centered on the canvas
+ * 4. Convert the canvas back to a Blob
+ *
+ * @param blob - The input image Blob to preprocess
+ * @returns Promise that resolves with the preprocessed image as a Blob
+ * @throws Error if canvas context cannot be obtained
+ * @throws Error if image fails to load
+ * @throws Error if canvas-to-Blob conversion fails
+ *
+ * @example
+ * ```ts
+ * const processedImage = await preprocessImage(imageBlob);
+ * ```
+ */
 export async function preprocessImage(blob: Blob): Promise<Blob> {
   const { height, width } = await getImageSize(blob)
 

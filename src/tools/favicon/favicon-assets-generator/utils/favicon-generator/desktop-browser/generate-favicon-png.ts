@@ -1,6 +1,6 @@
 import type { DesktopBrowserOptions } from './types'
-import { getImageSize } from '../../image/get-image-size'
-import { optimizePNG } from '../../image/optimize-png'
+import { getImageSize } from '@/utils/base/image/size'
+import { optimizePNG } from '@/utils/base/image/png/optimize'
 
 export async function generateFaviconPNG(
   image: Blob | undefined,
