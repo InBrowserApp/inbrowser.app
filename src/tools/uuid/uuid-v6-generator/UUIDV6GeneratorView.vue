@@ -34,7 +34,7 @@ import CopyToClipboardButton from '@/components/base/buttons/CopyToClipboardButt
 import { ref, watch } from 'vue'
 import UUIDDisplay from '@/components/base/display/uuid/UUIDDisplay.vue'
 import RegenerateButton from '@/components/base/buttons/RegenerateButton.vue'
-import WhatIsUUIDv6 from './WhatIsUUIDv6.vue'
+import WhatIsUUIDv6 from '../descriptions/WhatIsUUIDv6.vue'
 import MACAddressInputFormItem from '@/components/base/input/mac-address/MACAddressInputFormItem.vue'
 import { randomMACAddress, parseMACAddressToArrayBuffer } from '@/utils/base/mac-address'
 import ClockSeqInput from './ClockSeqInput.vue'

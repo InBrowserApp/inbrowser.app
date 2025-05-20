@@ -28,7 +28,7 @@ import CopyToClipboardButton from '@/components/base/buttons/CopyToClipboardButt
 import { ref } from 'vue'
 import UUIDDisplay from '@/components/base/display/uuid/UUIDDisplay.vue'
 import RegenerateButton from '@/components/base/buttons/RegenerateButton.vue'
-import WhatIsUUIDv4 from './WhatIsUUIDv4.vue'
+import WhatIsUUIDv4 from '../descriptions/WhatIsUUIDv4.vue'
 import type { UUIDv4 } from '@/utils/base/uuid'
 import { relatedTools } from '../related-tools'
 import RelatedTools from '@/components/tools/tool/RelatedTools.vue'

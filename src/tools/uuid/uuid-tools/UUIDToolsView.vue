@@ -17,7 +17,7 @@ import { NH1, NP } from 'naive-ui'
 import { useViewHead } from '@/tools/composables/use-view-head'
 import ToolsGrid from '@/components/tools/tool/ToolsGrid.vue'
 import { relatedTools } from '../related-tools'
-import WhatIsUUID from './WhatIsUUID.vue'
+import WhatIsUUID from '../descriptions/WhatIsUUID.vue'
 
 const { t } = useI18n({
   messages: meta,
