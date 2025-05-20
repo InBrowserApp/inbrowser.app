@@ -6,7 +6,7 @@
   <br />
   <DownloadFileButton filename="pwa-512x512.png" @click="download512png" />
   <n-p>
-    <n-code language="json" :code="code" :word-wrap="true" />
+    <n-code language="json" :code="code" :word-wrap="true" :hljs="hljs" />
   </n-p>
 </template>
 
@@ -20,6 +20,9 @@ import { useI18n } from 'vue-i18n'
 import FileMinifiedUsingOxipng from '../../common/FileMinifiedUsingOxipng.vue'
 import DownloadFileButton from '../../common/DownloadFileButton.vue'
 import { messages } from '../../locale/no-image-selected'
+import hljs from 'highlight.js/lib/core'
+import json from 'highlight.js/lib/languages/json'
+hljs.registerLanguage('json', json)
 
 const { t } = useI18n({
   messages,
