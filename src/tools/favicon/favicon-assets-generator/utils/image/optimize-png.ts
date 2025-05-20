@@ -1,4 +1,4 @@
-import OptimizeWorker from './optimize-png.worker?worker'
+import OptimizeWorker from './optimize-png.worker.raw?worker'
 import WASM_MODULE_URL from '@jsquash/oxipng/codec/pkg/squoosh_oxipng_bg.wasm?url'
 
 export async function optimizePNG(blob: Blob) {
