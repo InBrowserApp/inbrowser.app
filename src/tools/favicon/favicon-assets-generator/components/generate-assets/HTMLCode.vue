@@ -1,5 +1,5 @@
 <template>
-  <n-code language="html" :code="code" :word-wrap="true" />
+  <n-code language="html" :code="code" :word-wrap="true" :hljs="hljs" />
 </template>
 
 <script setup lang="ts">
@@ -10,6 +10,9 @@ import type { GeneralInfoOptions } from '../../utils/favicon-generator/general-i
 import type { DesktopBrowserOptions } from '../../utils/favicon-generator/desktop-browser'
 import { computed } from 'vue'
 import { normalizePath } from '../../utils/favicon-generator/general-info'
+import hljs from 'highlight.js/lib/core'
+import xml from 'highlight.js/lib/languages/xml'
+hljs.registerLanguage('html', xml)
 
 const props = defineProps<{
   image: Blob | undefined

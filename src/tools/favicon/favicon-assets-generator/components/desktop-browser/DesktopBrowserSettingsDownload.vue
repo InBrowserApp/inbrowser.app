@@ -1,51 +1,28 @@
 <template>
   <n-p>
-    <n-text depth="3">
-      <n-icon :component="Sparkle16Filled" style="vertical-align: -0.1em" />
-      All files are losslessly minified using oxipng and svgo.
-    </n-text>
+    <FileMinifiedUsingOxipngAndSvgo />
   </n-p>
-  <n-button size="small" text @click="downloadico">
-    <template #icon>
-      <n-icon :component="ArrowDownload16Filled" />
-    </template>
-    Download favicon.ico
-  </n-button>
+  <DownloadFileButton filename="favicon.ico" @click="downloadico" />
+  <br />
   <template v-if="useOriginalSVG">
+    <DownloadFileButton filename="favicon.svg" @click="downloadSVG" />
     <br />
-    <n-button size="small" text @click="downloadSVG">
-      <template #icon>
-        <n-icon :component="ArrowDownload16Filled" />
-      </template>
-      Download favicon.svg
-    </n-button>
   </template>
   <template v-else>
+    <DownloadFileButton filename="favicon-32x32.png" @click="download32png" />
     <br />
-    <n-button size="small" text @click="download32png">
-      <template #icon>
-        <n-icon :component="ArrowDownload16Filled" />
-      </template>
-      Download favicon-32x32.png
-    </n-button>
+    <DownloadFileButton filename="favicon-16x16.png" @click="download16png" />
     <br />
-    <n-button size="small" text @click="download16png">
-      <template #icon>
-        <n-icon :component="ArrowDownload16Filled" />
-      </template>
-      Download favicon-16x16.png
-    </n-button>
   </template>
 
   <n-p>
-    <n-code language="html" :code="code" :word-wrap="true" />
+    <n-code language="html" :code="code" :word-wrap="true" :hljs="hljs" />
   </n-p>
 </template>
 
 <script setup lang="ts">
-import { NButton, NIcon, NCode, NP, NText, useMessage } from 'naive-ui'
+import { NCode, NP, useMessage } from 'naive-ui'
 import type { DesktopBrowserOptions } from '../../utils/favicon-generator/desktop-browser'
-import { ArrowDownload16Filled, Sparkle16Filled } from '@vicons/fluent'
 import {
   generateFaviconICO,
   generateFaviconPNG,
@@ -53,7 +30,14 @@ import {
   generateFaviconSVG,
 } from '../../utils/favicon-generator/desktop-browser'
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
+import FileMinifiedUsingOxipngAndSvgo from '../common/FileMinifiedUsingOxipngAndSvgo.vue'
+import DownloadFileButton from '../common/DownloadFileButton.vue'
+import hljs from 'highlight.js/lib/core'
+import xml from 'highlight.js/lib/languages/xml'
+hljs.registerLanguage('html', xml)
 
+const { t } = useI18n()
 const message = useMessage()
 
 const props = defineProps<{
@@ -72,7 +56,7 @@ const image = computed<Blob | undefined>(() => {
 const downloadico = async () => {
   try {
     if (image.value === undefined) {
-      throw new Error('No image selected')
+      throw new Error(t('noImageSelected'))
     }
 
     const blob = await generateFaviconICO(image.value, props.options)
@@ -90,7 +74,7 @@ const downloadico = async () => {
 const download32png = async () => {
   try {
     if (image.value === undefined) {
-      throw new Error('No image selected')
+      throw new Error(t('noImageSelected'))
     }
     const blob = await generateFaviconPNG(image.value, props.options, 32)
     const url = URL.createObjectURL(blob)
@@ -107,7 +91,7 @@ const download32png = async () => {
 const download16png = async () => {
   try {
     if (image.value === undefined) {
-      throw new Error('No image selected')
+      throw new Error(t('noImageSelected'))
     }
 
     const blob = await generateFaviconPNG(image.value, props.options, 16)
@@ -125,7 +109,7 @@ const download16png = async () => {
 const downloadSVG = async () => {
   try {
     if (image.value === undefined) {
-      throw new Error('No image selected')
+      throw new Error(t('noImageSelected'))
     }
 
     const blob = await generateFaviconSVG(image.value, props.options)
@@ -160,3 +144,83 @@ const code = computed(() => {
   }
 })
 </script>
+
+<i18n lang="json">
+{
+  "en": {
+    "noImageSelected": "No image selected"
+  },
+  "zh": {
+    "noImageSelected": "未选择图片"
+  },
+  "zh-CN": {
+    "noImageSelected": "未选择图片"
+  },
+  "zh-TW": {
+    "noImageSelected": "未選擇圖片"
+  },
+  "zh-HK": {
+    "noImageSelected": "未選擇圖片"
+  },
+  "es": {
+    "noImageSelected": "No se ha seleccionado ninguna imagen"
+  },
+  "fr": {
+    "noImageSelected": "Aucune image sélectionnée"
+  },
+  "de": {
+    "noImageSelected": "Kein Bild ausgewählt"
+  },
+  "it": {
+    "noImageSelected": "Nessuna immagine selezionata"
+  },
+  "ja": {
+    "noImageSelected": "画像が選択されていません"
+  },
+  "ko": {
+    "noImageSelected": "이미지가 선택되지 않았습니다"
+  },
+  "ru": {
+    "noImageSelected": "Изображение не выбрано"
+  },
+  "pt": {
+    "noImageSelected": "Nenhuma imagem selecionada"
+  },
+  "ar": {
+    "noImageSelected": "لم يتم اختيار صورة"
+  },
+  "hi": {
+    "noImageSelected": "कोई छवि चयनित नहीं है"
+  },
+  "tr": {
+    "noImageSelected": "Hiçbir görsel seçilmedi"
+  },
+  "nl": {
+    "noImageSelected": "Geen afbeelding geselecteerd"
+  },
+  "sv": {
+    "noImageSelected": "Ingen bild vald"
+  },
+  "pl": {
+    "noImageSelected": "Nie wybrano obrazu"
+  },
+  "vi": {
+    "noImageSelected": "Chưa chọn hình ảnh"
+  },
+  "th": {
+    "noImageSelected": "ไม่ได้เลือกรูปภาพ"
+  },
+  "id": {
+    "noImageSelected": "Tidak ada gambar yang dipilih"
+  },
+  "he": {
+    "noImageSelected": "לא נבחרה תמונה"
+  },
+  "ms": {
+    "noImageSelected": "Tiada imej dipilih"
+  },
+  "no": {
+    "noImageSelected": "Ingen bilde valgt"
+  }
+}
+</i18n>

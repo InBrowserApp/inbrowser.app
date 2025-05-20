@@ -1,5 +1,5 @@
 <template>
-  <n-code language="json" :code="code" />
+  <n-code language="json" :code="code" :hljs="hljs" />
   <!-- <div /> -->
 </template>
 
@@ -8,6 +8,9 @@ import { NCode } from 'naive-ui'
 import type { GeneralInfoOptions } from '../../utils/favicon-generator/general-info'
 import { computed } from 'vue'
 import { generateManifestText } from '../../utils/favicon-generator/general-info'
+import hljs from 'highlight.js/lib/core'
+import json from 'highlight.js/lib/languages/json'
+hljs.registerLanguage('json', json)
 
 const props = defineProps<{
   generalInfoOptions: GeneralInfoOptions

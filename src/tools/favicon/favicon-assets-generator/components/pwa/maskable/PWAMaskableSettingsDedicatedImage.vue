@@ -1,28 +1,25 @@
 <template>
   <div v-if="options.maskableImage === undefined">
-    <n-p>You are not using a dedicated image.</n-p>
+    <NotUsingDedicatedImageNote />
     <ImageUpload @update:file="options.maskableImage = $event" />
   </div>
   <div v-else>
-    <n-p>You are using a dedicated image.</n-p>
+    <UsingDedicatedImageNote />
     <n-image :src="imageURL" class="dedicated-image" />
     <div>
-      <n-button size="small" text @click="options.maskableImage = undefined">
-        <template #icon>
-          <n-icon :component="Delete16Regular" />
-        </template>
-        Remove
-      </n-button>
+      <RemoveButton @click="options.maskableImage = undefined" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { NButton, NIcon, NImage, NP } from 'naive-ui'
+import { NImage } from 'naive-ui'
 import type { PWAOptions } from '../../../utils/favicon-generator/pwa'
 import { useVModel, useObjectUrl } from '@vueuse/core'
 import ImageUpload from '../../ImageUpload.vue'
-import { Delete16Regular } from '@vicons/fluent'
+import RemoveButton from '../../common/RemoveButton.vue'
+import NotUsingDedicatedImageNote from '../../common/NotUsingDedicatedImageNote.vue'
+import UsingDedicatedImageNote from '../../common/UsingDedicatedImageNote.vue'
 import { toRef, computed } from 'vue'
 
 const props = defineProps<{

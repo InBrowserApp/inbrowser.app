@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <img :src="PreviewBackground" class="background" alt="Windows Taskbar Background" />
+    <img :src="PreviewBackground" class="background" :alt="t('windowsTaskbarBackground')" />
     <div class="icon-container">
       <div class="icon-background" :style="iconBackgroundStyle" />
       <n-skeleton v-if="image === undefined" class="icon" />
@@ -15,6 +15,9 @@ import { useObjectUrl } from '@vueuse/core'
 import type { PWAOptions } from '../../../utils/favicon-generator/pwa'
 import { computed } from 'vue'
 import { NSkeleton } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const props = defineProps<{
   image: Blob | undefined
@@ -103,3 +106,83 @@ const iconStyle = computed(() => ({
   border-radius: var(--icon-background-radius);
 }
 </style>
+
+<i18n lang="json">
+{
+  "en": {
+    "windowsTaskbarBackground": "Windows Taskbar Background"
+  },
+  "zh": {
+    "windowsTaskbarBackground": "Windows 任务栏背景"
+  },
+  "zh-CN": {
+    "windowsTaskbarBackground": "Windows 任务栏背景"
+  },
+  "zh-TW": {
+    "windowsTaskbarBackground": "Windows 工作列背景"
+  },
+  "zh-HK": {
+    "windowsTaskbarBackground": "Windows 工作列背景"
+  },
+  "es": {
+    "windowsTaskbarBackground": "Fondo de la Barra de Tareas de Windows"
+  },
+  "fr": {
+    "windowsTaskbarBackground": "Arrière-plan de la Barre des Tâches Windows"
+  },
+  "de": {
+    "windowsTaskbarBackground": "Windows-Taskleisten-Hintergrund"
+  },
+  "it": {
+    "windowsTaskbarBackground": "Sfondo della Barra delle Applicazioni di Windows"
+  },
+  "ja": {
+    "windowsTaskbarBackground": "Windows タスクバーの背景"
+  },
+  "ko": {
+    "windowsTaskbarBackground": "Windows 작업 표시줄 배경"
+  },
+  "ru": {
+    "windowsTaskbarBackground": "Фон Панели Задач Windows"
+  },
+  "pt": {
+    "windowsTaskbarBackground": "Plano de Fundo da Barra de Tarefas do Windows"
+  },
+  "ar": {
+    "windowsTaskbarBackground": "خلفية شريط مهام Windows"
+  },
+  "hi": {
+    "windowsTaskbarBackground": "Windows टास्कबार पृष्ठभूमि"
+  },
+  "tr": {
+    "windowsTaskbarBackground": "Windows Görev Çubuğu Arka Planı"
+  },
+  "nl": {
+    "windowsTaskbarBackground": "Windows Taakbalk Achtergrond"
+  },
+  "sv": {
+    "windowsTaskbarBackground": "Windows Aktivitetsfält Bakgrund"
+  },
+  "pl": {
+    "windowsTaskbarBackground": "Tło Paska Zadań Windows"
+  },
+  "vi": {
+    "windowsTaskbarBackground": "Nền Thanh Tác vụ Windows"
+  },
+  "th": {
+    "windowsTaskbarBackground": "พื้นหลังแถบงาน Windows"
+  },
+  "id": {
+    "windowsTaskbarBackground": "Latar Belakang Bilah Tugas Windows"
+  },
+  "he": {
+    "windowsTaskbarBackground": "רקע סרגל המשימות של Windows"
+  },
+  "ms": {
+    "windowsTaskbarBackground": "Latar Belakang Bar Tugas Windows"
+  },
+  "no": {
+    "windowsTaskbarBackground": "Windows Oppgavelinje Bakgrunn"
+  }
+}
+</i18n>
