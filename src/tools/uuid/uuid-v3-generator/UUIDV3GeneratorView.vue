@@ -11,7 +11,7 @@
       <CopyToClipboardButton :content="uuid" />
     </n-p>
 
-    <n-h2 prefix="bar" align-text>{{ t('config') }}</n-h2>
+    <ConfigHeader />
     <n-p>
       <NamespaceInput v-model:namespace="namespace" />
       <NameInput v-model:name="name" />
@@ -38,6 +38,7 @@ import { useStorage } from '@vueuse/core'
 import type { UUID, UUIDv3 } from '@/utils/base/uuid'
 import { relatedTools } from '../related-tools'
 import RelatedTools from '@/components/tools/tool/RelatedTools.vue'
+import ConfigHeader from '@/components/layouts/headers/ConfigHeader.vue'
 
 import { v3 as uuidV3 } from 'uuid'
 
@@ -55,83 +56,3 @@ const uuid = computed<UUIDv3>(() => uuidV3(name.value, namespace.value) as UUIDv
 
 useViewHead(t)
 </script>
-
-<i18n lang="json">
-{
-  "en": {
-    "config": "Configuration"
-  },
-  "zh": {
-    "config": "配置"
-  },
-  "zh-CN": {
-    "config": "配置"
-  },
-  "zh-TW": {
-    "config": "配置"
-  },
-  "zh-HK": {
-    "config": "配置"
-  },
-  "es": {
-    "config": "Configuración"
-  },
-  "fr": {
-    "config": "Configuration"
-  },
-  "de": {
-    "config": "Konfiguration"
-  },
-  "it": {
-    "config": "Configurazione"
-  },
-  "ja": {
-    "config": "設定"
-  },
-  "ko": {
-    "config": "설정"
-  },
-  "ru": {
-    "config": "Конфигурация"
-  },
-  "pt": {
-    "config": "Configuração"
-  },
-  "ar": {
-    "config": "الإعدادات"
-  },
-  "hi": {
-    "config": "कॉन्फ़िगरेशन"
-  },
-  "tr": {
-    "config": "Yapılandırma"
-  },
-  "nl": {
-    "config": "Configuratie"
-  },
-  "sv": {
-    "config": "Konfiguration"
-  },
-  "pl": {
-    "config": "Konfiguracja"
-  },
-  "vi": {
-    "config": "Cấu hình"
-  },
-  "th": {
-    "config": "การกำหนดค่า"
-  },
-  "id": {
-    "config": "Konfigurasi"
-  },
-  "he": {
-    "config": "הגדרות"
-  },
-  "ms": {
-    "config": "Konfigurasi"
-  },
-  "no": {
-    "config": "Konfigurasjon"
-  }
-}
-</i18n>
