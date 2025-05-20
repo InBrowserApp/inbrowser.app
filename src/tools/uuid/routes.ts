@@ -12,6 +12,7 @@ import { routes as uuidDecoderRoutes } from './uuid-decoder/routes'
 import { routes as uuidToolsRoutes } from './uuid-tools/routes'
 import { routes as uuidBase64IntegerOctalBinaryConverterRoutes } from './uuid-base64-integer-octal-binary-converter/routes'
 import { routes as uuidV4BulkGeneratorRoutes } from './uuid-v4-bulk-generator/routes'
+import { routes as uuidValidatorRoutes } from './uuid-validator/routes'
 
 export const routes: ToolRoute[] = [
   ...uuidV4GeneratorRoutes,
@@ -27,4 +28,5 @@ export const routes: ToolRoute[] = [
   ...uuidV1V6ConverterRoutes,
   ...uuidBase64IntegerOctalBinaryConverterRoutes,
   ...uuidV4BulkGeneratorRoutes,
+  ...uuidValidatorRoutes,
 ]

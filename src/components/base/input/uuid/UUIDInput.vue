@@ -23,6 +23,7 @@ const props = defineProps<{
   showRandom?: boolean
   showError?: boolean
   placeholder?: string
+  emitOnInvalid?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -40,6 +41,8 @@ watch(
   () => uuidRef.value,
   (uuid?: string) => {
     if (uuid && validate(uuid)) {
+      emit('update:uuid', uuid as UUID)
+    } else if (props.emitOnInvalid) {
       emit('update:uuid', uuid as UUID)
     }
   },

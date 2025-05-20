@@ -12,6 +12,7 @@ import { toolInfo as uuidToolsToolInfo } from './uuid-tools'
 import { toolInfo as uuidV1V6ConverterToolInfo } from './uuid-v1-v6-converter'
 import { toolInfo as uuidBase64IntegerOctalBinaryConverterToolInfo } from './uuid-base64-integer-octal-binary-converter'
 import { toolInfo as uuidV4BulkGeneratorToolInfo } from './uuid-v4-bulk-generator'
+import { toolInfo as uuidValidatorToolInfo } from './uuid-validator'
 
 export const tools: ToolInfo[] = [
   uuidV1GeneratorToolInfo,
@@ -24,6 +25,7 @@ export const tools: ToolInfo[] = [
   uuidMaxGeneratorToolInfo,
   uuidV4BulkGeneratorToolInfo,
   uuidDecoderToolInfo,
+  uuidValidatorToolInfo,
   uuidV1V6ConverterToolInfo,
   uuidBase64IntegerOctalBinaryConverterToolInfo,
   uuidToolsToolInfo,
