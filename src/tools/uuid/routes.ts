@@ -10,6 +10,7 @@ import { routes as uuidNilGeneratorRoutes } from './uuid-nil-generator/routes'
 import { routes as uuidMaxGeneratorRoutes } from './uuid-max-generator/routes'
 import { routes as uuidDecoderRoutes } from './uuid-decoder/routes'
 import { routes as uuidToolsRoutes } from './uuid-tools/routes'
+import { routes as uuidBase64IntegerOctalBinaryConverterRoutes } from './uuid-base64-integer-octal-binary-converter/routes'
 
 export const routes: ToolRoute[] = [
   ...uuidV4GeneratorRoutes,
@@ -23,4 +24,5 @@ export const routes: ToolRoute[] = [
   ...uuidDecoderRoutes,
   ...uuidToolsRoutes,
   ...uuidV1V6ConverterRoutes,
+  ...uuidBase64IntegerOctalBinaryConverterRoutes,
 ]
