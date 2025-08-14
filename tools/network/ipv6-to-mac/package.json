@@ -1,0 +1,26 @@
+{
+    "name": "@tools/ipv6-to-mac",
+    "version": "1.0.0",
+    "description": "",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./routes": "./src/routes.ts"
+    },
+    "dependencies": {
+        "@shared/icons": "workspace:*",
+        "@shared/tools": "workspace:*",
+        "@shared/ui": "workspace:*",
+        "@utils/mac-address": "workspace:*",
+        "@vueuse/core": "catalog:",
+        "cidr-calc": "^1.0.4",
+        "cidr-tools": "^11.0.3",
+        "ip-bigint": "^8.2.1",
+        "is-cidr": "^6.0.0",
+        "is-ip": "^5.0.1",
+        "naive-ui": "catalog:",
+        "vue": "catalog:",
+        "vue-i18n": "catalog:",
+        "vue-router": "catalog:"
+    }
+}

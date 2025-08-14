@@ -1,0 +1,13 @@
+{
+  "name": "@utils/ip",
+  "version": "1.0.0",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "type": "module",
+  "dependencies": {
+    "@utils/dns": "workspace:*",
+    "is-ip": "^5.0.1"
+  }
+}

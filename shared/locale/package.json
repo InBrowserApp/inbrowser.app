@@ -1,0 +1,17 @@
+{
+    "name": "@shared/locale",
+    "version": "1.0.0",
+    "type": "module",
+    "exports": {
+        ".": "./src/index.ts",
+        "./languages": "./src/languages.ts",
+        "./messages": "./src/messages.ts",
+        "./use-site-language": "./src/use-site-language.ts"
+    },
+    "dependencies": {
+        "@vueuse/core": "catalog:",
+        "vue": "catalog:",
+        "vue-i18n": "catalog:",
+        "vue-router": "catalog:"
+    }
+}

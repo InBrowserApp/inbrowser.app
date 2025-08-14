@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.app.json",
+  "include": [
+    "./**/src/**/__tests__/*",
+    "env.d.ts"
+  ],
+  "exclude": [],
+  "compilerOptions": {
+    "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.vitest.tsbuildinfo",
+    "lib": [
+      "ES2021"
+    ],
+    "types": [
+      "node",
+      "jsdom"
+    ]
+  }
+}

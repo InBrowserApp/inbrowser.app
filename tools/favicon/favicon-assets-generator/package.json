@@ -1,0 +1,24 @@
+{
+  "name": "@tools/favicon-assets-generator",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./routes": "./src/routes.ts"
+  },
+  "dependencies": {
+    "@shared/icons": "workspace:*",
+    "@shared/tools": "workspace:*",
+    "@shared/ui": "workspace:*",
+    "@utils/image": "workspace:*",
+    "@vueuse/core": "catalog:",
+    "@zip.js/zip.js": "catalog:",
+    "highlight.js": "catalog:",
+    "naive-ui": "catalog:",
+    "svgo": "catalog:",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:"
+  }
+}

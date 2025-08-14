@@ -1,0 +1,45 @@
+<template>
+  <div>
+    <slot name="title" :t="t">
+      <ToolTitle>{{ t('name') }}</ToolTitle>
+    </slot>
+
+    <slot name="description">
+      <ToolDescription>{{ t('description') }}</ToolDescription>
+    </slot>
+
+    <slot />
+
+    <slot name="related-tools">
+      <RelatedTools :tool="info" v-if="!hideRelatedTools" />
+    </slot>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { useI18n } from 'vue-i18n'
+import RelatedTools from '../grid/RelatedTools.vue'
+import ToolTitle from './ToolTitle.vue'
+import ToolDescription from './ToolDescription.vue'
+import type { ToolInfo } from '@shared/tools'
+import { useHead } from '@unhead/vue'
+
+const props = defineProps<{
+  info: Pick<ToolInfo, 'meta' | 'toolID' | 'tags'>
+  hideRelatedTools?: boolean
+}>()
+
+const { t } = useI18n({
+  messages: props.info.meta,
+})
+
+useHead({
+  title: t('name') + ' - InBrowser.App',
+  meta: [
+    {
+      name: 'description',
+      content: t('description'),
+    },
+  ],
+})
+</script>

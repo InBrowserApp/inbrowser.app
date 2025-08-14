@@ -1,0 +1,35 @@
+{
+  "name": "@shared/ui",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    "./base": "./src/components/base/index.ts",
+    "./layouts": "./src/components/layouts/index.ts",
+    "./tool": "./src/components/tool/index.ts",
+    "./domain/*": "./src/components/domain/*/index.ts"
+  },
+  "dependencies": {
+    "@registry/tools": "workspace:*",
+    "@shared/icons": "workspace:*",
+    "@shared/locale": "workspace:*",
+    "@shared/tools": "workspace:*",
+    "@unhead/vue": "catalog:",
+    "@utils/dns": "workspace:*",
+    "@utils/ip": "workspace:*",
+    "@utils/mac-address": "workspace:*",
+    "@vueuse/core": "catalog:",
+    "highlight.js": "catalog:",
+    "is-cidr": "^6.0.0",
+    "is-ip": "^5.0.1",
+    "marked": "^16.1.2",
+    "naive-ui": "catalog:",
+    "uuid": "catalog:",
+    "validator": "catalog:",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@types/validator": "catalog:"
+  }
+}

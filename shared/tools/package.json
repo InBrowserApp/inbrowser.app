@@ -1,0 +1,16 @@
+{
+  "name": "@shared/tools",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./interface": "./src/interface.ts",
+    "./composables/use-view-head": "./src/composables/use-view-head.ts"
+  },
+  "dependencies": {
+    "@shared/locale": "workspace:*",
+    "vue": "catalog:",
+    "vue-router": "catalog:"
+  }
+}

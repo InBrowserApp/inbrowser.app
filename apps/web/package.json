@@ -1,0 +1,37 @@
+{
+  "name": "@apps/web",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test:unit": "vitest",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@registry/tools": "workspace:*",
+    "@shared/icons": "workspace:*",
+    "@shared/locale": "workspace:*",
+    "@shared/tools": "workspace:*",
+    "@shared/ui": "workspace:*",
+    "@unhead/vue": "catalog:",
+    "@vueuse/core": "catalog:",
+    "naive-ui": "catalog:",
+    "pinia": "catalog:",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:"
+  },
+  "devDependencies": {
+    "@intlify/unplugin-vue-i18n": "catalog:",
+    "@playwright/test": "catalog:",
+    "@vitejs/plugin-vue": "catalog:",
+    "@vue/test-utils": "catalog:",
+    "jiti": "catalog:",
+    "jsdom": "catalog:",
+    "vite": "catalog:",
+    "vite-plugin-vue-devtools": "catalog:",
+    "vitest": "catalog:"
+  }
+}

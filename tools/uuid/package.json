@@ -1,0 +1,24 @@
+{
+  "name": "@tools/uuid",
+  "version": "1.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./routes": "./src/routes.ts",
+    "./uuid-tools": "./src/uuid-tools/index.ts"
+  },
+  "dependencies": {
+    "@shared/icons": "workspace:*",
+    "@shared/locale": "workspace:*",
+    "@shared/tools": "workspace:*",
+    "@shared/ui": "workspace:*",
+    "@utils/mac-address": "workspace:*",
+    "@utils/uuid": "workspace:*",
+    "@vueuse/core": "catalog:",
+    "naive-ui": "catalog:",
+    "uuid": "catalog:",
+    "vue": "catalog:",
+    "vue-i18n": "catalog:",
+    "vue-router": "catalog:"
+  }
+}

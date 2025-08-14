@@ -1,0 +1,109 @@
+---
+description: General rules for project
+globs:
+alwaysApply: true
+---
+
+Project: InBrowser Web Monorepo (Vue 3 + Vite + pnpm)
+
+High-level
+
+- Monorepo managed by pnpm. Main app is apps/web (Vue 3, TypeScript, Vite).
+- Tools live under tools/<domain>/<tool-name>/src with Vue SFCs and a small routes.ts.
+- Shared packages under shared/\* (icons, locale, tools, ui). Registry package aggregates tool routes and tool info.
+
+Run & Quality
+
+- Dev: pnpm dev (proxied to @apps/web)
+- Build: pnpm build
+- Tests: pnpm test, pnpm test:unit, pnpm test:e2e
+- Type-check: pnpm type-check
+- Lint+format: pnpm lint, pnpm format
+
+Path aliases & packages
+
+- @shared/_ → shared/_ (e.g. @shared/tools, @shared/ui, @shared/icons, @shared/locale)
+- @tools/<package> → tools/<package>/src (each tool’s src exports toolInfo and routes)
+- Registry package: registry/tools/src aggregates all tool routes and toolInfo
+
+Routing & Tool registration
+
+- App routes are composed in apps/web/src/router/routes.ts by spreading routes from registry.
+- Each tool package defines its own routes in tools/.../src/routes.ts. Keep:
+  - name: kebab-case key
+  - path: '/tools/<slug>' (kebab-case), stable for SEO
+  - component: lazy import to the View.vue
+- Tool info for cards/search lives in tools/.../src/info.ts with shape shared/tools/src/interface.ts (ToolInfo):
+  - toolID: unique string
+  - path: '/tools/<slug>' (should match routes.ts)
+  - tags: string[] for categorization
+  - features: e.g. ['offline'] when fully in-browser
+  - meta: i18n names & descriptions for all supported languages
+- To make a tool show up in the site (cards/search): ensure it is exported by its tool package (index.ts) and added to registry/tools/src/index.ts (tools list) and included in registry/tools/src/routes.ts if routes are aggregated there.
+
+Internationalization (Vue i18n in SFC)
+
+- Use <i18n lang="json"> blocks inside .vue files with a flat JSON per-language structure. Example:
+
+```vue
+<i18n lang="json">
+{
+  "en": {
+    "title": "Tool Title"
+  },
+  "zh": {
+    "title": "工具标题"
+  }
+}
+</i18n>
+```
+
+- Ensure valid JSON (double quotes, no comments). Keys should be stable across languages.
+- The list of supported languages is defined in `shared/locale/src/languages.ts` as the `supportedLanguages` array. Always provide translations for every language in that list. As of now, these are: `en, zh, zh-CN, zh-TW, zh-HK, es, fr, de, it, ja, ko, ru, pt, ar, hi, tr, nl, sv, pl, vi, th, id, he, ms, no`.
+- Use useI18n().t('key') in script and templates.
+- Should handle space between CJK and Latin characters.
+
+UI & Components
+
+- Prefer Composition API (script setup) with explicit typing for exported/public APIs.
+- Use shared UI building blocks from @shared/ui (e.g., ToolSectionHeader, ToolSection) and icons from @shared/icons/\*.
+- Match existing formatting and avoid reformatting unrelated code. Keep components small and focused.
+
+Coding style
+
+- TypeScript: explicit types for public APIs and function signatures. Avoid any; prefer precise types.
+- Control flow: guard clauses and early returns; avoid deep nesting.
+- Comments: add only when necessary to explain "why" over "how"; no inline comments inside code blocks just for narration.
+- Formatting: Prettier is configured; run pnpm format before committing large edits.
+
+Conventions for new tools
+
+- Directory: tools/<domain>/<tool-slug>/src
+- Files: info.ts, routes.ts, <ToolView>.vue, components/\* as needed, index.ts re-exporting toolInfo
+- Slug naming: kebab-case; path must start with /tools/
+- Meta naming: clear, concise; SEO-friendly en meta.name is important; include zh variants
+- If the tool is pure client-side: add features: ['offline']
+
+Common pitfalls
+
+- Missing registry inclusion: a tool won’t show up if not aggregated in registry/tools/src/index.ts and routes.ts.
+- Path mismatch between routes.ts and info.ts path.
+- Incomplete i18n blocks (missing keys for supported languages) breaking build or UX.
+- Invalid <i18n lang="json"> (must be strict JSON).
+
+How to change a tool’s name or path
+
+- Update tools/.../src/info.ts: toolID (if needed), path, meta names/descriptions.
+- Update tools/.../src/routes.ts path to match info.path.
+- If renaming a slug, consider adding redirects at the app level (if implemented) or keep old path as an alias.
+
+File map quicklinks
+
+- apps/web/src/router/routes.ts – app route wiring (spreads registry routes)
+- registry/tools/src/routes.ts – aggregated tool routes
+- registry/tools/src/index.ts – aggregated ToolInfo[]
+- shared/tools/src/interface.ts – ToolInfo, ToolMeta types
+- shared/locale/src/languages.ts – supported languages list
+- shared/ui/src/components – shared UI atoms and layouts
+- tools/<...>/src/info.ts – per-tool metadata (path, tags, features, i18n meta)
+- tools/<...>/src/routes.ts – per-tool routes

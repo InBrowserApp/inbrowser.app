@@ -1,0 +1,45 @@
+<template>
+  <n-el>
+    <p v-html="markdownHtml" class="markdown"></p>
+  </n-el>
+</template>
+
+<script setup lang="ts">
+import { NEl } from 'naive-ui'
+import { parse } from 'marked'
+import { computed } from 'vue'
+
+const props = defineProps({
+  markdown: {
+    type: String,
+    required: true,
+  },
+})
+
+const markdownHtml = computed(() => parse(props.markdown))
+</script>
+
+<style scoped>
+.markdown {
+  color: var(--text-color-1);
+}
+
+.markdown :deep(a) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown :deep(a:hover) {
+  text-decoration: underline;
+}
+
+.markdown :deep(h1) {
+  font-weight: var(--font-weight-strong);
+  font-size: 30px;
+}
+
+.markdown :deep(h2) {
+  font-weight: var(--font-weight-strong);
+  font-size: 22px;
+}
+</style>
