@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { ref, readonly } from 'vue'
+import { readonly } from 'vue'
 import { useStorage } from '@vueuse/core'
 
 export const useAirplaneModeStore = defineStore('airplane-mode', () => {
