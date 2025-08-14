@@ -1,0 +1,922 @@
+<template>
+  <div>
+    <!-- URL Input/Output Section -->
+    <ToolSectionHeader>{{ t('url') }}</ToolSectionHeader>
+    <ToolSection>
+      <URLInput v-model:url="url" />
+    </ToolSection>
+    <ToolSection>
+      <n-flex justify="space-between">
+        <CopyToClipboardButton :content="url" />
+        <template v-if="urlStatus === 'error'">
+          <n-text type="error">
+            {{ t('invalid-url') }}
+          </n-text>
+        </template>
+      </n-flex>
+    </ToolSection>
+
+    <!-- URL Components Section -->
+    <ToolSectionHeader>{{ t('url-components') }}</ToolSectionHeader>
+
+    <n-grid :x-gap="12" :y-gap="12" cols="1 s:2 m:3 l:4" responsive="screen">
+      <!-- Protocol -->
+      <n-grid-item>
+        <n-form-item :label="t('protocol')">
+          <n-input v-model:value="components.protocol" :placeholder="t('protocol-placeholder')" />
+        </n-form-item>
+      </n-grid-item>
+
+      <!-- Username -->
+      <n-grid-item>
+        <n-form-item :label="t('username')">
+          <n-input v-model:value="components.username" :placeholder="t('username-placeholder')" />
+        </n-form-item>
+      </n-grid-item>
+
+      <!-- Password -->
+      <n-grid-item>
+        <n-form-item :label="t('password')">
+          <n-input
+            v-model:value="components.password"
+            type="password"
+            show-password-on="click"
+            :placeholder="t('password-placeholder')"
+          />
+        </n-form-item>
+      </n-grid-item>
+
+      <!-- Hostname -->
+      <n-grid-item>
+        <n-form-item :label="t('hostname')">
+          <n-input v-model:value="components.hostname" :placeholder="t('hostname-placeholder')" />
+        </n-form-item>
+      </n-grid-item>
+
+      <!-- Port -->
+      <n-grid-item>
+        <n-form-item :label="t('port')">
+          <n-input-number
+            v-model:value="components.port"
+            :placeholder="t('port-placeholder')"
+            :min="1"
+            :max="65535"
+            style="width: 100%"
+          />
+        </n-form-item>
+      </n-grid-item>
+
+      <!-- Path -->
+      <n-grid-item span="1 s:2 m:3 l:4">
+        <n-form-item :label="t('path')">
+          <n-input v-model:value="components.path" :placeholder="t('path-placeholder')" />
+        </n-form-item>
+      </n-grid-item>
+
+      <!-- Query Parameters -->
+      <n-grid-item span="1 s:2 m:3 l:4">
+        <n-form-item :label="t('query-params')">
+          <n-input
+            v-model:value="queryString"
+            type="textarea"
+            :placeholder="t('query-params-placeholder')"
+            :autosize="{ minRows: 2, maxRows: 6 }"
+          />
+        </n-form-item>
+      </n-grid-item>
+
+      <!-- Hash -->
+      <n-grid-item span="1 s:2 m:3 l:4">
+        <n-form-item :label="t('hash')">
+          <n-input v-model:value="components.hash" :placeholder="t('hash-placeholder')" />
+        </n-form-item>
+      </n-grid-item>
+    </n-grid>
+
+    <!-- Query Parameters Table -->
+    <template v-if="parsedQueryParams.size > 0">
+      <ToolSectionHeader>{{ t('parsed-query-params') }}</ToolSectionHeader>
+      <ToolSection>
+        <n-table :bordered="false" :single-line="false">
+          <thead>
+            <tr>
+              <th>{{ t('parameter-name') }}</th>
+              <th>{{ t('parameter-value') }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="[key, value] of parsedQueryParams" :key="key">
+              <td>
+                <n-text :depth="2">{{ key }}</n-text>
+              </td>
+              <td>
+                <n-text>{{ value }}</n-text>
+              </td>
+            </tr>
+          </tbody>
+        </n-table>
+      </ToolSection>
+    </template>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { ref, watch, computed } from 'vue'
+import {
+  NInput,
+  NInputNumber,
+  NFlex,
+  NText,
+  NForm,
+  NFormItem,
+  NTable,
+  NGrid,
+  NGridItem,
+} from 'naive-ui'
+import { ToolSectionHeader, ToolSection } from '@shared/ui/tool'
+import { useI18n } from 'vue-i18n'
+import { CopyToClipboardButton } from '@shared/ui/base'
+import { useStorage } from '@vueuse/core'
+import URLInput from './URLInput.vue'
+
+const { t } = useI18n()
+
+interface URLComponents {
+  protocol: string
+  username: string
+  password: string
+  hostname: string
+  port: number | null
+  path: string
+  hash: string
+}
+
+const url = useStorage<string>(
+  'tools:url-parser-builder:url',
+  'https://user:pass@example.com:8080/path/to/resource?param1=value1&param2=value2#section1',
+)
+
+const components = ref<URLComponents>({
+  protocol: '',
+  username: '',
+  password: '',
+  hostname: '',
+  port: null,
+  path: '',
+  hash: '',
+})
+
+const queryString = ref<string>('')
+
+const urlStatus = computed(() => {
+  if (!url.value.trim()) return undefined
+  try {
+    new URL(url.value)
+    return 'success'
+  } catch {
+    return 'error'
+  }
+})
+
+const parsedQueryParams = computed(() => {
+  const params = new Map<string, string>()
+  if (!queryString.value.trim()) return params
+
+  try {
+    const urlParams = new URLSearchParams(queryString.value)
+    for (const [key, value] of urlParams.entries()) {
+      params.set(key, value)
+    }
+  } catch {
+    // Invalid query string, return empty map
+  }
+
+  return params
+})
+
+// Parse URL into components
+function parseURL(urlString: string) {
+  try {
+    const parsedURL = new URL(urlString)
+
+    components.value = {
+      protocol: parsedURL.protocol.replace(':', ''),
+      username: parsedURL.username,
+      password: parsedURL.password,
+      hostname: parsedURL.hostname,
+      port: parsedURL.port ? parseInt(parsedURL.port) : null,
+      path: parsedURL.pathname,
+      hash: parsedURL.hash.replace('#', ''),
+    }
+
+    queryString.value = parsedURL.search.replace('?', '')
+  } catch {
+    // Invalid URL, don't update components
+  }
+}
+
+// Build URL from components
+function buildURL() {
+  try {
+    let urlString = ''
+
+    // Protocol
+    if (components.value.protocol) {
+      urlString += `${components.value.protocol}://`
+    } else {
+      urlString += 'https://'
+    }
+
+    // Username and password
+    if (components.value.username) {
+      urlString += components.value.username
+      if (components.value.password) {
+        urlString += `:${components.value.password}`
+      }
+      urlString += '@'
+    }
+
+    // Hostname
+    if (components.value.hostname) {
+      urlString += components.value.hostname
+    } else {
+      urlString += 'example.com'
+    }
+
+    // Port
+    if (components.value.port) {
+      urlString += `:${components.value.port}`
+    }
+
+    // Path
+    const path = components.value.path || '/'
+    if (!path.startsWith('/')) {
+      urlString += '/'
+    }
+    urlString += path.startsWith('/') ? path : `/${path}`
+
+    // Query parameters
+    if (queryString.value.trim()) {
+      urlString += `?${queryString.value}`
+    }
+
+    // Hash
+    if (components.value.hash) {
+      urlString += `#${components.value.hash}`
+    }
+
+    // Validate the built URL
+    new URL(urlString)
+    url.value = urlString
+  } catch {
+    // Invalid components, don't update URL
+  }
+}
+
+// Watch for URL changes and parse them
+watch(
+  url,
+  (newURL) => {
+    if (newURL && urlStatus.value === 'success') {
+      parseURL(newURL)
+    }
+  },
+  { immediate: true },
+)
+
+// Watch for component changes and build URL
+watch([components, queryString], buildURL, {
+  deep: true,
+  flush: 'sync',
+})
+</script>
+
+<i18n lang="json">
+{
+  "en": {
+    "url": "URL",
+    "url-placeholder": "Enter a complete URL to parse...",
+    "url-components": "URL Components",
+    "protocol": "Protocol",
+    "protocol-placeholder": "https, http, ftp, etc.",
+    "username": "Username",
+    "username-placeholder": "Optional username",
+    "password": "Password",
+    "password-placeholder": "Optional password",
+    "hostname": "Hostname",
+    "hostname-placeholder": "example.com, 192.168.1.1, etc.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080, etc.",
+    "path": "Path",
+    "path-placeholder": "/path/to/resource",
+    "query-params": "Query Parameters",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "Hash/Fragment",
+    "hash-placeholder": "section1, anchor, etc.",
+    "parsed-query-params": "Parsed Query Parameters",
+    "parameter-name": "Parameter Name",
+    "parameter-value": "Parameter Value",
+    "invalid-url": "Invalid URL"
+  },
+  "zh": {
+    "url": "URL",
+    "url-placeholder": "输入完整的 URL 进行解析...",
+    "url-components": "URL 组件",
+    "protocol": "协议",
+    "protocol-placeholder": "https, http, ftp 等",
+    "username": "用户名",
+    "username-placeholder": "可选用户名",
+    "password": "密码",
+    "password-placeholder": "可选密码",
+    "hostname": "主机名",
+    "hostname-placeholder": "example.com, 192.168.1.1 等",
+    "port": "端口",
+    "port-placeholder": "80, 443, 8080 等",
+    "path": "路径",
+    "path-placeholder": "/path/to/resource",
+    "query-params": "查询参数",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "哈希/片段",
+    "hash-placeholder": "section1, anchor 等",
+    "parsed-query-params": "解析的查询参数",
+    "parameter-name": "参数名",
+    "parameter-value": "参数值",
+    "invalid-url": "无效的 URL"
+  },
+  "zh-CN": {
+    "url": "URL",
+    "url-placeholder": "输入完整的 URL 进行解析...",
+    "url-components": "URL 组件",
+    "protocol": "协议",
+    "protocol-placeholder": "https, http, ftp 等",
+    "username": "用户名",
+    "username-placeholder": "可选用户名",
+    "password": "密码",
+    "password-placeholder": "可选密码",
+    "hostname": "主机名",
+    "hostname-placeholder": "example.com, 192.168.1.1 等",
+    "port": "端口",
+    "port-placeholder": "80, 443, 8080 等",
+    "path": "路径",
+    "path-placeholder": "/path/to/resource",
+    "query-params": "查询参数",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "哈希/片段",
+    "hash-placeholder": "section1, anchor 等",
+    "parsed-query-params": "解析的查询参数",
+    "parameter-name": "参数名",
+    "parameter-value": "参数值",
+    "invalid-url": "无效的 URL"
+  },
+  "zh-TW": {
+    "url": "URL",
+    "url-placeholder": "輸入完整的 URL 進行解析...",
+    "url-components": "URL 組件",
+    "protocol": "協定",
+    "protocol-placeholder": "https, http, ftp 等",
+    "username": "使用者名稱",
+    "username-placeholder": "可選使用者名稱",
+    "password": "密碼",
+    "password-placeholder": "可選密碼",
+    "hostname": "主機名稱",
+    "hostname-placeholder": "example.com, 192.168.1.1 等",
+    "port": "連接埠",
+    "port-placeholder": "80, 443, 8080 等",
+    "path": "路徑",
+    "path-placeholder": "/path/to/resource",
+    "query-params": "查詢參數",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "雜湊/片段",
+    "hash-placeholder": "section1, anchor 等",
+    "parsed-query-params": "解析的查詢參數",
+    "parameter-name": "參數名稱",
+    "parameter-value": "參數值",
+    "invalid-url": "無效的 URL"
+  },
+  "zh-HK": {
+    "url": "URL",
+    "url-placeholder": "輸入完整的 URL 進行解析...",
+    "url-components": "URL 組件",
+    "protocol": "協定",
+    "protocol-placeholder": "https, http, ftp 等",
+    "username": "使用者名稱",
+    "username-placeholder": "可選使用者名稱",
+    "password": "密碼",
+    "password-placeholder": "可選密碼",
+    "hostname": "主機名稱",
+    "hostname-placeholder": "example.com, 192.168.1.1 等",
+    "port": "連接埠",
+    "port-placeholder": "80, 443, 8080 等",
+    "path": "路徑",
+    "path-placeholder": "/path/to/resource",
+    "query-params": "查詢參數",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "雜湊/片段",
+    "hash-placeholder": "section1, anchor 等",
+    "parsed-query-params": "解析的查詢參數",
+    "parameter-name": "參數名稱",
+    "parameter-value": "參數值",
+    "invalid-url": "無效的 URL"
+  },
+  "es": {
+    "url": "URL",
+    "url-placeholder": "Introduce una URL completa para analizar...",
+    "url-components": "Componentes de URL",
+    "protocol": "Protocolo",
+    "protocol-placeholder": "https, http, ftp, etc.",
+    "username": "Nombre de usuario",
+    "username-placeholder": "Nombre de usuario opcional",
+    "password": "Contraseña",
+    "password-placeholder": "Contraseña opcional",
+    "hostname": "Nombre del host",
+    "hostname-placeholder": "example.com, 192.168.1.1, etc.",
+    "port": "Puerto",
+    "port-placeholder": "80, 443, 8080, etc.",
+    "path": "Ruta",
+    "path-placeholder": "/ruta/al/recurso",
+    "query-params": "Parámetros de consulta",
+    "query-params-placeholder": "param1=valor1&param2=valor2",
+    "hash": "Hash/Fragmento",
+    "hash-placeholder": "seccion1, anchor, etc.",
+    "parsed-query-params": "Parámetros de consulta analizados",
+    "parameter-name": "Nombre del parámetro",
+    "parameter-value": "Valor del parámetro",
+    "invalid-url": "URL inválida"
+  },
+  "fr": {
+    "url": "URL",
+    "url-placeholder": "Entrez une URL complète à analyser...",
+    "url-components": "Composants d'URL",
+    "protocol": "Protocole",
+    "protocol-placeholder": "https, http, ftp, etc.",
+    "username": "Nom d'utilisateur",
+    "username-placeholder": "Nom d'utilisateur optionnel",
+    "password": "Mot de passe",
+    "password-placeholder": "Mot de passe optionnel",
+    "hostname": "Nom d'hôte",
+    "hostname-placeholder": "example.com, 192.168.1.1, etc.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080, etc.",
+    "path": "Chemin",
+    "path-placeholder": "/chemin/vers/ressource",
+    "query-params": "Paramètres de requête",
+    "query-params-placeholder": "param1=valeur1&param2=valeur2",
+    "hash": "Hash/Fragment",
+    "hash-placeholder": "section1, anchor, etc.",
+    "parsed-query-params": "Paramètres de requête analysés",
+    "parameter-name": "Nom du paramètre",
+    "parameter-value": "Valeur du paramètre",
+    "invalid-url": "URL invalide"
+  },
+  "de": {
+    "url": "URL",
+    "url-placeholder": "Geben Sie eine vollständige URL zum Analysieren ein...",
+    "url-components": "URL-Komponenten",
+    "protocol": "Protokoll",
+    "protocol-placeholder": "https, http, ftp, etc.",
+    "username": "Benutzername",
+    "username-placeholder": "Optionaler Benutzername",
+    "password": "Passwort",
+    "password-placeholder": "Optionales Passwort",
+    "hostname": "Hostname",
+    "hostname-placeholder": "example.com, 192.168.1.1, etc.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080, etc.",
+    "path": "Pfad",
+    "path-placeholder": "/pfad/zur/ressource",
+    "query-params": "Abfrageparameter",
+    "query-params-placeholder": "param1=wert1&param2=wert2",
+    "hash": "Hash/Fragment",
+    "hash-placeholder": "sektion1, anchor, etc.",
+    "parsed-query-params": "Analysierte Abfrageparameter",
+    "parameter-name": "Parametername",
+    "parameter-value": "Parameterwert",
+    "invalid-url": "Ungültige URL"
+  },
+  "it": {
+    "url": "URL",
+    "url-placeholder": "Inserisci un URL completo da analizzare...",
+    "url-components": "Componenti URL",
+    "protocol": "Protocollo",
+    "protocol-placeholder": "https, http, ftp, etc.",
+    "username": "Nome utente",
+    "username-placeholder": "Nome utente opzionale",
+    "password": "Password",
+    "password-placeholder": "Password opzionale",
+    "hostname": "Nome host",
+    "hostname-placeholder": "example.com, 192.168.1.1, etc.",
+    "port": "Porta",
+    "port-placeholder": "80, 443, 8080, etc.",
+    "path": "Percorso",
+    "path-placeholder": "/percorso/alla/risorsa",
+    "query-params": "Parametri di query",
+    "query-params-placeholder": "param1=valore1&param2=valore2",
+    "hash": "Hash/Frammento",
+    "hash-placeholder": "sezione1, anchor, etc.",
+    "parsed-query-params": "Parametri di query analizzati",
+    "parameter-name": "Nome parametro",
+    "parameter-value": "Valore parametro",
+    "invalid-url": "URL non valido"
+  },
+  "ja": {
+    "url": "URL",
+    "url-placeholder": "解析する完全なURLを入力...",
+    "url-components": "URLコンポーネント",
+    "protocol": "プロトコル",
+    "protocol-placeholder": "https, http, ftp など",
+    "username": "ユーザー名",
+    "username-placeholder": "オプションのユーザー名",
+    "password": "パスワード",
+    "password-placeholder": "オプションのパスワード",
+    "hostname": "ホスト名",
+    "hostname-placeholder": "example.com, 192.168.1.1 など",
+    "port": "ポート",
+    "port-placeholder": "80, 443, 8080 など",
+    "path": "パス",
+    "path-placeholder": "/path/to/resource",
+    "query-params": "クエリパラメータ",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "ハッシュ/フラグメント",
+    "hash-placeholder": "section1, anchor など",
+    "parsed-query-params": "解析されたクエリパラメータ",
+    "parameter-name": "パラメータ名",
+    "parameter-value": "パラメータ値",
+    "invalid-url": "無効なURL"
+  },
+  "ko": {
+    "url": "URL",
+    "url-placeholder": "파싱할 완전한 URL을 입력하세요...",
+    "url-components": "URL 구성 요소",
+    "protocol": "프로토콜",
+    "protocol-placeholder": "https, http, ftp 등",
+    "username": "사용자명",
+    "username-placeholder": "선택적 사용자명",
+    "password": "비밀번호",
+    "password-placeholder": "선택적 비밀번호",
+    "hostname": "호스트명",
+    "hostname-placeholder": "example.com, 192.168.1.1 등",
+    "port": "포트",
+    "port-placeholder": "80, 443, 8080 등",
+    "path": "경로",
+    "path-placeholder": "/path/to/resource",
+    "query-params": "쿼리 매개변수",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "해시/프래그먼트",
+    "hash-placeholder": "section1, anchor 등",
+    "parsed-query-params": "파싱된 쿼리 매개변수",
+    "parameter-name": "매개변수 이름",
+    "parameter-value": "매개변수 값",
+    "invalid-url": "유효하지 않은 URL"
+  },
+  "ru": {
+    "url": "URL",
+    "url-placeholder": "Введите полный URL для анализа...",
+    "url-components": "Компоненты URL",
+    "protocol": "Протокол",
+    "protocol-placeholder": "https, http, ftp и т.д.",
+    "username": "Имя пользователя",
+    "username-placeholder": "Необязательное имя пользователя",
+    "password": "Пароль",
+    "password-placeholder": "Необязательный пароль",
+    "hostname": "Имя хоста",
+    "hostname-placeholder": "example.com, 192.168.1.1 и т.д.",
+    "port": "Порт",
+    "port-placeholder": "80, 443, 8080 и т.д.",
+    "path": "Путь",
+    "path-placeholder": "/путь/к/ресурсу",
+    "query-params": "Параметры запроса",
+    "query-params-placeholder": "param1=значение1&param2=значение2",
+    "hash": "Хеш/Фрагмент",
+    "hash-placeholder": "раздел1, якорь и т.д.",
+    "parsed-query-params": "Разобранные параметры запроса",
+    "parameter-name": "Имя параметра",
+    "parameter-value": "Значение параметра",
+    "invalid-url": "Неверный URL"
+  },
+  "pt": {
+    "url": "URL",
+    "url-placeholder": "Digite uma URL completa para analisar...",
+    "url-components": "Componentes da URL",
+    "protocol": "Protocolo",
+    "protocol-placeholder": "https, http, ftp, etc.",
+    "username": "Nome de usuário",
+    "username-placeholder": "Nome de usuário opcional",
+    "password": "Senha",
+    "password-placeholder": "Senha opcional",
+    "hostname": "Nome do host",
+    "hostname-placeholder": "example.com, 192.168.1.1, etc.",
+    "port": "Porta",
+    "port-placeholder": "80, 443, 8080, etc.",
+    "path": "Caminho",
+    "path-placeholder": "/caminho/para/recurso",
+    "query-params": "Parâmetros de consulta",
+    "query-params-placeholder": "param1=valor1&param2=valor2",
+    "hash": "Hash/Fragmento",
+    "hash-placeholder": "secao1, anchor, etc.",
+    "parsed-query-params": "Parâmetros de consulta analisados",
+    "parameter-name": "Nome do parâmetro",
+    "parameter-value": "Valor do parâmetro",
+    "invalid-url": "URL inválida"
+  },
+  "ar": {
+    "url": "رابط URL",
+    "url-placeholder": "أدخل رابط URL كامل للتحليل...",
+    "url-components": "مكونات URL",
+    "protocol": "البروتوكول",
+    "protocol-placeholder": "https, http, ftp إلخ",
+    "username": "اسم المستخدم",
+    "username-placeholder": "اسم مستخدم اختياري",
+    "password": "كلمة المرور",
+    "password-placeholder": "كلمة مرور اختيارية",
+    "hostname": "اسم المضيف",
+    "hostname-placeholder": "example.com, 192.168.1.1 إلخ",
+    "port": "المنفذ",
+    "port-placeholder": "80, 443, 8080 إلخ",
+    "path": "المسار",
+    "path-placeholder": "/مسار/إلى/المورد",
+    "query-params": "معاملات الاستعلام",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "التجزئة/الجزء",
+    "hash-placeholder": "قسم1، مرساة إلخ",
+    "parsed-query-params": "معاملات الاستعلام المحللة",
+    "parameter-name": "اسم المعامل",
+    "parameter-value": "قيمة المعامل",
+    "invalid-url": "رابط URL غير صالح"
+  },
+  "hi": {
+    "url": "URL",
+    "url-placeholder": "विश्लेषण के लिए पूरा URL दर्ज करें...",
+    "url-components": "URL घटक",
+    "protocol": "प्रोटोकॉल",
+    "protocol-placeholder": "https, http, ftp आदि",
+    "username": "उपयोगकर्ता नाम",
+    "username-placeholder": "वैकल्पिक उपयोगकर्ता नाम",
+    "password": "पासवर्ड",
+    "password-placeholder": "वैकल्पिक पासवर्ड",
+    "hostname": "होस्टनाम",
+    "hostname-placeholder": "example.com, 192.168.1.1 आदि",
+    "port": "पोर्ट",
+    "port-placeholder": "80, 443, 8080 आदि",
+    "path": "पथ",
+    "path-placeholder": "/संसाधन/का/पथ",
+    "query-params": "क्वेरी पैरामीटर",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "हैश/खंड",
+    "hash-placeholder": "अनुभाग1, एंकर आदि",
+    "parsed-query-params": "पार्स किए गए क्वेरी पैरामीटर",
+    "parameter-name": "पैरामीटर नाम",
+    "parameter-value": "पैरामीटर मान",
+    "invalid-url": "अमान्य URL"
+  },
+  "tr": {
+    "url": "URL",
+    "url-placeholder": "Analiz edilecek tam URL'yi girin...",
+    "url-components": "URL Bileşenleri",
+    "protocol": "Protokol",
+    "protocol-placeholder": "https, http, ftp vb.",
+    "username": "Kullanıcı adı",
+    "username-placeholder": "İsteğe bağlı kullanıcı adı",
+    "password": "Şifre",
+    "password-placeholder": "İsteğe bağlı şifre",
+    "hostname": "Ana bilgisayar adı",
+    "hostname-placeholder": "example.com, 192.168.1.1 vb.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080 vb.",
+    "path": "Yol",
+    "path-placeholder": "/kaynak/yolu",
+    "query-params": "Sorgu parametreleri",
+    "query-params-placeholder": "param1=değer1&param2=değer2",
+    "hash": "Hash/Parça",
+    "hash-placeholder": "bölüm1, çapa vb.",
+    "parsed-query-params": "Ayrıştırılmış sorgu parametreleri",
+    "parameter-name": "Parametre adı",
+    "parameter-value": "Parametre değeri",
+    "invalid-url": "Geçersiz URL"
+  },
+  "nl": {
+    "url": "URL",
+    "url-placeholder": "Voer een volledige URL in om te parseren...",
+    "url-components": "URL-componenten",
+    "protocol": "Protocol",
+    "protocol-placeholder": "https, http, ftp, enz.",
+    "username": "Gebruikersnaam",
+    "username-placeholder": "Optionele gebruikersnaam",
+    "password": "Wachtwoord",
+    "password-placeholder": "Optioneel wachtwoord",
+    "hostname": "Hostnaam",
+    "hostname-placeholder": "example.com, 192.168.1.1, enz.",
+    "port": "Poort",
+    "port-placeholder": "80, 443, 8080, enz.",
+    "path": "Pad",
+    "path-placeholder": "/pad/naar/bron",
+    "query-params": "Query-parameters",
+    "query-params-placeholder": "param1=waarde1&param2=waarde2",
+    "hash": "Hash/Fragment",
+    "hash-placeholder": "sectie1, anker, enz.",
+    "parsed-query-params": "Geparseerde query-parameters",
+    "parameter-name": "Parameternaam",
+    "parameter-value": "Parameterwaarde",
+    "invalid-url": "Ongeldige URL"
+  },
+  "sv": {
+    "url": "URL",
+    "url-placeholder": "Ange en komplett URL att analysera...",
+    "url-components": "URL-komponenter",
+    "protocol": "Protokoll",
+    "protocol-placeholder": "https, http, ftp, etc.",
+    "username": "Användarnamn",
+    "username-placeholder": "Valfritt användarnamn",
+    "password": "Lösenord",
+    "password-placeholder": "Valfritt lösenord",
+    "hostname": "Värdnamn",
+    "hostname-placeholder": "example.com, 192.168.1.1, etc.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080, etc.",
+    "path": "Sökväg",
+    "path-placeholder": "/sökväg/till/resurs",
+    "query-params": "Frågeparametrar",
+    "query-params-placeholder": "param1=värde1&param2=värde2",
+    "hash": "Hash/Fragment",
+    "hash-placeholder": "avsnitt1, ankare, etc.",
+    "parsed-query-params": "Analyserade frågeparametrar",
+    "parameter-name": "Parameternamn",
+    "parameter-value": "Parametervärde",
+    "invalid-url": "Ogiltig URL"
+  },
+  "pl": {
+    "url": "URL",
+    "url-placeholder": "Wprowadź kompletny URL do analizy...",
+    "url-components": "Komponenty URL",
+    "protocol": "Protokół",
+    "protocol-placeholder": "https, http, ftp itp.",
+    "username": "Nazwa użytkownika",
+    "username-placeholder": "Opcjonalna nazwa użytkownika",
+    "password": "Hasło",
+    "password-placeholder": "Opcjonalne hasło",
+    "hostname": "Nazwa hosta",
+    "hostname-placeholder": "example.com, 192.168.1.1 itp.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080 itp.",
+    "path": "Ścieżka",
+    "path-placeholder": "/ścieżka/do/zasobu",
+    "query-params": "Parametry zapytania",
+    "query-params-placeholder": "param1=wartość1&param2=wartość2",
+    "hash": "Hash/Fragment",
+    "hash-placeholder": "sekcja1, kotwica itp.",
+    "parsed-query-params": "Analizowane parametry zapytania",
+    "parameter-name": "Nazwa parametru",
+    "parameter-value": "Wartość parametru",
+    "invalid-url": "Nieprawidłowy URL"
+  },
+  "vi": {
+    "url": "URL",
+    "url-placeholder": "Nhập URL đầy đủ để phân tích...",
+    "url-components": "Thành phần URL",
+    "protocol": "Giao thức",
+    "protocol-placeholder": "https, http, ftp, v.v.",
+    "username": "Tên người dùng",
+    "username-placeholder": "Tên người dùng tùy chọn",
+    "password": "Mật khẩu",
+    "password-placeholder": "Mật khẩu tùy chọn",
+    "hostname": "Tên máy chủ",
+    "hostname-placeholder": "example.com, 192.168.1.1, v.v.",
+    "port": "Cổng",
+    "port-placeholder": "80, 443, 8080, v.v.",
+    "path": "Đường dẫn",
+    "path-placeholder": "/đường/dẫn/tới/tài/nguyên",
+    "query-params": "Tham số truy vấn",
+    "query-params-placeholder": "param1=giá_trị1&param2=giá_trị2",
+    "hash": "Hash/Phân đoạn",
+    "hash-placeholder": "phần1, neo, v.v.",
+    "parsed-query-params": "Tham số truy vấn đã phân tích",
+    "parameter-name": "Tên tham số",
+    "parameter-value": "Giá trị tham số",
+    "invalid-url": "URL không hợp lệ"
+  },
+  "th": {
+    "url": "URL",
+    "url-placeholder": "ป้อน URL ที่สมบูรณ์เพื่อวิเคราะห์...",
+    "url-components": "ส่วนประกอบ URL",
+    "protocol": "โปรโตคอล",
+    "protocol-placeholder": "https, http, ftp ฯลฯ",
+    "username": "ชื่อผู้ใช้",
+    "username-placeholder": "ชื่อผู้ใช้เสริม",
+    "password": "รหัสผ่าน",
+    "password-placeholder": "รหัสผ่านเสริม",
+    "hostname": "ชื่อโฮสต์",
+    "hostname-placeholder": "example.com, 192.168.1.1 ฯลฯ",
+    "port": "พอร์ต",
+    "port-placeholder": "80, 443, 8080 ฯลฯ",
+    "path": "เส้นทาง",
+    "path-placeholder": "/เส้นทาง/ไปยัง/ทรัพยากร",
+    "query-params": "พารามิเตอร์คิวรี",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "แฮช/ส่วนย่อย",
+    "hash-placeholder": "ส่วน1, สมอ ฯลฯ",
+    "parsed-query-params": "พารามิเตอร์คิวรีที่วิเคราะห์แล้ว",
+    "parameter-name": "ชื่อพารามิเตอร์",
+    "parameter-value": "ค่าพารามิเตอร์",
+    "invalid-url": "URL ไม่ถูกต้อง"
+  },
+  "id": {
+    "url": "URL",
+    "url-placeholder": "Masukkan URL lengkap untuk dianalisis...",
+    "url-components": "Komponen URL",
+    "protocol": "Protokol",
+    "protocol-placeholder": "https, http, ftp, dll.",
+    "username": "Nama pengguna",
+    "username-placeholder": "Nama pengguna opsional",
+    "password": "Kata sandi",
+    "password-placeholder": "Kata sandi opsional",
+    "hostname": "Nama host",
+    "hostname-placeholder": "example.com, 192.168.1.1, dll.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080, dll.",
+    "path": "Jalur",
+    "path-placeholder": "/jalur/ke/sumber",
+    "query-params": "Parameter kueri",
+    "query-params-placeholder": "param1=nilai1&param2=nilai2",
+    "hash": "Hash/Fragmen",
+    "hash-placeholder": "bagian1, jangkar, dll.",
+    "parsed-query-params": "Parameter kueri yang diurai",
+    "parameter-name": "Nama parameter",
+    "parameter-value": "Nilai parameter",
+    "invalid-url": "URL tidak valid"
+  },
+  "he": {
+    "url": "URL",
+    "url-placeholder": "הזן URL מלא לניתוח...",
+    "url-components": "רכיבי URL",
+    "protocol": "פרוטוקול",
+    "protocol-placeholder": "https, http, ftp וכו'",
+    "username": "שם משתמש",
+    "username-placeholder": "שם משתמש אופציונלי",
+    "password": "סיסמה",
+    "password-placeholder": "סיסמה אופציונלית",
+    "hostname": "שם מארח",
+    "hostname-placeholder": "example.com, 192.168.1.1 וכו'",
+    "port": "יציאה",
+    "port-placeholder": "80, 443, 8080 וכו'",
+    "path": "נתיב",
+    "path-placeholder": "/נתיב/למשאב",
+    "query-params": "פרמטרי שאילתה",
+    "query-params-placeholder": "param1=value1&param2=value2",
+    "hash": "Hash/קטע",
+    "hash-placeholder": "קטע1, עוגן וכו'",
+    "parsed-query-params": "פרמטרי שאילתה מנותחים",
+    "parameter-name": "שם פרמטר",
+    "parameter-value": "ערך פרמטר",
+    "invalid-url": "URL לא תקין"
+  },
+  "ms": {
+    "url": "URL",
+    "url-placeholder": "Masukkan URL lengkap untuk dianalisis...",
+    "url-components": "Komponen URL",
+    "protocol": "Protokol",
+    "protocol-placeholder": "https, http, ftp, dll.",
+    "username": "Nama pengguna",
+    "username-placeholder": "Nama pengguna pilihan",
+    "password": "Kata laluan",
+    "password-placeholder": "Kata laluan pilihan",
+    "hostname": "Nama hos",
+    "hostname-placeholder": "example.com, 192.168.1.1, dll.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080, dll.",
+    "path": "Laluan",
+    "path-placeholder": "/laluan/ke/sumber",
+    "query-params": "Parameter pertanyaan",
+    "query-params-placeholder": "param1=nilai1&param2=nilai2",
+    "hash": "Hash/Serpihan",
+    "hash-placeholder": "bahagian1, sauh, dll.",
+    "parsed-query-params": "Parameter pertanyaan yang diurai",
+    "parameter-name": "Nama parameter",
+    "parameter-value": "Nilai parameter",
+    "invalid-url": "URL tidak sah"
+  },
+  "no": {
+    "url": "URL",
+    "url-placeholder": "Skriv inn en fullstendig URL for analyse...",
+    "url-components": "URL-komponenter",
+    "protocol": "Protokoll",
+    "protocol-placeholder": "https, http, ftp, etc.",
+    "username": "Brukernavn",
+    "username-placeholder": "Valgfritt brukernavn",
+    "password": "Passord",
+    "password-placeholder": "Valgfritt passord",
+    "hostname": "Vertsnavn",
+    "hostname-placeholder": "example.com, 192.168.1.1, etc.",
+    "port": "Port",
+    "port-placeholder": "80, 443, 8080, etc.",
+    "path": "Sti",
+    "path-placeholder": "/sti/til/ressurs",
+    "query-params": "Spørringsparametere",
+    "query-params-placeholder": "param1=verdi1&param2=verdi2",
+    "hash": "Hash/Fragment",
+    "hash-placeholder": "seksjon1, anker, etc.",
+    "parsed-query-params": "Analyserte spørringsparametere",
+    "parameter-name": "Parameternavn",
+    "parameter-value": "Parameterverdi",
+    "invalid-url": "Ugyldig URL"
+  }
+}
+</i18n>
