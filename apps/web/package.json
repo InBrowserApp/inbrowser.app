@@ -4,7 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
+    "build": "pnpm run build:sitemap && pnpm run build:web",
+    "build:web": "vite build",
+    "build:sitemap": "vite-node scripts/sitemap/build-sitemap.ts",
     "preview": "vite preview",
     "test:unit": "vitest",
     "test:e2e": "playwright test"
@@ -30,7 +32,9 @@
     "@vue/test-utils": "catalog:",
     "jiti": "catalog:",
     "jsdom": "catalog:",
+    "sitemap": "^8.0.0",
     "vite": "catalog:",
+    "vite-node": "^3.2.4",
     "vite-plugin-pwa": "^1.0.2",
     "vite-plugin-vue-devtools": "catalog:",
     "vitest": "catalog:"
