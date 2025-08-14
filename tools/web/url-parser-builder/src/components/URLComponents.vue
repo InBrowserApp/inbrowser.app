@@ -48,15 +48,11 @@
       </n-form-item>
     </n-grid-item>
 
-    <!-- Query Parameters -->
-    <n-grid-item span="1 s:2 m:3 l:5">
+    <!-- TODO: use QueryParamsEditor -->
+    <!-- Search -->
+    <n-grid-item span="1 s:2 m:3 l:4">
       <n-form-item :label="t('query-params')">
-        <n-input
-          v-model:value="queryString"
-          type="textarea"
-          :placeholder="t('query-params-placeholder')"
-          :autosize="{ minRows: 2, maxRows: 6 }"
-        />
+        <n-input v-model:value="queryString" :placeholder="t('query-params-placeholder')" />
       </n-form-item>
     </n-grid-item>
 
@@ -70,7 +66,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { NInput, NInputNumber, NFormItem, NGrid, NGridItem } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { toRef } from 'vue'
@@ -78,18 +74,26 @@ import { syncRef } from '@vueuse/core'
 
 const { t } = useI18n()
 const props = defineProps<{
-  url: URL
+  url: string
 }>()
 const url = toRef(props, 'url')
+const urlObject = computed<URL>(() => {
+  try {
+    return new URL(url.value)
+  } catch {
+    return new URL('')
+  }
+})
+
 const emit = defineEmits<{
-  (e: 'update:url', value: URL): void
+  (e: 'update:url', value: string): void
 }>()
 
-const protocol = ref(props.url.protocol.replace(':', ''))
-const username = ref(props.url.username)
-const password = ref(props.url.password)
-const hostname = ref(props.url.hostname)
-const port = ref(props.url.port)
+const protocol = ref(urlObject.value.protocol.replace(':', ''))
+const username = ref(urlObject.value.username)
+const password = ref(urlObject.value.password)
+const hostname = ref(urlObject.value.hostname)
+const port = ref(urlObject.value.port)
 const portNumber = ref(port.value ? parseInt(port.value) : null)
 
 syncRef(port, portNumber, {
@@ -99,11 +103,11 @@ syncRef(port, portNumber, {
   },
 })
 
-const path = ref(decodeURIComponent(props.url.pathname))
-const hash = ref(decodeURIComponent(props.url.hash))
-const queryString = ref(decodeURIComponent(props.url.search))
+const path = ref(decodeURIComponent(urlObject.value.pathname))
+const hash = ref(decodeURIComponent(urlObject.value.hash))
+const queryString = ref(decodeURIComponent(urlObject.value.search))
 
-watch(url, (newURL) => {
+watch(urlObject, (newURL) => {
   protocol.value = newURL.protocol
   username.value = newURL.username
   password.value = newURL.password
@@ -117,51 +121,48 @@ watch(url, (newURL) => {
 watch(protocol, (newProtocol) => {
   const newURL = new URL(url.value)
   newURL.protocol = newProtocol
-  emit('update:url', newURL)
+  emit('update:url', newURL.toString())
 })
 watch(username, (newUsername) => {
   const newURL = new URL(url.value)
   newURL.username = newUsername
-  emit('update:url', newURL)
+  emit('update:url', newURL.toString())
 })
 watch(password, (newPassword) => {
   const newURL = new URL(url.value)
   newURL.password = newPassword
-  emit('update:url', newURL)
+  emit('update:url', newURL.toString())
 })
 watch(hostname, (newHostname) => {
   const newURL = new URL(url.value)
   newURL.hostname = newHostname
-  emit('update:url', newURL)
+  emit('update:url', newURL.toString())
 })
 watch(port, (newPort) => {
   const newURL = new URL(url.value)
   newURL.port = newPort
-  emit('update:url', newURL)
+  emit('update:url', newURL.toString())
 })
 watch(path, (newPath) => {
   const newURL = new URL(url.value)
   newURL.pathname = newPath
-  emit('update:url', newURL)
+  emit('update:url', newURL.toString())
 })
 watch(hash, (newHash) => {
   const newURL = new URL(url.value)
   newURL.hash = newHash
-  emit('update:url', newURL)
+  emit('update:url', newURL.toString())
 })
 watch(queryString, (newQueryString) => {
   const newURL = new URL(url.value)
   newURL.search = newQueryString
-  emit('update:url', newURL)
+  emit('update:url', newURL.toString())
 })
 </script>
 
 <i18n lang="json">
 {
   "en": {
-    "url": "URL",
-    "url-placeholder": "Enter a complete URL to parse...",
-    "url-components": "URL Components",
     "protocol": "Protocol",
     "protocol-placeholder": "https, http, ftp, etc.",
     "username": "Username",
@@ -177,16 +178,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Query Parameters",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "Hash/Fragment",
-    "hash-placeholder": "section1, anchor, etc.",
-    "parsed-query-params": "Parsed Query Parameters",
-    "parameter-name": "Parameter Name",
-    "parameter-value": "Parameter Value",
-    "invalid-url": "Invalid URL"
+    "hash-placeholder": "section1, anchor, etc."
   },
   "zh": {
-    "url": "URL",
-    "url-placeholder": "输入完整的 URL 进行解析...",
-    "url-components": "URL 组件",
     "protocol": "协议",
     "protocol-placeholder": "https, http, ftp 等",
     "username": "用户名",
@@ -202,16 +196,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "查询参数",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "哈希/片段",
-    "hash-placeholder": "section1, anchor 等",
-    "parsed-query-params": "解析的查询参数",
-    "parameter-name": "参数名",
-    "parameter-value": "参数值",
-    "invalid-url": "无效的 URL"
+    "hash-placeholder": "section1, anchor 等"
   },
   "zh-CN": {
-    "url": "URL",
-    "url-placeholder": "输入完整的 URL 进行解析...",
-    "url-components": "URL 组件",
     "protocol": "协议",
     "protocol-placeholder": "https, http, ftp 等",
     "username": "用户名",
@@ -227,16 +214,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "查询参数",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "哈希/片段",
-    "hash-placeholder": "section1, anchor 等",
-    "parsed-query-params": "解析的查询参数",
-    "parameter-name": "参数名",
-    "parameter-value": "参数值",
-    "invalid-url": "无效的 URL"
+    "hash-placeholder": "section1, anchor 等"
   },
   "zh-TW": {
-    "url": "URL",
-    "url-placeholder": "輸入完整的 URL 進行解析...",
-    "url-components": "URL 組件",
     "protocol": "協定",
     "protocol-placeholder": "https, http, ftp 等",
     "username": "使用者名稱",
@@ -252,16 +232,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "查詢參數",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "雜湊/片段",
-    "hash-placeholder": "section1, anchor 等",
-    "parsed-query-params": "解析的查詢參數",
-    "parameter-name": "參數名稱",
-    "parameter-value": "參數值",
-    "invalid-url": "無效的 URL"
+    "hash-placeholder": "section1, anchor 等"
   },
   "zh-HK": {
-    "url": "URL",
-    "url-placeholder": "輸入完整的 URL 進行解析...",
-    "url-components": "URL 組件",
     "protocol": "協定",
     "protocol-placeholder": "https, http, ftp 等",
     "username": "使用者名稱",
@@ -277,16 +250,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "查詢參數",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "雜湊/片段",
-    "hash-placeholder": "section1, anchor 等",
-    "parsed-query-params": "解析的查詢參數",
-    "parameter-name": "參數名稱",
-    "parameter-value": "參數值",
-    "invalid-url": "無效的 URL"
+    "hash-placeholder": "section1, anchor 等"
   },
   "es": {
-    "url": "URL",
-    "url-placeholder": "Introduce una URL completa para analizar...",
-    "url-components": "Componentes de URL",
     "protocol": "Protocolo",
     "protocol-placeholder": "https, http, ftp, etc.",
     "username": "Nombre de usuario",
@@ -302,16 +268,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Parámetros de consulta",
     "query-params-placeholder": "param1=valor1&param2=valor2",
     "hash": "Hash/Fragmento",
-    "hash-placeholder": "seccion1, anchor, etc.",
-    "parsed-query-params": "Parámetros de consulta analizados",
-    "parameter-name": "Nombre del parámetro",
-    "parameter-value": "Valor del parámetro",
-    "invalid-url": "URL inválida"
+    "hash-placeholder": "seccion1, anchor, etc."
   },
   "fr": {
-    "url": "URL",
-    "url-placeholder": "Entrez une URL complète à analyser...",
-    "url-components": "Composants d'URL",
     "protocol": "Protocole",
     "protocol-placeholder": "https, http, ftp, etc.",
     "username": "Nom d'utilisateur",
@@ -327,16 +286,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Paramètres de requête",
     "query-params-placeholder": "param1=valeur1&param2=valeur2",
     "hash": "Hash/Fragment",
-    "hash-placeholder": "section1, anchor, etc.",
-    "parsed-query-params": "Paramètres de requête analysés",
-    "parameter-name": "Nom du paramètre",
-    "parameter-value": "Valeur du paramètre",
-    "invalid-url": "URL invalide"
+    "hash-placeholder": "section1, anchor, etc."
   },
   "de": {
-    "url": "URL",
-    "url-placeholder": "Geben Sie eine vollständige URL zum Analysieren ein...",
-    "url-components": "URL-Komponenten",
     "protocol": "Protokoll",
     "protocol-placeholder": "https, http, ftp, etc.",
     "username": "Benutzername",
@@ -352,16 +304,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Abfrageparameter",
     "query-params-placeholder": "param1=wert1&param2=wert2",
     "hash": "Hash/Fragment",
-    "hash-placeholder": "sektion1, anchor, etc.",
-    "parsed-query-params": "Analysierte Abfrageparameter",
-    "parameter-name": "Parametername",
-    "parameter-value": "Parameterwert",
-    "invalid-url": "Ungültige URL"
+    "hash-placeholder": "sektion1, anchor, etc."
   },
   "it": {
-    "url": "URL",
-    "url-placeholder": "Inserisci un URL completo da analizzare...",
-    "url-components": "Componenti URL",
     "protocol": "Protocollo",
     "protocol-placeholder": "https, http, ftp, etc.",
     "username": "Nome utente",
@@ -377,16 +322,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Parametri di query",
     "query-params-placeholder": "param1=valore1&param2=valore2",
     "hash": "Hash/Frammento",
-    "hash-placeholder": "sezione1, anchor, etc.",
-    "parsed-query-params": "Parametri di query analizzati",
-    "parameter-name": "Nome parametro",
-    "parameter-value": "Valore parametro",
-    "invalid-url": "URL non valido"
+    "hash-placeholder": "sezione1, anchor, etc."
   },
   "ja": {
-    "url": "URL",
-    "url-placeholder": "解析する完全なURLを入力...",
-    "url-components": "URLコンポーネント",
     "protocol": "プロトコル",
     "protocol-placeholder": "https, http, ftp など",
     "username": "ユーザー名",
@@ -402,16 +340,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "クエリパラメータ",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "ハッシュ/フラグメント",
-    "hash-placeholder": "section1, anchor など",
-    "parsed-query-params": "解析されたクエリパラメータ",
-    "parameter-name": "パラメータ名",
-    "parameter-value": "パラメータ値",
-    "invalid-url": "無効なURL"
+    "hash-placeholder": "section1, anchor など"
   },
   "ko": {
-    "url": "URL",
-    "url-placeholder": "파싱할 완전한 URL을 입력하세요...",
-    "url-components": "URL 구성 요소",
     "protocol": "프로토콜",
     "protocol-placeholder": "https, http, ftp 등",
     "username": "사용자명",
@@ -427,16 +358,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "쿼리 매개변수",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "해시/프래그먼트",
-    "hash-placeholder": "section1, anchor 등",
-    "parsed-query-params": "파싱된 쿼리 매개변수",
-    "parameter-name": "매개변수 이름",
-    "parameter-value": "매개변수 값",
-    "invalid-url": "유효하지 않은 URL"
+    "hash-placeholder": "section1, anchor 등"
   },
   "ru": {
-    "url": "URL",
-    "url-placeholder": "Введите полный URL для анализа...",
-    "url-components": "Компоненты URL",
     "protocol": "Протокол",
     "protocol-placeholder": "https, http, ftp и т.д.",
     "username": "Имя пользователя",
@@ -452,16 +376,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Параметры запроса",
     "query-params-placeholder": "param1=значение1&param2=значение2",
     "hash": "Хеш/Фрагмент",
-    "hash-placeholder": "раздел1, якорь и т.д.",
-    "parsed-query-params": "Разобранные параметры запроса",
-    "parameter-name": "Имя параметра",
-    "parameter-value": "Значение параметра",
-    "invalid-url": "Неверный URL"
+    "hash-placeholder": "раздел1, якорь и т.д."
   },
   "pt": {
-    "url": "URL",
-    "url-placeholder": "Digite uma URL completa para analisar...",
-    "url-components": "Componentes da URL",
     "protocol": "Protocolo",
     "protocol-placeholder": "https, http, ftp, etc.",
     "username": "Nome de usuário",
@@ -477,16 +394,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Parâmetros de consulta",
     "query-params-placeholder": "param1=valor1&param2=valor2",
     "hash": "Hash/Fragmento",
-    "hash-placeholder": "secao1, anchor, etc.",
-    "parsed-query-params": "Parâmetros de consulta analisados",
-    "parameter-name": "Nome do parâmetro",
-    "parameter-value": "Valor do parâmetro",
-    "invalid-url": "URL inválida"
+    "hash-placeholder": "secao1, anchor, etc."
   },
   "ar": {
-    "url": "رابط URL",
-    "url-placeholder": "أدخل رابط URL كامل للتحليل...",
-    "url-components": "مكونات URL",
     "protocol": "البروتوكول",
     "protocol-placeholder": "https, http, ftp إلخ",
     "username": "اسم المستخدم",
@@ -502,16 +412,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "معاملات الاستعلام",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "التجزئة/الجزء",
-    "hash-placeholder": "قسم1، مرساة إلخ",
-    "parsed-query-params": "معاملات الاستعلام المحللة",
-    "parameter-name": "اسم المعامل",
-    "parameter-value": "قيمة المعامل",
-    "invalid-url": "رابط URL غير صالح"
+    "hash-placeholder": "قسم1، مرساة إلخ"
   },
   "hi": {
-    "url": "URL",
-    "url-placeholder": "विश्लेषण के लिए पूरा URL दर्ज करें...",
-    "url-components": "URL घटक",
     "protocol": "प्रोटोकॉल",
     "protocol-placeholder": "https, http, ftp आदि",
     "username": "उपयोगकर्ता नाम",
@@ -527,16 +430,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "क्वेरी पैरामीटर",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "हैश/खंड",
-    "hash-placeholder": "अनुभाग1, एंकर आदि",
-    "parsed-query-params": "पार्स किए गए क्वेरी पैरामीटर",
-    "parameter-name": "पैरामीटर नाम",
-    "parameter-value": "पैरामीटर मान",
-    "invalid-url": "अमान्य URL"
+    "hash-placeholder": "अनुभाग1, एंकर आदि"
   },
   "tr": {
-    "url": "URL",
-    "url-placeholder": "Analiz edilecek tam URL'yi girin...",
-    "url-components": "URL Bileşenleri",
     "protocol": "Protokol",
     "protocol-placeholder": "https, http, ftp vb.",
     "username": "Kullanıcı adı",
@@ -552,16 +448,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Sorgu parametreleri",
     "query-params-placeholder": "param1=değer1&param2=değer2",
     "hash": "Hash/Parça",
-    "hash-placeholder": "bölüm1, çapa vb.",
-    "parsed-query-params": "Ayrıştırılmış sorgu parametreleri",
-    "parameter-name": "Parametre adı",
-    "parameter-value": "Parametre değeri",
-    "invalid-url": "Geçersiz URL"
+    "hash-placeholder": "bölüm1, çapa vb."
   },
   "nl": {
-    "url": "URL",
-    "url-placeholder": "Voer een volledige URL in om te parseren...",
-    "url-components": "URL-componenten",
     "protocol": "Protocol",
     "protocol-placeholder": "https, http, ftp, enz.",
     "username": "Gebruikersnaam",
@@ -577,16 +466,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Query-parameters",
     "query-params-placeholder": "param1=waarde1&param2=waarde2",
     "hash": "Hash/Fragment",
-    "hash-placeholder": "sectie1, anker, enz.",
-    "parsed-query-params": "Geparseerde query-parameters",
-    "parameter-name": "Parameternaam",
-    "parameter-value": "Parameterwaarde",
-    "invalid-url": "Ongeldige URL"
+    "hash-placeholder": "sectie1, anker, enz."
   },
   "sv": {
-    "url": "URL",
-    "url-placeholder": "Ange en komplett URL att analysera...",
-    "url-components": "URL-komponenter",
     "protocol": "Protokoll",
     "protocol-placeholder": "https, http, ftp, etc.",
     "username": "Användarnamn",
@@ -602,16 +484,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Frågeparametrar",
     "query-params-placeholder": "param1=värde1&param2=värde2",
     "hash": "Hash/Fragment",
-    "hash-placeholder": "avsnitt1, ankare, etc.",
-    "parsed-query-params": "Analyserade frågeparametrar",
-    "parameter-name": "Parameternamn",
-    "parameter-value": "Parametervärde",
-    "invalid-url": "Ogiltig URL"
+    "hash-placeholder": "avsnitt1, ankare, etc."
   },
   "pl": {
-    "url": "URL",
-    "url-placeholder": "Wprowadź kompletny URL do analizy...",
-    "url-components": "Komponenty URL",
     "protocol": "Protokół",
     "protocol-placeholder": "https, http, ftp itp.",
     "username": "Nazwa użytkownika",
@@ -627,16 +502,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Parametry zapytania",
     "query-params-placeholder": "param1=wartość1&param2=wartość2",
     "hash": "Hash/Fragment",
-    "hash-placeholder": "sekcja1, kotwica itp.",
-    "parsed-query-params": "Analizowane parametry zapytania",
-    "parameter-name": "Nazwa parametru",
-    "parameter-value": "Wartość parametru",
-    "invalid-url": "Nieprawidłowy URL"
+    "hash-placeholder": "sekcja1, kotwica itp."
   },
   "vi": {
-    "url": "URL",
-    "url-placeholder": "Nhập URL đầy đủ để phân tích...",
-    "url-components": "Thành phần URL",
     "protocol": "Giao thức",
     "protocol-placeholder": "https, http, ftp, v.v.",
     "username": "Tên người dùng",
@@ -652,16 +520,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Tham số truy vấn",
     "query-params-placeholder": "param1=giá_trị1&param2=giá_trị2",
     "hash": "Hash/Phân đoạn",
-    "hash-placeholder": "phần1, neo, v.v.",
-    "parsed-query-params": "Tham số truy vấn đã phân tích",
-    "parameter-name": "Tên tham số",
-    "parameter-value": "Giá trị tham số",
-    "invalid-url": "URL không hợp lệ"
+    "hash-placeholder": "phần1, neo, v.v."
   },
   "th": {
-    "url": "URL",
-    "url-placeholder": "ป้อน URL ที่สมบูรณ์เพื่อวิเคราะห์...",
-    "url-components": "ส่วนประกอบ URL",
     "protocol": "โปรโตคอล",
     "protocol-placeholder": "https, http, ftp ฯลฯ",
     "username": "ชื่อผู้ใช้",
@@ -677,16 +538,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "พารามิเตอร์คิวรี",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "แฮช/ส่วนย่อย",
-    "hash-placeholder": "ส่วน1, สมอ ฯลฯ",
-    "parsed-query-params": "พารามิเตอร์คิวรีที่วิเคราะห์แล้ว",
-    "parameter-name": "ชื่อพารามิเตอร์",
-    "parameter-value": "ค่าพารามิเตอร์",
-    "invalid-url": "URL ไม่ถูกต้อง"
+    "hash-placeholder": "ส่วน1, สมอ ฯลฯ"
   },
   "id": {
-    "url": "URL",
-    "url-placeholder": "Masukkan URL lengkap untuk dianalisis...",
-    "url-components": "Komponen URL",
     "protocol": "Protokol",
     "protocol-placeholder": "https, http, ftp, dll.",
     "username": "Nama pengguna",
@@ -702,16 +556,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Parameter kueri",
     "query-params-placeholder": "param1=nilai1&param2=nilai2",
     "hash": "Hash/Fragmen",
-    "hash-placeholder": "bagian1, jangkar, dll.",
-    "parsed-query-params": "Parameter kueri yang diurai",
-    "parameter-name": "Nama parameter",
-    "parameter-value": "Nilai parameter",
-    "invalid-url": "URL tidak valid"
+    "hash-placeholder": "bagian1, jangkar, dll."
   },
   "he": {
-    "url": "URL",
-    "url-placeholder": "הזן URL מלא לניתוח...",
-    "url-components": "רכיבי URL",
     "protocol": "פרוטוקול",
     "protocol-placeholder": "https, http, ftp וכו'",
     "username": "שם משתמש",
@@ -727,16 +574,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "פרמטרי שאילתה",
     "query-params-placeholder": "param1=value1&param2=value2",
     "hash": "Hash/קטע",
-    "hash-placeholder": "קטע1, עוגן וכו'",
-    "parsed-query-params": "פרמטרי שאילתה מנותחים",
-    "parameter-name": "שם פרמטר",
-    "parameter-value": "ערך פרמטר",
-    "invalid-url": "URL לא תקין"
+    "hash-placeholder": "קטע1, עוגן וכו'"
   },
   "ms": {
-    "url": "URL",
-    "url-placeholder": "Masukkan URL lengkap untuk dianalisis...",
-    "url-components": "Komponen URL",
     "protocol": "Protokol",
     "protocol-placeholder": "https, http, ftp, dll.",
     "username": "Nama pengguna",
@@ -752,16 +592,9 @@ watch(queryString, (newQueryString) => {
     "query-params": "Parameter pertanyaan",
     "query-params-placeholder": "param1=nilai1&param2=nilai2",
     "hash": "Hash/Serpihan",
-    "hash-placeholder": "bahagian1, sauh, dll.",
-    "parsed-query-params": "Parameter pertanyaan yang diurai",
-    "parameter-name": "Nama parameter",
-    "parameter-value": "Nilai parameter",
-    "invalid-url": "URL tidak sah"
+    "hash-placeholder": "bahagian1, sauh, dll."
   },
   "no": {
-    "url": "URL",
-    "url-placeholder": "Skriv inn en fullstendig URL for analyse...",
-    "url-components": "URL-komponenter",
     "protocol": "Protokoll",
     "protocol-placeholder": "https, http, ftp, etc.",
     "username": "Brukernavn",
@@ -777,11 +610,7 @@ watch(queryString, (newQueryString) => {
     "query-params": "Spørringsparametere",
     "query-params-placeholder": "param1=verdi1&param2=verdi2",
     "hash": "Hash/Fragment",
-    "hash-placeholder": "seksjon1, anker, etc.",
-    "parsed-query-params": "Analyserte spørringsparametere",
-    "parameter-name": "Parameternavn",
-    "parameter-value": "Parameterverdi",
-    "invalid-url": "Ugyldig URL"
+    "hash-placeholder": "seksjon1, anker, etc."
   }
 }
 </i18n>

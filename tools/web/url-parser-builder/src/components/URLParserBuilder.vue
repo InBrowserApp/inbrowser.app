@@ -3,7 +3,7 @@
     <!-- URL Input/Output Section -->
     <ToolSectionHeader>URL</ToolSectionHeader>
     <ToolSection>
-      <URLInput v-model:url="url" />
+      <URLInput v-model:url="urlString" />
     </ToolSection>
     <ToolSection>
       <n-flex justify="space-between">
@@ -13,7 +13,7 @@
 
     <!-- URL Components Section -->
     <ToolSectionHeader>{{ t('url-components') }}</ToolSectionHeader>
-    <URLComponents v-model:url="url" />
+    <URLComponents v-model:url="urlString" />
   </div>
 </template>
 

@@ -14,12 +14,12 @@ import { NInput } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 
 const props = defineProps<{
-  url: URL
+  url: string
 }>()
 const urlRef = toRef(props, 'url')
-const url = ref(props.url.toString())
+const url = ref(props.url)
 const emit = defineEmits<{
-  (e: 'update:url', value: URL): void
+  (e: 'update:url', value: string): void
 }>()
 
 const { t } = useI18n()
@@ -35,7 +35,7 @@ const urlStatus = computed(() => {
 })
 
 watch(urlRef, (newURL) => {
-  url.value = newURL.toString()
+  url.value = newURL
 })
 
 // Watch for URL changes and parse them
@@ -43,7 +43,8 @@ watch(
   url,
   (newURL) => {
     try {
-      emit('update:url', new URL(newURL))
+      new URL(newURL)
+      emit('update:url', newURL)
     } catch {
       console.error('Invalid URL', newURL)
     }
