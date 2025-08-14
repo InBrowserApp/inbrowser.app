@@ -1,5 +1,5 @@
 <template>
-  <n-grid cols="1 600:2 900:3 1200:4" :x-gap="10" :y-gap="10">
+  <n-grid cols="1 s:2 m:3 l:4" responsive="screen" :x-gap="10" :y-gap="10">
     <template v-if="tools">
       <n-gi v-for="tool in filteredTools" :key="tool.toolID">
         <ToolThing :tool="tool" :show-icon="true" />
