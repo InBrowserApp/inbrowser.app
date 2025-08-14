@@ -396,6 +396,9 @@ importers:
       '@tools/url-component-encoder-decoder':
         specifier: workspace:*
         version: link:../../tools/web/url-component-encoder-decoder
+      '@tools/url-parser-builder':
+        specifier: workspace:*
+        version: link:../../tools/web/url-parser-builder
       '@tools/uuid':
         specifier: workspace:*
         version: link:../../tools/uuid
@@ -1765,6 +1768,33 @@ importers:
         version: 4.5.1(vue@3.5.18(typescript@5.8.3))
 
   tools/web/url-component-encoder-decoder:
+    dependencies:
+      '@shared/icons':
+        specifier: workspace:*
+        version: link:../../../shared/icons
+      '@shared/tools':
+        specifier: workspace:*
+        version: link:../../../shared/tools
+      '@shared/ui':
+        specifier: workspace:*
+        version: link:../../../shared/ui
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.6.0(vue@3.5.18(typescript@5.8.3))
+      naive-ui:
+        specifier: 'catalog:'
+        version: 2.42.0(vue@3.5.18(typescript@5.8.3))
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.18(typescript@5.8.3)
+      vue-i18n:
+        specifier: 'catalog:'
+        version: 11.1.11(vue@3.5.18(typescript@5.8.3))
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
+
+  tools/web/url-parser-builder:
     dependencies:
       '@shared/icons':
         specifier: workspace:*
