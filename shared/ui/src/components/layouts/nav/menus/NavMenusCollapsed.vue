@@ -1,5 +1,6 @@
 <template>
   <n-flex align="center" :wrap="false">
+    <AirplaneModeToggle />
     <LanguageMenuIcon />
     <n-popover
       style="padding: 0; width: 288px"
@@ -26,6 +27,7 @@ import { NPopover, NIcon, NMenu, NFlex } from 'naive-ui'
 import { MenuOutline } from '@shared/icons/ionicons5'
 import { ref } from 'vue'
 import LanguageMenuIcon from './sub-menus/LanguageMenuIcon.vue'
+import AirplaneModeToggle from './sub-menus/AirplaneModeToggle.vue'
 
 import { useCollapsedMenuOptions } from './sub-menus/use-menu-links'
 

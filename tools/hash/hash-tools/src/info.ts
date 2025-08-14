@@ -2,7 +2,7 @@ export const toolID = 'hash-tools'
 export { Hash as icon } from '@shared/icons/tabler'
 export const path = '/tools/hash-tools'
 export const tags = ['hash']
-export const features = []
+export const features = ['offline']
 export const collection = true
 
 export const meta = {

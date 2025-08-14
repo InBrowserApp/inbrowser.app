@@ -1,4 +1,6 @@
 <template>
+  <AirplaneModeEnabledAlert />
+
   <TheDeveloperSay />
 
   <ToolSectionHeader>
@@ -22,6 +24,7 @@ import { useHead } from '@unhead/vue'
 import { ToolsGrid, ToolSectionHeader, ToolSection } from '@shared/ui/tool'
 import { tools } from '@registry/tools/main'
 import SearchAutoComplete from '../components/search/search-auto-complete/SearchAutoComplete.vue'
+import { AirplaneModeEnabledAlert } from '@shared/ui/tool'
 
 const { t } = useI18n()
 

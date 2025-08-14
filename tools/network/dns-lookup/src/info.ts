@@ -2,7 +2,7 @@ export const toolID = 'dns-lookup'
 export { GlobeSearch24Regular as icon } from '@shared/icons/fluent'
 export const path = '/tools/dns-lookup'
 export const tags = ['dns', 'domain', 'lookup', 'resolver', 'network']
-export const features = ['offline']
+export const features = []
 
 export const meta = {
   en: {

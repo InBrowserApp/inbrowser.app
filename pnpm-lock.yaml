@@ -112,7 +112,7 @@ catalogs:
       specifier: ~1.8.0
       version: 1.8.0
     pinia:
-      specifier: ^3.0.3
+      specifier: 3.0.3
       version: 3.0.3
     prettier:
       specifier: 3.6.2
@@ -477,6 +477,9 @@ importers:
       '@unhead/vue':
         specifier: 'catalog:'
         version: 2.0.14(vue@3.5.18(typescript@5.8.3))
+      '@utils/airplane-mode':
+        specifier: workspace:*
+        version: link:../../utils/airplane-mode
       '@utils/dns':
         specifier: workspace:*
         version: link:../../utils/dns
@@ -1781,6 +1784,18 @@ importers:
       vue-router:
         specifier: 'catalog:'
         version: 4.5.1(vue@3.5.18(typescript@5.8.3))
+
+  utils/airplane-mode:
+    dependencies:
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.6.0(vue@3.5.18(typescript@5.8.3))
+      pinia:
+        specifier: 'catalog:'
+        version: 3.0.3(typescript@5.8.3)(vue@3.5.18(typescript@5.8.3))
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.18(typescript@5.8.3)
 
   utils/dns: {}
 

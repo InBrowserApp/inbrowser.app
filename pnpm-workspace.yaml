@@ -43,7 +43,7 @@ catalog:
   naive-ui: ^2.42.0
   npm-run-all2: ^8.0.4
   oxlint: ~1.8.0
-  pinia: ^3.0.3
+  pinia: 3.0.3
   prettier: 3.6.2
   svgo: ^4.0.0
   typescript: ~5.8.0

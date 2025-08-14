@@ -2,7 +2,7 @@ export const toolID = 'current-network-time'
 export { GlobeClock24Regular as icon } from '@shared/icons/fluent'
 export const path = '/tools/current-network-time'
 export const tags = ['time', 'clock', 'timezone', 'network']
-export const features = ['offline']
+export const features = []
 
 export const meta = {
   en: {

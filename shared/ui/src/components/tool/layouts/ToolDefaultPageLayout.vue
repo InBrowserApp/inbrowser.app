@@ -4,6 +4,8 @@
       <ToolTitle>{{ t('name') }}</ToolTitle>
     </slot>
 
+    <AirplaneModeEnabledAlert v-if="!info.features.includes('offline')" />
+
     <slot name="description">
       <ToolDescription>{{ t('description') }}</ToolDescription>
     </slot>
@@ -23,9 +25,10 @@ import ToolTitle from './ToolTitle.vue'
 import ToolDescription from './ToolDescription.vue'
 import type { ToolInfo } from '@shared/tools'
 import { useHead } from '@unhead/vue'
+import AirplaneModeEnabledAlert from '../airplane/AirplaneModeEnabledAlert.vue'
 
 const props = defineProps<{
-  info: Pick<ToolInfo, 'meta' | 'toolID' | 'tags'>
+  info: Pick<ToolInfo, 'meta' | 'toolID' | 'tags' | 'features'>
   hideRelatedTools?: boolean
 }>()
 

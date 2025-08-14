@@ -14,6 +14,7 @@
     "@shared/locale": "workspace:*",
     "@shared/tools": "workspace:*",
     "@unhead/vue": "catalog:",
+    "@utils/airplane-mode": "workspace:*",
     "@utils/dns": "workspace:*",
     "@utils/ip": "workspace:*",
     "@utils/mac-address": "workspace:*",
