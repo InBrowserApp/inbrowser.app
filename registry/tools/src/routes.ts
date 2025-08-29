@@ -38,6 +38,7 @@ import { routes as urlComponentEncoderDecoderRoutes } from '@tools/url-component
 import { routes as urlParserBuilderRoutes } from '@tools/url-parser-builder/routes'
 import { routes as basicAuthGeneratorRoutes } from '@tools/basic-auth-generator/routes'
 import { routes as basicAuthDecoderRoutes } from '@tools/basic-auth-decoder/routes'
+import { routes as jwtSignerRoutes } from '@tools/jwt-signer/routes'
 
 export const routes: ToolRoute[] = [
   ...faviconAssetsGeneratorRoutes,
@@ -79,4 +80,5 @@ export const routes: ToolRoute[] = [
   ...urlParserBuilderRoutes,
   ...basicAuthGeneratorRoutes,
   ...basicAuthDecoderRoutes,
+  ...jwtSignerRoutes,
 ]
