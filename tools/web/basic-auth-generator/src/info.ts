@@ -11,6 +11,7 @@ export const tags = [
   'password',
   'http',
   'web',
+  'network',
 ]
 export const features = ['offline']
 

@@ -46,10 +46,11 @@
     "@tools/unicode-punycode-converter": "workspace:*",
     "@tools/url-component-encoder-decoder": "workspace:*",
     "@tools/url-parser-builder": "workspace:*",
+    "@tools/basic-auth-generator": "workspace:*",
+    "@tools/basic-auth-decoder": "workspace:*",
     "@tools/uuid": "workspace:*",
     "@tools/xxhash-xxh32-hash-text-or-file": "workspace:*",
     "@tools/xxhash-xxh64-hash-text-or-file": "workspace:*",
-    "@tools/basic-auth-generator": "workspace:*",
     "@vueuse/core": "catalog:",
     "vue": "catalog:"
   }
