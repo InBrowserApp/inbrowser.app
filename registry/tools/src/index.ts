@@ -38,6 +38,7 @@ import { toolInfo as blake2bHashTextOrFileToolInfo } from '@tools/blake2b-hash-t
 import { toolInfo as blake2sHashTextOrFileToolInfo } from '@tools/blake2s-hash-text-or-file'
 import { toolInfo as urlComponentEncoderDecoderToolInfo } from '@tools/url-component-encoder-decoder'
 import { toolInfo as urlParserBuilderToolInfo } from '@tools/url-parser-builder'
+import { toolInfo as basicAuthGeneratorToolInfo } from '@tools/basic-auth-generator'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -88,6 +89,7 @@ export const tools: ToolInfo[] = [
   // Web Tools
   urlComponentEncoderDecoderToolInfo,
   urlParserBuilderToolInfo,
+  basicAuthGeneratorToolInfo,
 
   // Other Tools
   ...redirectsTools,

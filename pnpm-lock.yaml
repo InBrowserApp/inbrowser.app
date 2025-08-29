@@ -294,6 +294,9 @@ importers:
       '@shared/tools':
         specifier: workspace:*
         version: link:../../shared/tools
+      '@tools/basic-auth-generator':
+        specifier: workspace:*
+        version: link:../../tools/web/basic-auth-generator
       '@tools/bcrypt-hash-password':
         specifier: workspace:*
         version: link:../../tools/hash/bcrypt-hash-password
@@ -1757,6 +1760,33 @@ importers:
       uuid:
         specifier: 'catalog:'
         version: 11.1.0
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.18(typescript@5.8.3)
+      vue-i18n:
+        specifier: 'catalog:'
+        version: 11.1.11(vue@3.5.18(typescript@5.8.3))
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
+
+  tools/web/basic-auth-generator:
+    dependencies:
+      '@shared/icons':
+        specifier: workspace:*
+        version: link:../../../shared/icons
+      '@shared/tools':
+        specifier: workspace:*
+        version: link:../../../shared/tools
+      '@shared/ui':
+        specifier: workspace:*
+        version: link:../../../shared/ui
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.6.0(vue@3.5.18(typescript@5.8.3))
+      naive-ui:
+        specifier: 'catalog:'
+        version: 2.42.0(vue@3.5.18(typescript@5.8.3))
       vue:
         specifier: 'catalog:'
         version: 3.5.18(typescript@5.8.3)

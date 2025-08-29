@@ -36,6 +36,7 @@ import { routes as blake2bHashTextOrFileRoutes } from '@tools/blake2b-hash-text-
 import { routes as blake2sHashTextOrFileRoutes } from '@tools/blake2s-hash-text-or-file/routes'
 import { routes as urlComponentEncoderDecoderRoutes } from '@tools/url-component-encoder-decoder/routes'
 import { routes as urlParserBuilderRoutes } from '@tools/url-parser-builder/routes'
+import { routes as basicAuthGeneratorRoutes } from '@tools/basic-auth-generator/routes'
 
 export const routes: ToolRoute[] = [
   ...faviconAssetsGeneratorRoutes,
@@ -75,4 +76,5 @@ export const routes: ToolRoute[] = [
   ...blake2sHashTextOrFileRoutes,
   ...urlComponentEncoderDecoderRoutes,
   ...urlParserBuilderRoutes,
+  ...basicAuthGeneratorRoutes,
 ]
