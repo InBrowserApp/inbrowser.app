@@ -83,6 +83,10 @@ Conventions for new tools
 - Slug naming: kebab-case; path must start with /tools/
 - Meta naming: clear, concise; SEO-friendly en meta.name is important; include zh variants
 - If the tool is pure client-side: add features: ['offline']
+- Split the tool into multiple components if it's too complex.
+- Lookup other tools as examples first then create the new tool.
+- Run `pnpm -F @registry/tools add --workspace @tools/url-parser-builder` to add the new tool to the registry.
+- Run `pnpm install` to install the new tool's dependencies.
 
 Common pitfalls
 
