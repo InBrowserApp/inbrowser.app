@@ -3,8 +3,9 @@
     <n-form-item-gi :label="t('text')" :show-feedback="false">
       <n-input
         v-model:value="text"
-        :autosize="{ minRows: 2, maxRows: 6 }"
+        :autosize="{ minRows: 1, maxRows: 6 }"
         :placeholder="t('text-ph')"
+        type="textarea"
         style="width: 100%"
       />
     </n-form-item-gi>
