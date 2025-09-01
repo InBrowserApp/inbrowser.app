@@ -42,6 +42,7 @@ import { toolInfo as basicAuthGeneratorToolInfo } from '@tools/basic-auth-genera
 import { toolInfo as basicAuthDecoderToolInfo } from '@tools/basic-auth-decoder'
 import { toolInfo as jwtSignerToolInfo } from '@tools/jwt-signer'
 import { toolInfo as jwtDecoderVerifierToolInfo } from '@tools/jwt-decoder-verifier'
+import { toolInfo as randomPasswordGeneratorToolInfo } from '@tools/random-password-generator'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -96,6 +97,7 @@ export const tools: ToolInfo[] = [
   basicAuthDecoderToolInfo,
   jwtSignerToolInfo,
   jwtDecoderVerifierToolInfo,
+  randomPasswordGeneratorToolInfo,
 
   // Other Tools
   ...redirectsTools,
