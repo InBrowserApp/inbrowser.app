@@ -75,6 +75,144 @@ const algOptions = computed(() => [
     "secret": "密钥",
     "algorithm": "算法",
     "auto": "自动"
+  },
+  "zh-CN": {
+    "verify-settings": "验证设置",
+    "secret": "密钥",
+    "algorithm": "算法",
+    "auto": "自动"
+  },
+  "zh-TW": {
+    "verify-settings": "驗證設定",
+    "secret": "密鑰",
+    "algorithm": "演算法",
+    "auto": "自動"
+  },
+  "zh-HK": {
+    "verify-settings": "驗證設定",
+    "secret": "密鑰",
+    "algorithm": "演算法",
+    "auto": "自動"
+  },
+  "es": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "fr": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "de": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "it": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "ja": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "ko": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "ru": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "pt": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "ar": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "hi": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "tr": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "nl": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "sv": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "pl": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "vi": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "th": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "id": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "he": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "ms": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
+  },
+  "no": {
+    "verify-settings": "Verify Settings",
+    "secret": "Secret",
+    "algorithm": "Algorithm",
+    "auto": "Auto"
   }
 }
 </i18n>

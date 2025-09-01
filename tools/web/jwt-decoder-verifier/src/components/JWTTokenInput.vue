@@ -33,6 +33,75 @@ const { t } = useI18n()
   },
   "zh": {
     "token": "令牌"
+  },
+  "zh-CN": {
+    "token": "令牌"
+  },
+  "zh-TW": {
+    "token": "權杖"
+  },
+  "zh-HK": {
+    "token": "權杖"
+  },
+  "es": {
+    "token": "Token"
+  },
+  "fr": {
+    "token": "Token"
+  },
+  "de": {
+    "token": "Token"
+  },
+  "it": {
+    "token": "Token"
+  },
+  "ja": {
+    "token": "Token"
+  },
+  "ko": {
+    "token": "Token"
+  },
+  "ru": {
+    "token": "Token"
+  },
+  "pt": {
+    "token": "Token"
+  },
+  "ar": {
+    "token": "Token"
+  },
+  "hi": {
+    "token": "Token"
+  },
+  "tr": {
+    "token": "Token"
+  },
+  "nl": {
+    "token": "Token"
+  },
+  "sv": {
+    "token": "Token"
+  },
+  "pl": {
+    "token": "Token"
+  },
+  "vi": {
+    "token": "Token"
+  },
+  "th": {
+    "token": "Token"
+  },
+  "id": {
+    "token": "Token"
+  },
+  "he": {
+    "token": "Token"
+  },
+  "ms": {
+    "token": "Token"
+  },
+  "no": {
+    "token": "Token"
   }
 }
 </i18n>
