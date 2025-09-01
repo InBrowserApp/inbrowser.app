@@ -40,5 +40,9 @@
     "typescript": "catalog:",
     "vite": "catalog:",
     "vue-tsc": "catalog:"
+  },
+  "dependencies": {
+    "@tools/barcode-generator": "workspace:*",
+    "jsbarcode": "^3.12.1"
   }
 }

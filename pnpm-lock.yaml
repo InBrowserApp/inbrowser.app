@@ -154,6 +154,13 @@ catalogs:
 importers:
 
   .:
+    dependencies:
+      '@tools/barcode-generator':
+        specifier: workspace:*
+        version: link:tools/image/barcode-generator
+      jsbarcode:
+        specifier: ^3.12.1
+        version: 3.12.1
     devDependencies:
       '@prettier/plugin-oxc':
         specifier: 'catalog:'
@@ -294,6 +301,9 @@ importers:
       '@shared/tools':
         specifier: workspace:*
         version: link:../../shared/tools
+      '@tools/barcode-generator':
+        specifier: workspace:*
+        version: link:../../tools/image/barcode-generator
       '@tools/basic-auth-decoder':
         specifier: workspace:*
         version: link:../../tools/web/basic-auth-decoder
@@ -1132,6 +1142,36 @@ importers:
       xxhash-wasm:
         specifier: ^1.1.0
         version: 1.1.0
+
+  tools/image/barcode-generator:
+    dependencies:
+      '@shared/icons':
+        specifier: workspace:*
+        version: link:../../../shared/icons
+      '@shared/tools':
+        specifier: workspace:*
+        version: link:../../../shared/tools
+      '@shared/ui':
+        specifier: workspace:*
+        version: link:../../../shared/ui
+      '@vueuse/core':
+        specifier: ^10.11.0
+        version: 10.11.1(vue@3.5.18(typescript@5.8.3))
+      jsbarcode:
+        specifier: ^3.12.1
+        version: 3.12.1
+      naive-ui:
+        specifier: ^2.38.1
+        version: 2.42.0(vue@3.5.18(typescript@5.8.3))
+      vue:
+        specifier: ^3.4.0
+        version: 3.5.18(typescript@5.8.3)
+      vue-i18n:
+        specifier: ^9.9.0
+        version: 9.14.5(vue@3.5.18(typescript@5.8.3))
+      vue-router:
+        specifier: ^4.4.0
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
 
   tools/image/image-tools:
     dependencies:
@@ -4731,6 +4771,9 @@ packages:
   js-yaml@4.1.0:
     resolution: {integrity: sha512-wpxZs9NoxZaJESJGIZTyDEaYpl0FKSA+FB9aJiyemKhMwkxQg63h4T1KJgUGHpTqPDNRcmmYLugrRjJlBtWvRA==}
     hasBin: true
+
+  jsbarcode@3.12.1:
+    resolution: {integrity: sha512-QZQSqIknC2Rr/YOUyOkCBqsoiBAOTYK+7yNN3JsqfoUtJtkazxNw1dmPpxuv7VVvqW13kA3/mKiLq+s/e3o9hQ==}
 
   jsdom@26.1.0:
     resolution: {integrity: sha512-Cvc9WUhxSMEo4McES3P7oK3QaXldCfNWp7pl2NNeiIFlCoLr3kfq9kb1fxftiwk1FLV7CvpvDfonxtzUDeSOPg==}
@@ -8918,6 +8961,8 @@ snapshots:
   js-yaml@4.1.0:
     dependencies:
       argparse: 2.0.1
+
+  jsbarcode@3.12.1: {}
 
   jsdom@26.1.0:
     dependencies:
