@@ -1,90 +1,94 @@
 <template>
-  <div>
-    <ToolSectionHeader>{{ t('options') }}</ToolSectionHeader>
-    <ToolSection>
-      <n-tabs v-model:value="activeTab" :default-value="'random'" type="segment" animated>
-        <n-tab-pane name="random" :tab="t('tab-random')">
-          <template #tab>
-            <n-flex align="center" size="small">
-              <n-icon>
-                <RandomIcon />
-              </n-icon>
-              <span>
-                {{ t('tab-random') }}
-              </span>
-            </n-flex>
-          </template>
-          <RandomTab v-model:value="randomValue" :nonce="nonce" />
-        </n-tab-pane>
-        <n-tab-pane name="words" :tab="t('tab-words')">
-          <template #tab>
-            <n-flex align="center" size="small">
-              <n-icon>
-                <WordsIcon />
-              </n-icon>
-              <span>
-                {{ t('tab-words') }}
-              </span>
-            </n-flex>
-          </template>
-          <WordsTab v-model:value="wordsValue" :nonce="nonce" />
-        </n-tab-pane>
-        <n-tab-pane name="separator">
-          <template #tab>
-            <n-flex align="center" size="small">
-              <n-icon>
-                <SeparatorIcon />
-              </n-icon>
-              <span>
-                {{ t('tab-separator') }}
-              </span>
-            </n-flex>
-          </template>
-          <SeparatorTab v-model:value="separatorValue" :nonce="nonce" />
-        </n-tab-pane>
-        <n-tab-pane name="pin">
-          <template #tab>
-            <n-flex align="center" size="small">
-              <n-icon>
-                <PinIcon />
-              </n-icon>
-              <span>
-                {{ t('tab-pin') }}
-              </span>
-            </n-flex>
-          </template>
-          <PinTab v-model:value="pinValue" :nonce="nonce" />
-        </n-tab-pane>
-      </n-tabs>
-    </ToolSection>
+  <n-grid cols="2 l:4" responsive="screen" :x-gap="40" :y-gap="20">
+    <n-gi span="2 l:3">
+      <ToolSectionHeader>{{ t('options') }}</ToolSectionHeader>
+      <ToolSection>
+        <n-tabs v-model:value="activeTab" :default-value="'random'" type="segment" animated>
+          <n-tab-pane name="random" :tab="t('tab-random')">
+            <template #tab>
+              <n-flex align="center" size="small">
+                <n-icon>
+                  <RandomIcon />
+                </n-icon>
+                <span>
+                  {{ t('tab-random') }}
+                </span>
+              </n-flex>
+            </template>
+            <RandomTab v-model:value="randomValue" :nonce="nonce" />
+          </n-tab-pane>
+          <n-tab-pane name="words" :tab="t('tab-words')">
+            <template #tab>
+              <n-flex align="center" size="small">
+                <n-icon>
+                  <WordsIcon />
+                </n-icon>
+                <span>
+                  {{ t('tab-words') }}
+                </span>
+              </n-flex>
+            </template>
+            <WordsTab v-model:value="wordsValue" :nonce="nonce" />
+          </n-tab-pane>
+          <n-tab-pane name="separator">
+            <template #tab>
+              <n-flex align="center" size="small">
+                <n-icon>
+                  <SeparatorIcon />
+                </n-icon>
+                <span>
+                  {{ t('tab-separator') }}
+                </span>
+              </n-flex>
+            </template>
+            <SeparatorTab v-model:value="separatorValue" :nonce="nonce" />
+          </n-tab-pane>
+          <n-tab-pane name="pin">
+            <template #tab>
+              <n-flex align="center" size="small">
+                <n-icon>
+                  <PinIcon />
+                </n-icon>
+                <span>
+                  {{ t('tab-pin') }}
+                </span>
+              </n-flex>
+            </template>
+            <PinTab v-model:value="pinValue" :nonce="nonce" />
+          </n-tab-pane>
+        </n-tabs>
+      </ToolSection>
+    </n-gi>
 
-    <ToolSectionHeader> {{ t('results') }}</ToolSectionHeader>
+    <n-gi span="2 l:1">
+      <ToolSectionHeader> {{ t('results') }}</ToolSectionHeader>
 
-    <ToolSection>
-      <n-flex vertical :size="8">
-        <n-flex justify="center">
-          <CopyToClipboardTooltip :content="password" #="{ copy }">
-            <n-text
-              code
-              style="cursor: pointer; font-size: 2em; word-break: break-all"
-              @click="copy"
-              >{{ password }}</n-text
-            >
-          </CopyToClipboardTooltip>
+      <ToolSection>
+        <n-flex vertical :size="8">
+          <n-flex justify="center">
+            <CopyToClipboardTooltip :content="password" #="{ copy }">
+              <n-text
+                code
+                style="cursor: pointer; font-size: 2em; word-break: break-all"
+                @click="copy"
+                >{{ password }}</n-text
+              >
+            </CopyToClipboardTooltip>
+          </n-flex>
+          <n-flex>
+            <CopyToClipboardButton :content="password" />
+            <RegenerateButton @click="regenerate" />
+          </n-flex>
         </n-flex>
-        <n-flex>
-          <CopyToClipboardButton :content="password" />
-          <RegenerateButton @click="regenerate" />
-        </n-flex>
-      </n-flex>
-    </ToolSection>
-  </div>
+      </ToolSection>
+    </n-gi>
+  </n-grid>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { NTabs, NTabPane, NText, NFlex, NIcon } from 'naive-ui'
+import { NTabs, NTabPane, NText, NFlex, NIcon, NGrid, NGi } from 'naive-ui'
 import { ToolSection, ToolSectionHeader } from '@shared/ui/tool'
 import { CopyToClipboardTooltip, RegenerateButton, CopyToClipboardButton } from '@shared/ui/base'
 import { useStorage } from '@vueuse/core'
