@@ -1,44 +1,47 @@
 <template>
-  <div>
-    <ToolSectionHeader>{{ t('options') }}</ToolSectionHeader>
-    <ToolSection>
-      <QROptionsForm
-        v-model:text="text"
-        v-model:error-correction-level="errorCorrectionLevel"
-        v-model:width="width"
-        v-model:margin="margin"
-        v-model:dark="dark"
-        v-model:light="light"
-      />
-    </ToolSection>
+  <n-grid cols="2 l:4" responsive="screen" :x-gap="40" :y-gap="20">
+    <n-gi span="2 l:3">
+      <ToolSectionHeader>{{ t('content') }}</ToolSectionHeader>
+      <ToolSection>
+        <QRContentForm v-model="text" />
+      </ToolSection>
 
-    <ToolSection>
-      <n-grid cols="1 s:2" responsive="screen" :x-gap="12" :y-gap="12">
-        <n-gi>
-          <ToolSectionHeader>{{ t('preview') }}</ToolSectionHeader>
-          <QRPreview
-            :text="text"
-            :error-correction-level="errorCorrectionLevel"
-            :width="width"
-            :margin="margin"
-            :dark="dark"
-            :light="light"
-          />
-        </n-gi>
-        <n-gi>
-          <ToolSectionHeader>{{ t('download') }}</ToolSectionHeader>
-          <QRDownloadButtons
-            :text="text"
-            :error-correction-level="errorCorrectionLevel"
-            :width="width"
-            :margin="margin"
-            :dark="dark"
-            :light="light"
-          />
-        </n-gi>
-      </n-grid>
-    </ToolSection>
-  </div>
+      <ToolSectionHeader>{{ t('options') }}</ToolSectionHeader>
+      <ToolSection>
+        <QROptionsForm
+          v-model:text="text"
+          v-model:error-correction-level="errorCorrectionLevel"
+          v-model:width="width"
+          v-model:margin="margin"
+          v-model:dark="dark"
+          v-model:light="light"
+          :show-text="false"
+        />
+      </ToolSection>
+    </n-gi>
+
+    <n-gi span="2 l:1">
+      <ToolSectionHeader>{{ t('preview') }}</ToolSectionHeader>
+      <QRPreview
+        :text="text"
+        :error-correction-level="errorCorrectionLevel"
+        :width="width"
+        :margin="margin"
+        :dark="dark"
+        :light="light"
+      />
+
+      <ToolSectionHeader>{{ t('download') }}</ToolSectionHeader>
+      <QRDownloadButtons
+        :text="text"
+        :error-correction-level="errorCorrectionLevel"
+        :width="width"
+        :margin="margin"
+        :dark="dark"
+        :light="light"
+      />
+    </n-gi>
+  </n-grid>
 </template>
 
 <script setup lang="ts">
@@ -46,13 +49,15 @@ import { useI18n } from 'vue-i18n'
 import { ToolSection, ToolSectionHeader } from '@shared/ui/tool'
 import { useStorage } from '@vueuse/core'
 import QROptionsForm from './QROptionsForm.vue'
+import QRContentForm from './QRContentForm.vue'
 import QRPreview from './QRPreview.vue'
 import QRDownloadButtons from './QRDownloadButtons.vue'
 import { NGrid, NGi } from 'naive-ui'
+import { ref } from 'vue'
 
 const { t } = useI18n()
 
-const text = useStorage<string>('tools:qr:text', 'https://inbrowser.app')
+const text = ref<string>('https://inbrowser.app')
 const errorCorrectionLevel = useStorage<'L' | 'M' | 'Q' | 'H'>('tools:qr:ecc', 'M')
 const width = useStorage<number>('tools:qr:width', 256)
 const margin = useStorage<number>('tools:qr:margin', 2)
@@ -63,129 +68,154 @@ const light = useStorage<string>('tools:qr:light', '#ffffffff')
 <i18n lang="json">
 {
   "en": {
+    "content": "Content",
     "options": "Options",
     "preview": "Preview",
     "download": "Download"
   },
   "zh": {
+    "content": "内容",
     "options": "选项",
     "preview": "预览",
     "download": "下载"
   },
   "zh-CN": {
+    "content": "内容",
     "options": "选项",
     "preview": "预览",
     "download": "下载"
   },
   "zh-TW": {
+    "content": "內容",
     "options": "選項",
     "preview": "預覽",
     "download": "下載"
   },
   "zh-HK": {
+    "content": "內容",
     "options": "選項",
     "preview": "預覽",
     "download": "下載"
   },
   "es": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Contenido",
+    "options": "Opciones",
+    "preview": "Vista previa",
+    "download": "Descargar"
   },
   "fr": {
+    "content": "Contenu",
     "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "preview": "Aperçu",
+    "download": "Télécharger"
   },
   "de": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Inhalt",
+    "options": "Optionen",
+    "preview": "Vorschau",
+    "download": "Herunterladen"
   },
   "it": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Contenuto",
+    "options": "Opzioni",
+    "preview": "Anteprima",
+    "download": "Scarica"
   },
   "ja": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "コンテンツ",
+    "options": "オプション",
+    "preview": "プレビュー",
+    "download": "ダウンロード"
   },
   "ko": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "콘텐츠",
+    "options": "옵션",
+    "preview": "미리보기",
+    "download": "다운로드"
   },
   "ru": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Содержимое",
+    "options": "Параметры",
+    "preview": "Предпросмотр",
+    "download": "Скачать"
   },
   "pt": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Conteúdo",
+    "options": "Opções",
+    "preview": "Prévia",
+    "download": "Baixar"
   },
   "ar": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "المحتوى",
+    "options": "الخيارات",
+    "preview": "المعاينة",
+    "download": "تنزيل"
   },
   "hi": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "सामग्री",
+    "options": "विकल्प",
+    "preview": "पूर्वावलोकन",
+    "download": "डाउनलोड"
   },
   "tr": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "İçerik",
+    "options": "Seçenekler",
+    "preview": "Önizleme",
+    "download": "İndir"
   },
   "nl": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Inhoud",
+    "options": "Opties",
+    "preview": "Voorbeeld",
+    "download": "Downloaden"
   },
   "sv": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Innehåll",
+    "options": "Alternativ",
+    "preview": "Förhandsvisning",
+    "download": "Ladda ner"
   },
   "pl": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Zawartość",
+    "options": "Opcje",
+    "preview": "Podgląd",
+    "download": "Pobierz"
   },
   "vi": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Nội dung",
+    "options": "Tùy chọn",
+    "preview": "Xem trước",
+    "download": "Tải xuống"
   },
   "th": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "เนื้อหา",
+    "options": "ตัวเลือก",
+    "preview": "ตัวอย่าง",
+    "download": "ดาวน์โหลด"
   },
   "id": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Konten",
+    "options": "Opsi",
+    "preview": "Pratinjau",
+    "download": "Unduh"
   },
   "he": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "תוכן",
+    "options": "אפשרויות",
+    "preview": "תצוגה מקדימה",
+    "download": "הורדה"
   },
   "ms": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Kandungan",
+    "options": "Pilihan",
+    "preview": "Pratonton",
+    "download": "Muat turun"
   },
   "no": {
-    "options": "Options",
-    "preview": "Preview",
-    "download": "Download"
+    "content": "Innhold",
+    "options": "Alternativer",
+    "preview": "Forhåndsvisning",
+    "download": "Last ned"
   }
 }
 </i18n>
