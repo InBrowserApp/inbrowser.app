@@ -1,7 +1,17 @@
 export const toolID = 'jwt-signer'
 export { ShieldCheckmark24Regular as icon } from '@shared/icons/fluent'
 export const path = '/tools/jwt-signer'
-export const tags = ['jwt', 'json web token', 'token', 'sign', 'security', 'auth', 'web']
+export const tags = [
+  'jwt',
+  'json web token',
+  'json',
+  'token',
+  'sign',
+  'security',
+  'auth',
+  'web',
+  'network',
+]
 export const features = ['offline']
 
 export const meta = {

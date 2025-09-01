@@ -41,6 +41,7 @@ import { toolInfo as urlParserBuilderToolInfo } from '@tools/url-parser-builder'
 import { toolInfo as basicAuthGeneratorToolInfo } from '@tools/basic-auth-generator'
 import { toolInfo as basicAuthDecoderToolInfo } from '@tools/basic-auth-decoder'
 import { toolInfo as jwtSignerToolInfo } from '@tools/jwt-signer'
+import { toolInfo as jwtDecoderVerifierToolInfo } from '@tools/jwt-decoder-verifier'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -94,6 +95,7 @@ export const tools: ToolInfo[] = [
   basicAuthGeneratorToolInfo,
   basicAuthDecoderToolInfo,
   jwtSignerToolInfo,
+  jwtDecoderVerifierToolInfo,
 
   // Other Tools
   ...redirectsTools,
