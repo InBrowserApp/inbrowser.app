@@ -54,6 +54,7 @@
     "@tools/uuid": "workspace:*",
     "@tools/xxhash-xxh32-hash-text-or-file": "workspace:*",
     "@tools/xxhash-xxh64-hash-text-or-file": "workspace:*",
+    "@tools/qr-code-generator": "workspace:*",
     "@vueuse/core": "catalog:",
     "vue": "catalog:"
   }

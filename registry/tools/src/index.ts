@@ -43,6 +43,7 @@ import { toolInfo as basicAuthDecoderToolInfo } from '@tools/basic-auth-decoder'
 import { toolInfo as jwtSignerToolInfo } from '@tools/jwt-signer'
 import { toolInfo as jwtDecoderVerifierToolInfo } from '@tools/jwt-decoder-verifier'
 import { toolInfo as randomPasswordGeneratorToolInfo } from '@tools/random-password-generator'
+import { toolInfo as qrCodeGeneratorToolInfo } from '@tools/qr-code-generator'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -67,6 +68,7 @@ export const tools: ToolInfo[] = [
   imageToolsToolInfo,
   faviconAssetsGeneratorToolInfo,
   pngOptimizerToolInfo,
+  qrCodeGeneratorToolInfo,
 
   // PDF Tools
   pdfToolsToolInfo,

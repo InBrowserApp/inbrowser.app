@@ -41,6 +41,7 @@ import { routes as basicAuthDecoderRoutes } from '@tools/basic-auth-decoder/rout
 import { routes as jwtSignerRoutes } from '@tools/jwt-signer/routes'
 import { routes as jwtDecoderVerifierRoutes } from '@tools/jwt-decoder-verifier/routes'
 import { routes as randomPasswordGeneratorRoutes } from '@tools/random-password-generator/routes'
+import { routes as qrCodeGeneratorRoutes } from '@tools/qr-code-generator/routes'
 
 export const routes: ToolRoute[] = [
   ...faviconAssetsGeneratorRoutes,
@@ -85,4 +86,5 @@ export const routes: ToolRoute[] = [
   ...jwtSignerRoutes,
   ...jwtDecoderVerifierRoutes,
   ...randomPasswordGeneratorRoutes,
+  ...qrCodeGeneratorRoutes,
 ]
