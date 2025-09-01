@@ -45,6 +45,7 @@ import { toolInfo as jwtDecoderVerifierToolInfo } from '@tools/jwt-decoder-verif
 import { toolInfo as randomPasswordGeneratorToolInfo } from '@tools/random-password-generator'
 import { toolInfo as qrCodeGeneratorToolInfo } from '@tools/qr-code-generator'
 import { toolInfo as barcodeGeneratorToolInfo } from '@tools/barcode-generator'
+import { toolInfo as markdownToHtmlConverterToolInfo } from '@tools/markdown-to-html-converter'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -71,6 +72,7 @@ export const tools: ToolInfo[] = [
   pngOptimizerToolInfo,
   qrCodeGeneratorToolInfo,
   barcodeGeneratorToolInfo,
+  markdownToHtmlConverterToolInfo,
 
   // PDF Tools
   pdfToolsToolInfo,
