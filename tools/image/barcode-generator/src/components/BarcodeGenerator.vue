@@ -1,59 +1,56 @@
 <template>
-  <div>
-    <ToolSectionHeader>{{ t('options') }}</ToolSectionHeader>
-    <ToolSection>
-      <BarcodeOptionsForm
-        v-model:text="text"
-        v-model:format="format"
-        v-model:width="barWidth"
-        v-model:height="barHeight"
-        v-model:margin="margin"
-        v-model:display-value="displayValue"
-        v-model:text-align="textAlign"
-        v-model:text-position="textPosition"
-        v-model:font-size="fontSize"
-        v-model:line-color="lineColor"
-        v-model:background="background"
-      />
-    </ToolSection>
+  <n-grid cols="2 l:4" responsive="screen" :x-gap="40" :y-gap="20">
+    <n-gi span="2 l:3">
+      <ToolSectionHeader>{{ t('options') }}</ToolSectionHeader>
+      <ToolSection>
+        <BarcodeOptionsForm
+          v-model:text="text"
+          v-model:format="format"
+          v-model:width="barWidth"
+          v-model:height="barHeight"
+          v-model:margin="margin"
+          v-model:display-value="displayValue"
+          v-model:text-align="textAlign"
+          v-model:text-position="textPosition"
+          v-model:font-size="fontSize"
+          v-model:line-color="lineColor"
+          v-model:background="background"
+        />
+      </ToolSection>
+    </n-gi>
 
-    <ToolSection>
-      <n-grid cols="1 s:2" responsive="screen" :x-gap="12" :y-gap="12">
-        <n-gi>
-          <ToolSectionHeader>{{ t('preview') }}</ToolSectionHeader>
-          <BarcodePreview
-            :text="text"
-            :format="format"
-            :width="barWidth"
-            :height="barHeight"
-            :margin="margin"
-            :display-value="displayValue"
-            :text-align="textAlign"
-            :text-position="textPosition"
-            :font-size="fontSize"
-            :line-color="lineColor"
-            :background="background"
-          />
-        </n-gi>
-        <n-gi>
-          <ToolSectionHeader>{{ t('download') }}</ToolSectionHeader>
-          <BarcodeDownloadButtons
-            :text="text"
-            :format="format"
-            :width="barWidth"
-            :height="barHeight"
-            :margin="margin"
-            :display-value="displayValue"
-            :text-align="textAlign"
-            :text-position="textPosition"
-            :font-size="fontSize"
-            :line-color="lineColor"
-            :background="background"
-          />
-        </n-gi>
-      </n-grid>
-    </ToolSection>
-  </div>
+    <n-gi span="2 l:1">
+      <ToolSectionHeader>{{ t('preview') }}</ToolSectionHeader>
+      <BarcodePreview
+        :text="text"
+        :format="format"
+        :width="barWidth"
+        :height="barHeight"
+        :margin="margin"
+        :display-value="displayValue"
+        :text-align="textAlign"
+        :text-position="textPosition"
+        :font-size="fontSize"
+        :line-color="lineColor"
+        :background="background"
+      />
+
+      <ToolSectionHeader>{{ t('download') }}</ToolSectionHeader>
+      <BarcodeDownloadButtons
+        :text="text"
+        :format="format"
+        :width="barWidth"
+        :height="barHeight"
+        :margin="margin"
+        :display-value="displayValue"
+        :text-align="textAlign"
+        :text-position="textPosition"
+        :font-size="fontSize"
+        :line-color="lineColor"
+        :background="background"
+      />
+    </n-gi>
+  </n-grid>
 </template>
 
 <script setup lang="ts">
