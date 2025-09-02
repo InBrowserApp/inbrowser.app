@@ -324,6 +324,9 @@ importers:
       '@tools/crc-checksum-calculator':
         specifier: workspace:*
         version: link:../../tools/hash/crc-checksum-calculator
+      '@tools/csv-to-json-converter':
+        specifier: workspace:*
+        version: link:../../tools/code/csv-to-json-converter
       '@tools/current-network-time':
         specifier: workspace:*
         version: link:../../tools/time/current-network-time
@@ -586,6 +589,46 @@ importers:
       '@types/validator':
         specifier: 'catalog:'
         version: 13.15.2
+
+  tools/code/csv-to-json-converter:
+    dependencies:
+      '@shared/icons':
+        specifier: workspace:*
+        version: link:../../../shared/icons
+      '@shared/tools':
+        specifier: workspace:*
+        version: link:../../../shared/tools
+      '@shared/ui':
+        specifier: workspace:*
+        version: link:../../../shared/ui
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.6.0(vue@3.5.18(typescript@5.8.3))
+      browser-fs-access:
+        specifier: ^0.38.0
+        version: 0.38.0
+      csvtojson:
+        specifier: ^2.0.10
+        version: 2.0.10
+      highlight.js:
+        specifier: 'catalog:'
+        version: 11.11.1
+      naive-ui:
+        specifier: 'catalog:'
+        version: 2.42.0(vue@3.5.18(typescript@5.8.3))
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.18(typescript@5.8.3)
+      vue-i18n:
+        specifier: 'catalog:'
+        version: 11.1.11(vue@3.5.18(typescript@5.8.3))
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
+    devDependencies:
+      '@types/csvtojson':
+        specifier: ^2.0.3
+        version: 2.0.3
 
   tools/code/json-to-toml-converter:
     dependencies:
@@ -3777,6 +3820,10 @@ packages:
   '@types/crypto-js@4.2.2':
     resolution: {integrity: sha512-sDOLlVbHhXpAUAL0YHDUUwDZf3iN4Bwi4W6a0W0b+QcAezUbRtH4FVb+9J4h+XFPW7l/gQ9F8qC7P+Ec4k8QVQ==}
 
+  '@types/csvtojson@2.0.3':
+    resolution: {integrity: sha512-qutD4v9ydwjTp2XLK4w7FO9SK5QFpbGkCmGRu7+oJPrguUqT82X7ufxmsmx1TpkMdxhftGKdHmPr4DFkx1b0yA==}
+    deprecated: This is a stub types definition. csvtojson provides its own type definitions, so you do not need this installed.
+
   '@types/deep-eql@4.0.2':
     resolution: {integrity: sha512-c9h9dVVMigMPc4bwTvC5dxqtqJZwQPePsWjPlpSOnojbor6pGqdk541lfA7AqFQr5pB1BRdq0juY9db81BwyFw==}
 
@@ -4233,6 +4280,9 @@ packages:
   blakejs@1.2.1:
     resolution: {integrity: sha512-QXUSXI3QVc/gJME0dBpXrag1kbzOqCjCX8/b54ntNyW6sjtoqxqRk3LTmXzaJoh71zMsDCjM+47jS7XiwN/+fQ==}
 
+  bluebird@3.7.2:
+    resolution: {integrity: sha512-XpNj6GDQzdfW+r2Wnn7xiSAd7TM3jzkxGXBGTtWKuSXv1xUV+azxAm8jdWZN06QTQk+2N2XB9jRDkvbmQmcRtg==}
+
   boolbase@1.0.0:
     resolution: {integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==}
 
@@ -4425,6 +4475,11 @@ packages:
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
+
+  csvtojson@2.0.10:
+    resolution: {integrity: sha512-lUWFxGKyhraKCW8Qghz6Z0f2l/PqB1W3AO0HKJzGIQ5JRSlR651ekJDiGJbBT4sRNNv5ddnSGVEnsxP9XRCVpQ==}
+    engines: {node: '>=4.0.0'}
+    hasBin: true
 
   data-urls@5.0.0:
     resolution: {integrity: sha512-ZYP5VBHshaDAiVZxjbRVcFJpc+4xGgT0bK3vzy1HLN8jTO975HEbuYzZJcHoQEY5K1a0z8YayJkyVETa08eNTg==}
@@ -5140,6 +5195,9 @@ packages:
   is-unicode-supported@2.1.0:
     resolution: {integrity: sha512-mE00Gnza5EEB3Ds0HfMyllZzbBrmLOX3vfWoj9A9PEnTfratQ/BcaJOuMhnkhjXvb2+FkY3VuHqtAGpTPmglFQ==}
     engines: {node: '>=18'}
+
+  is-utf8@0.2.1:
+    resolution: {integrity: sha512-rMYPYvCzsXywIsldgLaSoPlw5PfoB/ssr7hY4pLfcodrA5M/eArza1a9VmTiNIBNMjOGr1Ow9mTyU2o69U6U9Q==}
 
   is-weakmap@2.0.2:
     resolution: {integrity: sha512-K5pXYOm9wqY1RgjpL3YTkF39tni1XajUIkawTLUo9EZEVUFga5gSQJF8nNS7ZwJQ02y+1YCNYcMh+HIf1ZqE+w==}
@@ -5958,6 +6016,10 @@ packages:
   strip-ansi@7.1.0:
     resolution: {integrity: sha512-iq6eVVI64nQQTRYq2KtEg2d2uU7LElhTJwsH4YzIHZshxlgZms/wIc4VoDQTlG/IvVIrBKG06CrZnp0qv7hkcQ==}
     engines: {node: '>=12'}
+
+  strip-bom@2.0.0:
+    resolution: {integrity: sha512-kwrX1y7czp1E69n2ajbG65mIo9dqvJ+8aBQXOGVxqwvNbsXdFM6Lq37dLAY3mknUwru8CfcCbfOLL/gMo+fi3g==}
+    engines: {node: '>=0.10.0'}
 
   strip-comments@2.0.1:
     resolution: {integrity: sha512-ZprKx+bBLXv067WTCALv8SSz5l2+XhpYCsVtSqlMnkAXMWDq+/ekVbl1ghqP9rUHTzv6sm/DwCOiYutU/yp1fw==}
@@ -7812,6 +7874,10 @@ snapshots:
 
   '@types/crypto-js@4.2.2': {}
 
+  '@types/csvtojson@2.0.3':
+    dependencies:
+      csvtojson: 2.0.10
+
   '@types/deep-eql@4.0.2': {}
 
   '@types/dompurify@3.2.0':
@@ -8358,6 +8424,8 @@ snapshots:
 
   blakejs@1.2.1: {}
 
+  bluebird@3.7.2: {}
+
   boolbase@1.0.0: {}
 
   brace-expansion@1.1.12:
@@ -8543,6 +8611,12 @@ snapshots:
   csstype@3.0.11: {}
 
   csstype@3.1.3: {}
+
+  csvtojson@2.0.10:
+    dependencies:
+      bluebird: 3.7.2
+      lodash: 4.17.21
+      strip-bom: 2.0.0
 
   data-urls@5.0.0:
     dependencies:
@@ -9331,6 +9405,8 @@ snapshots:
       which-typed-array: 1.1.19
 
   is-unicode-supported@2.1.0: {}
+
+  is-utf8@0.2.1: {}
 
   is-weakmap@2.0.2: {}
 
@@ -10175,6 +10251,10 @@ snapshots:
   strip-ansi@7.1.0:
     dependencies:
       ansi-regex: 6.1.0
+
+  strip-bom@2.0.0:
+    dependencies:
+      is-utf8: 0.2.1
 
   strip-comments@2.0.1: {}
 
