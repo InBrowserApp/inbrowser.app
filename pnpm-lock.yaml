@@ -354,6 +354,9 @@ importers:
       '@tools/ipv6-to-mac':
         specifier: workspace:*
         version: link:../../tools/network/ipv6-to-mac
+      '@tools/json-to-yaml-converter':
+        specifier: workspace:*
+        version: link:../../tools/code/json-to-yaml-converter
       '@tools/jwt-decoder-verifier':
         specifier: workspace:*
         version: link:../../tools/web/jwt-decoder-verifier
@@ -562,6 +565,46 @@ importers:
       '@types/validator':
         specifier: 'catalog:'
         version: 13.15.2
+
+  tools/code/json-to-yaml-converter:
+    dependencies:
+      '@shared/icons':
+        specifier: workspace:*
+        version: link:../../../shared/icons
+      '@shared/tools':
+        specifier: workspace:*
+        version: link:../../../shared/tools
+      '@shared/ui':
+        specifier: workspace:*
+        version: link:../../../shared/ui
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.6.0(vue@3.5.18(typescript@5.8.3))
+      browser-fs-access:
+        specifier: ^0.38.0
+        version: 0.38.0
+      highlight.js:
+        specifier: 'catalog:'
+        version: 11.11.1
+      js-yaml:
+        specifier: ^4.1.0
+        version: 4.1.0
+      naive-ui:
+        specifier: 'catalog:'
+        version: 2.42.0(vue@3.5.18(typescript@5.8.3))
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.18(typescript@5.8.3)
+      vue-i18n:
+        specifier: 'catalog:'
+        version: 11.1.11(vue@3.5.18(typescript@5.8.3))
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
+    devDependencies:
+      '@types/js-yaml':
+        specifier: ^4.0.9
+        version: 4.0.9
 
   tools/document/html-to-markdown-converter:
     dependencies:
@@ -3455,6 +3498,9 @@ packages:
 
   '@types/estree@1.0.8':
     resolution: {integrity: sha512-dWHzHa2WqEXI/O1E9OjrocMTKJl2mSrEolh1Iomrv6U+JuNwaHXsXx9bLu5gG7BUWFIN0skIQJQ/L1rIex4X6w==}
+
+  '@types/js-yaml@4.0.9':
+    resolution: {integrity: sha512-k4MGaQl5TGo/iipqb2UDG2UwjXziSWkh0uysQelTlJpX1qGlpUZYm8PnO4DxG1qBomtJUdYJ6qR6xdIah10JLg==}
 
   '@types/jsdom@21.1.7':
     resolution: {integrity: sha512-yOriVnggzrnQ3a9OKOCxaVuSug3w3/SbOj5i7VwXWZEyUNl3bLF9V3MfxGbZKuwqJOQyRfqXyROBB1CoZLFWzA==}
@@ -7466,6 +7512,8 @@ snapshots:
   '@types/estree@0.0.39': {}
 
   '@types/estree@1.0.8': {}
+
+  '@types/js-yaml@4.0.9': {}
 
   '@types/jsdom@21.1.7':
     dependencies:
