@@ -1,14 +1,5 @@
 <template>
   <n-grid cols="1 s:2 m:3" responsive="screen" :x-gap="12" :y-gap="12">
-    <n-form-item-gi v-if="showText" :label="t('text')" :show-feedback="false">
-      <n-input
-        v-model:value="text"
-        :autosize="{ minRows: 1, maxRows: 6 }"
-        :placeholder="t('text-ph')"
-        type="textarea"
-        style="width: 100%"
-      />
-    </n-form-item-gi>
     <n-form-item-gi :label="t('error-level')" :show-feedback="false">
       <n-select v-model:value="errorCorrectionLevel" :options="errorLevelOptions" />
     </n-form-item-gi>
@@ -30,11 +21,8 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { NGrid, NFormItemGi, NInput, NSelect, NSlider, NColorPicker } from 'naive-ui'
+import { NGrid, NFormItemGi, NSelect, NSlider, NColorPicker } from 'naive-ui'
 
-const { showText } = withDefaults(defineProps<{ showText?: boolean }>(), { showText: true })
-
-const text = defineModel<string>('text', { required: true })
 const errorCorrectionLevel = defineModel<'L' | 'M' | 'Q' | 'H'>('error-correction-level', {
   required: true,
 })

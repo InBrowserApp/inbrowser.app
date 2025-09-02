@@ -9,13 +9,11 @@
       <ToolSectionHeader>{{ t('options') }}</ToolSectionHeader>
       <ToolSection>
         <QROptionsForm
-          v-model:text="text"
           v-model:error-correction-level="errorCorrectionLevel"
           v-model:width="width"
           v-model:margin="margin"
           v-model:dark="dark"
           v-model:light="light"
-          :show-text="false"
         />
       </ToolSection>
     </n-gi>
