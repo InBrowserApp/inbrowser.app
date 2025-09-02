@@ -52,6 +52,7 @@ import { routes as tomlToJsonConverterRoutes } from '@tools/toml-to-json-convert
 import { routes as yamlToTomlConverterRoutes } from '@tools/yaml-to-toml-converter/routes'
 import { routes as tomlToYamlConverterRoutes } from '@tools/toml-to-yaml-converter/routes'
 import { routes as xmlToJsonConverterRoutes } from '@tools/xml-to-json-converter/routes'
+import { routes as jsonToXmlConverterRoutes } from '@tools/json-to-xml-converter/routes'
 
 export const routes: ToolRoute[] = [
   ...faviconAssetsGeneratorRoutes,
@@ -107,4 +108,5 @@ export const routes: ToolRoute[] = [
   ...yamlToTomlConverterRoutes,
   ...tomlToYamlConverterRoutes,
   ...xmlToJsonConverterRoutes,
+  ...jsonToXmlConverterRoutes,
 ]

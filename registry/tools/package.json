@@ -43,6 +43,7 @@
     "@tools/yaml-to-toml-converter": "workspace:*",
     "@tools/toml-to-yaml-converter": "workspace:*",
     "@tools/xml-to-json-converter": "workspace:*",
+    "@tools/json-to-xml-converter": "workspace:*",
     "@tools/md5-hash-text-or-file": "workspace:*",
     "@tools/my-ip-address": "workspace:*",
     "@tools/network-tools": "workspace:*",
