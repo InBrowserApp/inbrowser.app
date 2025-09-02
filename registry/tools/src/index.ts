@@ -56,6 +56,7 @@ import { toolInfo as tomlToYamlConverterToolInfo } from '@tools/toml-to-yaml-con
 import { toolInfo as xmlToJsonConverterToolInfo } from '@tools/xml-to-json-converter'
 import { toolInfo as jsonToXmlConverterToolInfo } from '@tools/json-to-xml-converter'
 import { toolInfo as csvToJsonConverterToolInfo } from '@tools/csv-to-json-converter'
+import { toolInfo as jsonToCsvConverterToolInfo } from '@tools/json-to-csv-converter'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -93,6 +94,7 @@ export const tools: ToolInfo[] = [
   xmlToJsonConverterToolInfo,
   jsonToXmlConverterToolInfo,
   csvToJsonConverterToolInfo,
+  jsonToCsvConverterToolInfo,
 
   // PDF Tools
   pdfToolsToolInfo,

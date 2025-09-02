@@ -26,6 +26,7 @@
     "@tsconfig/node22": "catalog:",
     "@types/jsdom": "catalog:",
     "@types/node": "catalog:",
+    "@types/papaparse": "^5.3.16",
     "@vitest/eslint-plugin": "catalog:",
     "@vue/eslint-config-prettier": "catalog:",
     "@vue/eslint-config-typescript": "catalog:",
