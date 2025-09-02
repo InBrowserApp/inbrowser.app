@@ -59,8 +59,8 @@ const text = ref<string>('https://inbrowser.app')
 const errorCorrectionLevel = useStorage<'L' | 'M' | 'Q' | 'H'>('tools:qr:ecc', 'M')
 const width = useStorage<number>('tools:qr:width', 256)
 const margin = useStorage<number>('tools:qr:margin', 2)
-const dark = useStorage<string>('tools:qr:dark', '#000000ff')
-const light = useStorage<string>('tools:qr:light', '#ffffffff')
+const dark = useStorage<string>('tools:qr:dark', '#000000FF')
+const light = useStorage<string>('tools:qr:light', '#FFFFFFFF')
 </script>
 
 <i18n lang="json">

@@ -73,8 +73,8 @@ const displayValue = useStorage<boolean>('tools:barcode:displayValue', true)
 const textAlign = useStorage<'left' | 'center' | 'right'>('tools:barcode:textAlign', 'center')
 const textPosition = useStorage<'top' | 'bottom'>('tools:barcode:textPosition', 'bottom')
 const fontSize = useStorage<number>('tools:barcode:fontSize', 20)
-const lineColor = useStorage<string>('tools:barcode:lineColor', '#000000')
-const background = useStorage<string>('tools:barcode:background', '#ffffff')
+const lineColor = useStorage<string>('tools:barcode:lineColor', '#000000FF')
+const background = useStorage<string>('tools:barcode:background', '#FFFFFFFF')
 </script>
 
 <i18n lang="json">
