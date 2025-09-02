@@ -46,6 +46,7 @@ import { routes as barcodeGeneratorRoutes } from '@tools/barcode-generator/route
 import { routes as markdownToHtmlConverterRoutes } from '@tools/markdown-to-html-converter/routes'
 import { routes as htmlToMarkdownConverterRoutes } from '@tools/html-to-markdown-converter/routes'
 import { routes as jsonToYamlBuilderRoutes } from '@tools/json-to-yaml-converter/routes'
+import { routes as yamlToJsonConverterRoutes } from '@tools/yaml-to-json-converter/routes'
 
 export const routes: ToolRoute[] = [
   ...faviconAssetsGeneratorRoutes,
@@ -95,4 +96,5 @@ export const routes: ToolRoute[] = [
   ...markdownToHtmlConverterRoutes,
   ...htmlToMarkdownConverterRoutes,
   ...jsonToYamlBuilderRoutes,
+  ...yamlToJsonConverterRoutes,
 ]

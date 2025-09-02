@@ -48,6 +48,7 @@ import { toolInfo as barcodeGeneratorToolInfo } from '@tools/barcode-generator'
 import { toolInfo as markdownToHtmlConverterToolInfo } from '@tools/markdown-to-html-converter'
 import { toolInfo as htmlToMarkdownConverterToolInfo } from '@tools/html-to-markdown-converter'
 import { toolInfo as jsonToYamlBuilderToolInfo } from '@tools/json-to-yaml-converter'
+import { toolInfo as yamlToJsonConverterToolInfo } from '@tools/yaml-to-json-converter'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -77,6 +78,7 @@ export const tools: ToolInfo[] = [
   markdownToHtmlConverterToolInfo,
   htmlToMarkdownConverterToolInfo,
   jsonToYamlBuilderToolInfo,
+  yamlToJsonConverterToolInfo,
 
   // PDF Tools
   pdfToolsToolInfo,
