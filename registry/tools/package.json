@@ -35,6 +35,7 @@
     "@tools/keccak-hash-text-or-file": "workspace:*",
     "@tools/mac-to-ipv6-link-local": "workspace:*",
     "@tools/markdown-to-html-converter": "workspace:*",
+    "@tools/html-to-markdown-converter": "workspace:*",
     "@tools/md5-hash-text-or-file": "workspace:*",
     "@tools/my-ip-address": "workspace:*",
     "@tools/network-tools": "workspace:*",
