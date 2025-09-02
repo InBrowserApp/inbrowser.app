@@ -32,7 +32,7 @@
     <n-form label-placement="left" :show-feedback="false">
       <n-grid cols="1 s:2 m:3 l:4" responsive="screen" :x-gap="20" :y-gap="16">
         <n-form-item-gi :label="t('opt-noheader')">
-          <n-switch v-model:value="params.noheader" size="small" />
+          <n-switch v-model:value="noheader" size="small" />
         </n-form-item-gi>
 
         <n-form-item-gi :label="t('opt-headers')">
@@ -48,34 +48,67 @@
         </n-form-item-gi>
 
         <n-form-item-gi :label="t('opt-trim')">
-          <n-switch v-model:value="params.trim" size="small" />
+          <n-switch v-model:value="trim" size="small" />
         </n-form-item-gi>
 
         <n-form-item-gi :label="t('opt-checkType')">
-          <n-switch v-model:value="params.checkType" size="small" />
+          <n-switch v-model:value="checkType" size="small" />
         </n-form-item-gi>
 
-        <n-form-item-gi :label="t('opt-ignoreEmpty')">
-          <n-switch v-model:value="params.ignoreEmpty" size="small" />
-        </n-form-item-gi>
-
-        <n-form-item-gi :label="t('opt-flatKeys')">
-          <n-switch v-model:value="params.flatKeys" size="small" />
-        </n-form-item-gi>
-
-        <n-form-item-gi :label="t('opt-maxRowLength')">
-          <n-input-number
-            v-model:value="params.maxRowLength"
-            :min="0"
-            :max="1048576"
+        <n-form-item-gi :label="t('opt-skipEmptyLines')">
+          <n-select
+            v-model:value="skipEmpty"
             size="small"
-            :placeholder="t('opt-maxRowLength')"
+            :options="[
+              { label: t('opt-skipEmptyLines-none'), value: 'none' },
+              { label: t('opt-skipEmptyLines-true'), value: 'true' },
+              { label: t('opt-skipEmptyLines-greedy'), value: 'greedy' },
+            ]"
+          />
+        </n-form-item-gi>
+
+        <n-form-item-gi :label="t('opt-escapeChar')">
+          <n-input v-model:value="escapeChar" size="small" placeholder='"' />
+        </n-form-item-gi>
+
+        <n-form-item-gi :label="t('opt-newline')">
+          <n-input v-model:value="newline" size="small" placeholder="auto" />
+        </n-form-item-gi>
+
+        <n-form-item-gi :label="t('opt-preview')">
+          <n-input-number
+            v-model:value="preview"
+            :min="0"
+            :max="1000000"
+            size="small"
             style="width: 100%"
           />
         </n-form-item-gi>
 
-        <n-form-item-gi :label="t('opt-checkColumn')">
-          <n-switch v-model:value="params.checkColumn" size="small" />
+        <n-form-item-gi :label="t('opt-comments')">
+          <n-input v-model:value="comments" size="small" :placeholder="t('opt-comments-ph')" />
+        </n-form-item-gi>
+
+        <n-form-item-gi :label="t('opt-fastMode')">
+          <n-switch v-model:value="fastMode" size="small" />
+        </n-form-item-gi>
+
+        <n-form-item-gi :label="t('opt-skipFirstNLines')">
+          <n-input-number
+            v-model:value="skipFirstNLines"
+            :min="0"
+            :max="1000000"
+            size="small"
+            style="width: 100%"
+          />
+        </n-form-item-gi>
+
+        <n-form-item-gi :label="t('opt-delimitersToGuess')">
+          <n-input
+            v-model:value="delimitersToGuessText"
+            size="small"
+            :placeholder="t('opt-delimitersToGuess-ph')"
+          />
         </n-form-item-gi>
 
         <n-form-item-gi :label="t('opt-includeColumns')">
@@ -119,10 +152,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, watch } from 'vue'
+import { computed } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToolSection } from '@shared/ui/tool'
-import csv from 'csvtojson'
+import Papa from 'papaparse'
+import type { ParseResult } from 'papaparse'
+import { useStorage } from '@vueuse/core'
 import {
   NButton,
   NIcon,
@@ -136,6 +171,7 @@ import {
   NInputNumber,
   NForm,
   NCollapseTransition,
+  NSelect,
 } from 'naive-ui'
 import { CopyToClipboardButton } from '@shared/ui/base'
 import { ArrowDownload16Regular, Document16Regular, Settings16Regular } from '@shared/icons/fluent'
@@ -147,71 +183,89 @@ hljs.registerLanguage('json', jsonLang)
 
 const { t } = useI18n()
 
-const csvText = ref<string>('a,b,c\n1,2,3\n4,5,6')
-const renderedJson = ref<string>('[]')
-const spaces = ref<number>(2)
-const showSettings = ref<boolean>(false)
+const csvText = useStorage<string>('csv2json:csvText', 'a,b,c\n1,2,3\n4,5,6')
+const spaces = useStorage<number>('csv2json:spaces', 2)
+const showSettings = useStorage<boolean>('csv2json:showSettings', false)
 
-const params = reactive({
-  noheader: false,
-  trim: true,
-  checkType: false,
-  ignoreEmpty: false,
-  flatKeys: false,
-  maxRowLength: 0,
-  checkColumn: false,
-})
+const noheader = useStorage<boolean>('csv2json:noheader', false)
+const trim = useStorage<boolean>('csv2json:trim', true)
+const checkType = useStorage<boolean>('csv2json:checkType', false)
 
-const headersText = ref<string>('')
-const delimiter = ref<string>(',')
-const quote = ref<string>('"')
-const includeColumns = ref<string>('')
-const ignoreColumns = ref<string>('')
+const headersText = useStorage<string>('csv2json:headersText', '')
+const delimiter = useStorage<string>('csv2json:delimiter', ',')
+const quote = useStorage<string>('csv2json:quote', '"')
+const includeColumns = useStorage<string>('csv2json:includeColumns', '')
+const ignoreColumns = useStorage<string>('csv2json:ignoreColumns', '')
+const skipEmpty = useStorage<'none' | 'true' | 'greedy'>('csv2json:skipEmpty', 'none')
+const escapeChar = useStorage<string>('csv2json:escapeChar', '"')
+type NewlineOption = '\n' | '\r' | '\r\n'
+const newline = useStorage<NewlineOption | ''>('csv2json:newline', '')
+const preview = useStorage<number>('csv2json:preview', 0)
+const comments = useStorage<string>('csv2json:comments', '')
+const fastMode = useStorage<boolean>('csv2json:fastMode', false)
+const skipFirstNLines = useStorage<number>('csv2json:skipFirstNLines', 0)
+const delimitersToGuessText = useStorage<string>('csv2json:delimitersToGuess', '')
 
-async function convertNow(): Promise<void> {
+const renderedJson = computed(() => {
   try {
-    const parser: any = csv({
-      noheader: params.noheader,
-      trim: params.trim,
-      checkType: params.checkType,
-      ignoreEmpty: params.ignoreEmpty,
-      flatKeys: params.flatKeys,
-      maxRowLength: params.maxRowLength,
-      checkColumn: params.checkColumn,
-      delimiter: delimiter.value === 'auto' ? 'auto' : delimiter.value,
-      quote: quote.value,
-      includeColumns: includeColumns.value ? new RegExp(includeColumns.value) : undefined,
-      ignoreColumns: ignoreColumns.value ? new RegExp(ignoreColumns.value) : undefined,
-      headers: headersText.value
-        ? headersText.value
-            .split(',')
-            .map((h) => h.trim())
-            .filter(Boolean)
-        : undefined,
-    })
-    const arr = await parser.fromString(csvText.value)
-    renderedJson.value = JSON.stringify(arr, null, spaces.value)
-  } catch (e) {
-    renderedJson.value = '// ' + t('invalid-csv')
-  }
-}
+    const hasCustomHeaders = noheader.value && headersText.value.trim().length > 0
+    const effectiveHeader = !noheader.value || hasCustomHeaders
+    const effectiveDelimiter = delimiter.value === 'auto' ? undefined : delimiter.value
 
-watch(
-  [
-    csvText,
-    () => ({ ...params }),
-    delimiter,
-    quote,
-    headersText,
-    includeColumns,
-    ignoreColumns,
-    spaces,
-  ],
-  () => {
-    void convertNow()
-  },
-  { deep: true, immediate: true },
-)
+    let input = csvText.value
+    if (hasCustomHeaders) {
+      const hdrs = headersText.value
+        .split(',')
+        .map((h) => h.trim())
+        .filter(Boolean)
+        .join(effectiveDelimiter ?? ',')
+      input = hdrs + '\n' + csvText.value
+    }
+
+    const result = Papa.parse(input, {
+      delimiter: effectiveDelimiter,
+      newline: (newline.value || undefined) as NewlineOption | undefined,
+      quoteChar: quote.value,
+      escapeChar: escapeChar.value || '"',
+      header: effectiveHeader,
+      dynamicTyping: checkType.value,
+      fastMode: fastMode.value || undefined,
+      skipEmptyLines:
+        skipEmpty.value === 'none' ? false : skipEmpty.value === 'true' ? true : 'greedy',
+      preview: preview.value > 0 ? preview.value : 0,
+      comments: comments.value.trim() === '' ? false : comments.value,
+      delimitersToGuess: delimitersToGuessText.value.trim()
+        ? delimitersToGuessText.value
+            .split(',')
+            .map((s) => s.replace(/\\t/g, '\t').replace(/\\r/g, '\r').replace(/\\n/g, '\n'))
+        : undefined,
+      skipFirstNLines: skipFirstNLines.value > 0 ? skipFirstNLines.value : 0,
+      transformHeader: trim.value ? (h) => (typeof h === 'string' ? h.trim() : h) : undefined,
+      transform: trim.value ? (v) => (typeof v === 'string' ? v.trim() : v) : undefined,
+    }) as ParseResult<unknown>
+
+    let data = result.data as unknown[]
+
+    // Filter columns if needed (only when parsed as objects)
+    if (effectiveHeader && (includeColumns.value || ignoreColumns.value)) {
+      const includeRe = includeColumns.value ? new RegExp(includeColumns.value) : undefined
+      const ignoreRe = ignoreColumns.value ? new RegExp(ignoreColumns.value) : undefined
+      data = (data as Record<string, unknown>[]).map((row) => {
+        const out: Record<string, unknown> = {}
+        for (const key in row) {
+          if (includeRe && !includeRe.test(key)) continue
+          if (ignoreRe && ignoreRe.test(key)) continue
+          out[key] = row[key]
+        }
+        return out
+      })
+    }
+
+    return JSON.stringify(data, null, spaces.value)
+  } catch {
+    return '// ' + t('invalid-csv')
+  }
+})
 
 function downloadJson(): void {
   const blob = new Blob([renderedJson.value], { type: 'application/json;charset=utf-8' })
@@ -250,10 +304,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Quote",
     "opt-trim": "Trim",
     "opt-checkType": "Check types",
-    "opt-ignoreEmpty": "Ignore empty",
-    "opt-flatKeys": "Flat keys",
-    "opt-maxRowLength": "Max row length",
-    "opt-checkColumn": "Check column count",
+    "opt-skipEmptyLines": "Skip empty lines",
+    "opt-skipEmptyLines-none": "Don't skip",
+    "opt-skipEmptyLines-true": "Skip empty",
+    "opt-skipEmptyLines-greedy": "Skip greedy",
+    "opt-escapeChar": "Escape char",
+    "opt-newline": "Newline",
+    "opt-preview": "Preview rows",
+    "opt-comments": "Comments",
+    "opt-comments-ph": "# or // or true",
+    "opt-fastMode": "Fast mode",
+    "opt-skipFirstNLines": "Skip first N lines",
+    "opt-delimitersToGuess": "Delimiters to guess",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Include columns (regex)",
     "opt-ignoreColumns": "Ignore columns (regex)",
     "opt-regex-ph": ".*name|age",
@@ -274,10 +337,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "引号",
     "opt-trim": "裁剪",
     "opt-checkType": "检查类型",
-    "opt-ignoreEmpty": "忽略空值",
-    "opt-flatKeys": "扁平键",
-    "opt-maxRowLength": "最大行长",
-    "opt-checkColumn": "校验列数",
+    "opt-skipEmptyLines": "跳过空行",
+    "opt-skipEmptyLines-none": "不跳过",
+    "opt-skipEmptyLines-true": "跳过空行",
+    "opt-skipEmptyLines-greedy": "贪婪跳过",
+    "opt-escapeChar": "转义字符",
+    "opt-newline": "换行符",
+    "opt-preview": "预览行数",
+    "opt-comments": "注释",
+    "opt-comments-ph": "# 或 // 或 true",
+    "opt-fastMode": "快速模式",
+    "opt-skipFirstNLines": "跳过前 N 行",
+    "opt-delimitersToGuess": "猜测分隔符",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "包含列(正则)",
     "opt-ignoreColumns": "忽略列(正则)",
     "opt-regex-ph": ".*name|age",
@@ -298,10 +370,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "引号",
     "opt-trim": "裁剪",
     "opt-checkType": "检查类型",
-    "opt-ignoreEmpty": "忽略空值",
-    "opt-flatKeys": "扁平键",
-    "opt-maxRowLength": "最大行长",
-    "opt-checkColumn": "校验列数",
+    "opt-skipEmptyLines": "跳过空行",
+    "opt-skipEmptyLines-none": "不跳过",
+    "opt-skipEmptyLines-true": "跳过空行",
+    "opt-skipEmptyLines-greedy": "贪婪跳过",
+    "opt-escapeChar": "转义字符",
+    "opt-newline": "换行符",
+    "opt-preview": "预览行数",
+    "opt-comments": "注释",
+    "opt-comments-ph": "# 或 // 或 true",
+    "opt-fastMode": "快速模式",
+    "opt-skipFirstNLines": "跳过前 N 行",
+    "opt-delimitersToGuess": "猜测分隔符",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "包含列(正则)",
     "opt-ignoreColumns": "忽略列(正则)",
     "opt-regex-ph": ".*name|age",
@@ -322,10 +403,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "引號",
     "opt-trim": "裁剪",
     "opt-checkType": "檢查型別",
-    "opt-ignoreEmpty": "忽略空值",
-    "opt-flatKeys": "扁平鍵",
-    "opt-maxRowLength": "最大列長",
-    "opt-checkColumn": "檢查欄位數",
+    "opt-skipEmptyLines": "跳過空行",
+    "opt-skipEmptyLines-none": "不跳過",
+    "opt-skipEmptyLines-true": "跳過空行",
+    "opt-skipEmptyLines-greedy": "貪婪跳過",
+    "opt-escapeChar": "轉義字元",
+    "opt-newline": "換行符號",
+    "opt-preview": "預覽行數",
+    "opt-comments": "註解",
+    "opt-comments-ph": "# 或 // 或 true",
+    "opt-fastMode": "快速模式",
+    "opt-skipFirstNLines": "跳過前 N 行",
+    "opt-delimitersToGuess": "猜測分隔符號",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "包含欄(正則)",
     "opt-ignoreColumns": "忽略欄(正則)",
     "opt-regex-ph": ".*name|age",
@@ -346,10 +436,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "引號",
     "opt-trim": "裁剪",
     "opt-checkType": "檢查類型",
-    "opt-ignoreEmpty": "忽略空值",
-    "opt-flatKeys": "扁平鍵",
-    "opt-maxRowLength": "最大列長",
-    "opt-checkColumn": "檢查欄位數",
+    "opt-skipEmptyLines": "跳過空行",
+    "opt-skipEmptyLines-none": "不跳過",
+    "opt-skipEmptyLines-true": "跳過空行",
+    "opt-skipEmptyLines-greedy": "貪婪跳過",
+    "opt-escapeChar": "轉義字元",
+    "opt-newline": "換行符號",
+    "opt-preview": "預覽行數",
+    "opt-comments": "註解",
+    "opt-comments-ph": "# 或 // 或 true",
+    "opt-fastMode": "快速模式",
+    "opt-skipFirstNLines": "跳過前 N 行",
+    "opt-delimitersToGuess": "猜測分隔符號",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "包含欄(正則)",
     "opt-ignoreColumns": "忽略欄(正則)",
     "opt-regex-ph": ".*name|age",
@@ -370,10 +469,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Comillas",
     "opt-trim": "Recortar",
     "opt-checkType": "Verificar tipos",
-    "opt-ignoreEmpty": "Ignorar vacíos",
-    "opt-flatKeys": "Claves planas",
-    "opt-maxRowLength": "Longitud máx. fila",
-    "opt-checkColumn": "Verificar columnas",
+    "opt-skipEmptyLines": "Omitir líneas vacías",
+    "opt-skipEmptyLines-none": "No omitir",
+    "opt-skipEmptyLines-true": "Omitir vacías",
+    "opt-skipEmptyLines-greedy": "Omitir codiciosas",
+    "opt-escapeChar": "Carácter de escape",
+    "opt-newline": "Nueva línea",
+    "opt-preview": "Filas de vista previa",
+    "opt-comments": "Comentarios",
+    "opt-comments-ph": "# o // o true",
+    "opt-fastMode": "Modo rápido",
+    "opt-skipFirstNLines": "Omitir primeras N líneas",
+    "opt-delimitersToGuess": "Delimitadores a adivinar",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Incluir columnas (regex)",
     "opt-ignoreColumns": "Ignorar columnas (regex)",
     "opt-regex-ph": ".*name|age",
@@ -394,10 +502,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Guillemet",
     "opt-trim": "Rogner",
     "opt-checkType": "Vérifier les types",
-    "opt-ignoreEmpty": "Ignorer les vides",
-    "opt-flatKeys": "Clés plates",
-    "opt-maxRowLength": "Longueur max. ligne",
-    "opt-checkColumn": "Vérifier colonnes",
+    "opt-skipEmptyLines": "Ignorer lignes vides",
+    "opt-skipEmptyLines-none": "Ne pas ignorer",
+    "opt-skipEmptyLines-true": "Ignorer vides",
+    "opt-skipEmptyLines-greedy": "Ignorer glouton",
+    "opt-escapeChar": "Caractère d'échappement",
+    "opt-newline": "Nouvelle ligne",
+    "opt-preview": "Lignes d'aperçu",
+    "opt-comments": "Commentaires",
+    "opt-comments-ph": "# ou // ou true",
+    "opt-fastMode": "Mode rapide",
+    "opt-skipFirstNLines": "Ignorer les N premières lignes",
+    "opt-delimitersToGuess": "Délimiteurs à deviner",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Inclure colonnes (regex)",
     "opt-ignoreColumns": "Ignorer colonnes (regex)",
     "opt-regex-ph": ".*name|age",
@@ -418,10 +535,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Anführungszeichen",
     "opt-trim": "Trimmen",
     "opt-checkType": "Typen prüfen",
-    "opt-ignoreEmpty": "Leere ignorieren",
-    "opt-flatKeys": "Einfache Schlüssel",
-    "opt-maxRowLength": "Max. Zeilenlänge",
-    "opt-checkColumn": "Spalten prüfen",
+    "opt-skipEmptyLines": "Leere Zeilen überspringen",
+    "opt-skipEmptyLines-none": "Nicht überspringen",
+    "opt-skipEmptyLines-true": "Leere überspringen",
+    "opt-skipEmptyLines-greedy": "Gierig überspringen",
+    "opt-escapeChar": "Escape-Zeichen",
+    "opt-newline": "Zeilenumbruch",
+    "opt-preview": "Vorschauzeilen",
+    "opt-comments": "Kommentare",
+    "opt-comments-ph": "# oder // oder true",
+    "opt-fastMode": "Schnellmodus",
+    "opt-skipFirstNLines": "Erste N Zeilen überspringen",
+    "opt-delimitersToGuess": "Trennzeichen erraten",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Spalten einschl. (Regex)",
     "opt-ignoreColumns": "Spalten ausschl. (Regex)",
     "opt-regex-ph": ".*name|age",
@@ -442,10 +568,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Virgolette",
     "opt-trim": "Taglia",
     "opt-checkType": "Controlla tipi",
-    "opt-ignoreEmpty": "Ignora vuoti",
-    "opt-flatKeys": "Chiavi piatte",
-    "opt-maxRowLength": "Lunghezza max riga",
-    "opt-checkColumn": "Controlla colonne",
+    "opt-skipEmptyLines": "Salta righe vuote",
+    "opt-skipEmptyLines-none": "Non saltare",
+    "opt-skipEmptyLines-true": "Salta vuote",
+    "opt-skipEmptyLines-greedy": "Salta avido",
+    "opt-escapeChar": "Carattere di escape",
+    "opt-newline": "Nuova riga",
+    "opt-preview": "Righe di anteprima",
+    "opt-comments": "Commenti",
+    "opt-comments-ph": "# o // o true",
+    "opt-fastMode": "Modalità veloce",
+    "opt-skipFirstNLines": "Salta prime N righe",
+    "opt-delimitersToGuess": "Delimitatori da indovinare",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Includi colonne (regex)",
     "opt-ignoreColumns": "Ignora colonne (regex)",
     "opt-regex-ph": ".*name|age",
@@ -466,10 +601,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "引用符",
     "opt-trim": "トリム",
     "opt-checkType": "型をチェック",
-    "opt-ignoreEmpty": "空を無視",
-    "opt-flatKeys": "フラットキー",
-    "opt-maxRowLength": "最大行長",
-    "opt-checkColumn": "列数をチェック",
+    "opt-skipEmptyLines": "空行をスキップ",
+    "opt-skipEmptyLines-none": "スキップしない",
+    "opt-skipEmptyLines-true": "空行をスキップ",
+    "opt-skipEmptyLines-greedy": "貪欲にスキップ",
+    "opt-escapeChar": "エスケープ文字",
+    "opt-newline": "改行",
+    "opt-preview": "プレビュー行数",
+    "opt-comments": "コメント",
+    "opt-comments-ph": "# または // または true",
+    "opt-fastMode": "高速モード",
+    "opt-skipFirstNLines": "最初のN行をスキップ",
+    "opt-delimitersToGuess": "推測する区切り文字",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "含める列 (正規表現)",
     "opt-ignoreColumns": "無視する列 (正規表現)",
     "opt-regex-ph": ".*name|age",
@@ -490,10 +634,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "인용부호",
     "opt-trim": "트림",
     "opt-checkType": "타입 확인",
-    "opt-ignoreEmpty": "빈 값 무시",
-    "opt-flatKeys": "플랫 키",
-    "opt-maxRowLength": "최대 행 길이",
-    "opt-checkColumn": "열 수 확인",
+    "opt-skipEmptyLines": "빈 줄 건너뛰기",
+    "opt-skipEmptyLines-none": "건너뛰지 않음",
+    "opt-skipEmptyLines-true": "빈 줄 건너뛰기",
+    "opt-skipEmptyLines-greedy": "탐욕적 건너뛰기",
+    "opt-escapeChar": "이스케이프 문자",
+    "opt-newline": "개행",
+    "opt-preview": "미리보기 행수",
+    "opt-comments": "주석",
+    "opt-comments-ph": "# 또는 // 또는 true",
+    "opt-fastMode": "고속 모드",
+    "opt-skipFirstNLines": "처음 N줄 건너뛰기",
+    "opt-delimitersToGuess": "추측할 구분자",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "포함 열 (정규식)",
     "opt-ignoreColumns": "무시 열 (정규식)",
     "opt-regex-ph": ".*name|age",
@@ -514,10 +667,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Кавычка",
     "opt-trim": "Обрезать",
     "opt-checkType": "Проверка типов",
-    "opt-ignoreEmpty": "Игнорировать пустые",
-    "opt-flatKeys": "Плоские ключи",
-    "opt-maxRowLength": "Макс. длина строки",
-    "opt-checkColumn": "Проверка столбцов",
+    "opt-skipEmptyLines": "Пропускать пустые строки",
+    "opt-skipEmptyLines-none": "Не пропускать",
+    "opt-skipEmptyLines-true": "Пропускать пустые",
+    "opt-skipEmptyLines-greedy": "Жадно пропускать",
+    "opt-escapeChar": "Символ экранирования",
+    "opt-newline": "Новая строка",
+    "opt-preview": "Строки предпросмотра",
+    "opt-comments": "Комментарии",
+    "opt-comments-ph": "# или // или true",
+    "opt-fastMode": "Быстрый режим",
+    "opt-skipFirstNLines": "Пропустить первые N строк",
+    "opt-delimitersToGuess": "Разделители для угадывания",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Включать столбцы (regex)",
     "opt-ignoreColumns": "Игнорировать столбцы (regex)",
     "opt-regex-ph": ".*name|age",
@@ -538,10 +700,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Aspas",
     "opt-trim": "Aparar",
     "opt-checkType": "Verificar tipos",
-    "opt-ignoreEmpty": "Ignorar vazios",
-    "opt-flatKeys": "Chaves planas",
-    "opt-maxRowLength": "Tamanho máx. linha",
-    "opt-checkColumn": "Verificar colunas",
+    "opt-skipEmptyLines": "Pular linhas vazias",
+    "opt-skipEmptyLines-none": "Não pular",
+    "opt-skipEmptyLines-true": "Pular vazias",
+    "opt-skipEmptyLines-greedy": "Pular ganancioso",
+    "opt-escapeChar": "Caractere de escape",
+    "opt-newline": "Nova linha",
+    "opt-preview": "Linhas de visualização",
+    "opt-comments": "Comentários",
+    "opt-comments-ph": "# ou // ou true",
+    "opt-fastMode": "Modo rápido",
+    "opt-skipFirstNLines": "Pular primeiras N linhas",
+    "opt-delimitersToGuess": "Delimitadores para adivinhar",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Incluir colunas (regex)",
     "opt-ignoreColumns": "Ignorar colunas (regex)",
     "opt-regex-ph": ".*name|age",
@@ -562,10 +733,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "علامة الاقتباس",
     "opt-trim": "تشذيب",
     "opt-checkType": "تحقق من الأنواع",
-    "opt-ignoreEmpty": "تجاهل الفارغ",
-    "opt-flatKeys": "مفاتيح مسطحة",
-    "opt-maxRowLength": "الطول الأقصى للصف",
-    "opt-checkColumn": "تحقق من الأعمدة",
+    "opt-skipEmptyLines": "تخطي الأسطر الفارغة",
+    "opt-skipEmptyLines-none": "عدم التخطي",
+    "opt-skipEmptyLines-true": "تخطي الفارغة",
+    "opt-skipEmptyLines-greedy": "تخطي جشع",
+    "opt-escapeChar": "رمز الهروب",
+    "opt-newline": "سطر جديد",
+    "opt-preview": "أسطر المعاينة",
+    "opt-comments": "التعليقات",
+    "opt-comments-ph": "# أو // أو true",
+    "opt-fastMode": "الوضع السريع",
+    "opt-skipFirstNLines": "تخطي أول N أسطر",
+    "opt-delimitersToGuess": "الفواصل للتخمين",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "تضمين الأعمدة (regex)",
     "opt-ignoreColumns": "تجاهل الأعمدة (regex)",
     "opt-regex-ph": ".*name|age",
@@ -586,10 +766,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "उद्धरण",
     "opt-trim": "ट्रिम",
     "opt-checkType": "टाइप जाँचें",
-    "opt-ignoreEmpty": "खाली अनदेखा",
-    "opt-flatKeys": "समतल कुंजियाँ",
-    "opt-maxRowLength": "अधिकतम पंक्ति लंबाई",
-    "opt-checkColumn": "स्तंभ जाँचें",
+    "opt-skipEmptyLines": "खाली पंक्तियाँ छोड़ें",
+    "opt-skipEmptyLines-none": "न छोड़ें",
+    "opt-skipEmptyLines-true": "खाली छोड़ें",
+    "opt-skipEmptyLines-greedy": "लालची छोड़ें",
+    "opt-escapeChar": "एस्केप चरित्र",
+    "opt-newline": "नई पंक्ति",
+    "opt-preview": "पूर्वावलोकन पंक्तियाँ",
+    "opt-comments": "टिप्पणियाँ",
+    "opt-comments-ph": "# या // या true",
+    "opt-fastMode": "तेज़ मोड",
+    "opt-skipFirstNLines": "पहली N पंक्तियाँ छोड़ें",
+    "opt-delimitersToGuess": "अनुमान लगाने के लिए विभाजक",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "कॉलम शामिल (regex)",
     "opt-ignoreColumns": "कॉलम अनदेखा (regex)",
     "opt-regex-ph": ".*name|age",
@@ -610,10 +799,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Tırnak",
     "opt-trim": "Kırp",
     "opt-checkType": "Türleri kontrol et",
-    "opt-ignoreEmpty": "Boşları yoksay",
-    "opt-flatKeys": "Düz anahtarlar",
-    "opt-maxRowLength": "Maks. satır uzunluğu",
-    "opt-checkColumn": "Sütunları kontrol et",
+    "opt-skipEmptyLines": "Boş satırları atla",
+    "opt-skipEmptyLines-none": "Atlama",
+    "opt-skipEmptyLines-true": "Boşları atla",
+    "opt-skipEmptyLines-greedy": "Açgözlü atla",
+    "opt-escapeChar": "Kaçış karakteri",
+    "opt-newline": "Yeni satır",
+    "opt-preview": "Önizleme satırları",
+    "opt-comments": "Yorumlar",
+    "opt-comments-ph": "# veya // veya true",
+    "opt-fastMode": "Hızlı mod",
+    "opt-skipFirstNLines": "İlk N satırı atla",
+    "opt-delimitersToGuess": "Tahmin edilecek ayırıcılar",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Dahil sütunlar (regex)",
     "opt-ignoreColumns": "Yoksay sütunlar (regex)",
     "opt-regex-ph": ".*name|age",
@@ -634,10 +832,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Aanhalingsteken",
     "opt-trim": "Trimmen",
     "opt-checkType": "Typen controleren",
-    "opt-ignoreEmpty": "Lege waarden negeren",
-    "opt-flatKeys": "Platte sleutels",
-    "opt-maxRowLength": "Max. rijlengte",
-    "opt-checkColumn": "Kolommen controleren",
+    "opt-skipEmptyLines": "Lege regels overslaan",
+    "opt-skipEmptyLines-none": "Niet overslaan",
+    "opt-skipEmptyLines-true": "Lege overslaan",
+    "opt-skipEmptyLines-greedy": "Gulzig overslaan",
+    "opt-escapeChar": "Escape-teken",
+    "opt-newline": "Nieuwe regel",
+    "opt-preview": "Voorbeeldregels",
+    "opt-comments": "Opmerkingen",
+    "opt-comments-ph": "# of // of true",
+    "opt-fastMode": "Snelle modus",
+    "opt-skipFirstNLines": "Eerste N regels overslaan",
+    "opt-delimitersToGuess": "Te raden scheidingstekens",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Kolommen opnemen (regex)",
     "opt-ignoreColumns": "Kolommen negeren (regex)",
     "opt-regex-ph": ".*name|age",
@@ -658,10 +865,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Citattecken",
     "opt-trim": "Trimma",
     "opt-checkType": "Kontrollera typer",
-    "opt-ignoreEmpty": "Ignorera tomma",
-    "opt-flatKeys": "Platta nycklar",
-    "opt-maxRowLength": "Max radlängd",
-    "opt-checkColumn": "Kontrollera kolumner",
+    "opt-skipEmptyLines": "Hoppa över tomma rader",
+    "opt-skipEmptyLines-none": "Hoppa inte över",
+    "opt-skipEmptyLines-true": "Hoppa över tomma",
+    "opt-skipEmptyLines-greedy": "Girigt hoppa över",
+    "opt-escapeChar": "Escape-tecken",
+    "opt-newline": "Ny rad",
+    "opt-preview": "Förhandsvisningsrader",
+    "opt-comments": "Kommentarer",
+    "opt-comments-ph": "# eller // eller true",
+    "opt-fastMode": "Snabbläge",
+    "opt-skipFirstNLines": "Hoppa över första N rader",
+    "opt-delimitersToGuess": "Avgränsare att gissa",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Inkludera kolumner (regex)",
     "opt-ignoreColumns": "Ignorera kolumner (regex)",
     "opt-regex-ph": ".*name|age",
@@ -682,10 +898,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Cudzysłów",
     "opt-trim": "Przytnij",
     "opt-checkType": "Sprawdzaj typy",
-    "opt-ignoreEmpty": "Ignoruj puste",
-    "opt-flatKeys": "Płaskie klucze",
-    "opt-maxRowLength": "Maks. długość wiersza",
-    "opt-checkColumn": "Sprawdzaj kolumny",
+    "opt-skipEmptyLines": "Pomiń puste wiersze",
+    "opt-skipEmptyLines-none": "Nie pomijaj",
+    "opt-skipEmptyLines-true": "Pomiń puste",
+    "opt-skipEmptyLines-greedy": "Chciwie pomiń",
+    "opt-escapeChar": "Znak ucieczki",
+    "opt-newline": "Nowa linia",
+    "opt-preview": "Wiersze podglądu",
+    "opt-comments": "Komentarze",
+    "opt-comments-ph": "# lub // lub true",
+    "opt-fastMode": "Tryb szybki",
+    "opt-skipFirstNLines": "Pomiń pierwsze N wierszy",
+    "opt-delimitersToGuess": "Separatory do odgadnięcia",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Uwzględnij kolumny (regex)",
     "opt-ignoreColumns": "Ignoruj kolumny (regex)",
     "opt-regex-ph": ".*name|age",
@@ -706,10 +931,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Dấu ngoặc kép",
     "opt-trim": "Cắt gọn",
     "opt-checkType": "Kiểm tra kiểu",
-    "opt-ignoreEmpty": "Bỏ qua rỗng",
-    "opt-flatKeys": "Khóa phẳng",
-    "opt-maxRowLength": "Độ dài dòng tối đa",
-    "opt-checkColumn": "Kiểm tra cột",
+    "opt-skipEmptyLines": "Bỏ qua dòng trống",
+    "opt-skipEmptyLines-none": "Không bỏ qua",
+    "opt-skipEmptyLines-true": "Bỏ qua trống",
+    "opt-skipEmptyLines-greedy": "Bỏ qua tham lam",
+    "opt-escapeChar": "Ký tự thoát",
+    "opt-newline": "Dòng mới",
+    "opt-preview": "Dòng xem trước",
+    "opt-comments": "Bình luận",
+    "opt-comments-ph": "# hoặc // hoặc true",
+    "opt-fastMode": "Chế độ nhanh",
+    "opt-skipFirstNLines": "Bỏ qua N dòng đầu",
+    "opt-delimitersToGuess": "Dấu phân cách để đoán",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Bao gồm cột (regex)",
     "opt-ignoreColumns": "Bỏ qua cột (regex)",
     "opt-regex-ph": ".*name|age",
@@ -730,10 +964,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "อัญประกาศ",
     "opt-trim": "ตัดแต่ง",
     "opt-checkType": "ตรวจสอบชนิด",
-    "opt-ignoreEmpty": "ละเว้นค่าว่าง",
-    "opt-flatKeys": "คีย์แบน",
-    "opt-maxRowLength": "ความยาวแถวสูงสุด",
-    "opt-checkColumn": "ตรวจสอบคอลัมน์",
+    "opt-skipEmptyLines": "ข้ามบรรทัดว่าง",
+    "opt-skipEmptyLines-none": "ไม่ข้าม",
+    "opt-skipEmptyLines-true": "ข้ามว่าง",
+    "opt-skipEmptyLines-greedy": "ข้ามโลภ",
+    "opt-escapeChar": "ตัวอักษรหลบหนี",
+    "opt-newline": "บรรทัดใหม่",
+    "opt-preview": "บรรทัดแสดงตัวอย่าง",
+    "opt-comments": "ความเห็น",
+    "opt-comments-ph": "# หรือ // หรือ true",
+    "opt-fastMode": "โหมดเร็ว",
+    "opt-skipFirstNLines": "ข้าม N บรรทัดแรก",
+    "opt-delimitersToGuess": "ตัวคั่นที่จะเดา",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "รวมคอลัมน์ (regex)",
     "opt-ignoreColumns": "ละเว้นคอลัมน์ (regex)",
     "opt-regex-ph": ".*name|age",
@@ -754,10 +997,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Tanda kutip",
     "opt-trim": "Pangkas",
     "opt-checkType": "Periksa tipe",
-    "opt-ignoreEmpty": "Abaikan kosong",
-    "opt-flatKeys": "Kunci datar",
-    "opt-maxRowLength": "Panjang baris maks",
-    "opt-checkColumn": "Periksa kolom",
+    "opt-skipEmptyLines": "Lewati baris kosong",
+    "opt-skipEmptyLines-none": "Jangan lewati",
+    "opt-skipEmptyLines-true": "Lewati kosong",
+    "opt-skipEmptyLines-greedy": "Lewati rakus",
+    "opt-escapeChar": "Karakter escape",
+    "opt-newline": "Baris baru",
+    "opt-preview": "Baris pratinjau",
+    "opt-comments": "Komentar",
+    "opt-comments-ph": "# atau // atau true",
+    "opt-fastMode": "Mode cepat",
+    "opt-skipFirstNLines": "Lewati N baris pertama",
+    "opt-delimitersToGuess": "Pemisah untuk ditebak",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Sertakan kolom (regex)",
     "opt-ignoreColumns": "Abaikan kolom (regex)",
     "opt-regex-ph": ".*name|age",
@@ -778,10 +1030,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "גרשיים",
     "opt-trim": "חיתוך",
     "opt-checkType": "בדיקת סוגים",
-    "opt-ignoreEmpty": "התעלם מריקים",
-    "opt-flatKeys": "מפתחות שטוחים",
-    "opt-maxRowLength": "אורך שורה מרבי",
-    "opt-checkColumn": "בדיקת עמודות",
+    "opt-skipEmptyLines": "דלג על שורות ריקות",
+    "opt-skipEmptyLines-none": "אל תדלג",
+    "opt-skipEmptyLines-true": "דלג על ריקות",
+    "opt-skipEmptyLines-greedy": "דלג חמדני",
+    "opt-escapeChar": "תו בריחה",
+    "opt-newline": "שורה חדשה",
+    "opt-preview": "שורות תצוגה מקדימה",
+    "opt-comments": "הערות",
+    "opt-comments-ph": "# או // או true",
+    "opt-fastMode": "מצב מהיר",
+    "opt-skipFirstNLines": "דלג על N שורות ראשונות",
+    "opt-delimitersToGuess": "מפרידים לניחוש",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "כלול עמודות (regex)",
     "opt-ignoreColumns": "התעלם מעמודות (regex)",
     "opt-regex-ph": ".*name|age",
@@ -802,10 +1063,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Petikan",
     "opt-trim": "Potong",
     "opt-checkType": "Periksa jenis",
-    "opt-ignoreEmpty": "Abaikan kosong",
-    "opt-flatKeys": "Kunci rata",
-    "opt-maxRowLength": "Panjang baris maks",
-    "opt-checkColumn": "Periksa lajur",
+    "opt-skipEmptyLines": "Langkau baris kosong",
+    "opt-skipEmptyLines-none": "Jangan langkau",
+    "opt-skipEmptyLines-true": "Langkau kosong",
+    "opt-skipEmptyLines-greedy": "Langkau tamak",
+    "opt-escapeChar": "Aksara pelarian",
+    "opt-newline": "Baris baru",
+    "opt-preview": "Baris pratonton",
+    "opt-comments": "Komen",
+    "opt-comments-ph": "# atau // atau true",
+    "opt-fastMode": "Mod pantas",
+    "opt-skipFirstNLines": "Langkau N baris pertama",
+    "opt-delimitersToGuess": "Pemisah untuk diteka",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Sertakan lajur (regex)",
     "opt-ignoreColumns": "Abaikan lajur (regex)",
     "opt-regex-ph": ".*name|age",
@@ -826,10 +1096,19 @@ async function importFromFile(): Promise<void> {
     "opt-quote": "Anførselstegn",
     "opt-trim": "Trim",
     "opt-checkType": "Sjekk typer",
-    "opt-ignoreEmpty": "Ignorer tomme",
-    "opt-flatKeys": "Flate nøkler",
-    "opt-maxRowLength": "Maks radlengde",
-    "opt-checkColumn": "Sjekk kolonner",
+    "opt-skipEmptyLines": "Hopp over tomme linjer",
+    "opt-skipEmptyLines-none": "Ikke hopp over",
+    "opt-skipEmptyLines-true": "Hopp over tomme",
+    "opt-skipEmptyLines-greedy": "Grådig hopp over",
+    "opt-escapeChar": "Escape-tegn",
+    "opt-newline": "Ny linje",
+    "opt-preview": "Forhåndsvisningslinjer",
+    "opt-comments": "Kommentarer",
+    "opt-comments-ph": "# eller // eller true",
+    "opt-fastMode": "Rask modus",
+    "opt-skipFirstNLines": "Hopp over første N linjer",
+    "opt-delimitersToGuess": "Skilletegn å gjette",
+    "opt-delimitersToGuess-ph": ",,\t,|;",
     "opt-includeColumns": "Inkluder kolonner (regex)",
     "opt-ignoreColumns": "Ignorer kolonner (regex)",
     "opt-regex-ph": ".*name|age",
