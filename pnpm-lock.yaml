@@ -580,9 +580,6 @@ importers:
       browser-fs-access:
         specifier: ^0.38.0
         version: 0.38.0
-      github-markdown-css:
-        specifier: ^5.8.1
-        version: 5.8.1
       highlight.js:
         specifier: 'catalog:'
         version: 11.11.1

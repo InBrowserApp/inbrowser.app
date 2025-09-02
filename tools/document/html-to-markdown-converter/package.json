@@ -13,7 +13,6 @@
         "@shared/ui": "workspace:*",
         "@vueuse/core": "catalog:",
         "browser-fs-access": "^0.38.0",
-        "github-markdown-css": "^5.8.1",
         "highlight.js": "catalog:",
         "naive-ui": "catalog:",
         "turndown": "^7.2.1",
