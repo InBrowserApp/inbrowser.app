@@ -34,7 +34,7 @@ catalog:
   '@vueuse/core': 13.6.0
   '@zip.js/zip.js': ^2.7.72
   eslint: ^9.32.0
-  eslint-plugin-oxlint: ~1.8.0
+  eslint-plugin-oxlint: ~1.14.0
   eslint-plugin-playwright: ^2.2.2
   eslint-plugin-vue: ~10.3.0
   highlight.js: 11.11.1
@@ -42,7 +42,7 @@ catalog:
   jsdom: ^26.1.0
   naive-ui: ^2.42.0
   npm-run-all2: ^8.0.4
-  oxlint: ~1.8.0
+  oxlint: ~1.14.0
   pinia: 3.0.3
   prettier: 3.6.2
   svgo: ^4.0.0
