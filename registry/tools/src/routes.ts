@@ -47,6 +47,7 @@ import { routes as markdownToHtmlConverterRoutes } from '@tools/markdown-to-html
 import { routes as htmlToMarkdownConverterRoutes } from '@tools/html-to-markdown-converter/routes'
 import { routes as jsonToYamlBuilderRoutes } from '@tools/json-to-yaml-converter/routes'
 import { routes as yamlToJsonConverterRoutes } from '@tools/yaml-to-json-converter/routes'
+import { routes as jsonToTomlConverterRoutes } from '@tools/json-to-toml-converter/routes'
 
 export const routes: ToolRoute[] = [
   ...faviconAssetsGeneratorRoutes,
@@ -97,4 +98,5 @@ export const routes: ToolRoute[] = [
   ...htmlToMarkdownConverterRoutes,
   ...jsonToYamlBuilderRoutes,
   ...yamlToJsonConverterRoutes,
+  ...jsonToTomlConverterRoutes,
 ]

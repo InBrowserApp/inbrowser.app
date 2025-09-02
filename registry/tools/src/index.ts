@@ -49,6 +49,7 @@ import { toolInfo as markdownToHtmlConverterToolInfo } from '@tools/markdown-to-
 import { toolInfo as htmlToMarkdownConverterToolInfo } from '@tools/html-to-markdown-converter'
 import { toolInfo as jsonToYamlBuilderToolInfo } from '@tools/json-to-yaml-converter'
 import { toolInfo as yamlToJsonConverterToolInfo } from '@tools/yaml-to-json-converter'
+import { toolInfo as jsonToTomlConverterToolInfo } from '@tools/json-to-toml-converter'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -79,6 +80,7 @@ export const tools: ToolInfo[] = [
   htmlToMarkdownConverterToolInfo,
   jsonToYamlBuilderToolInfo,
   yamlToJsonConverterToolInfo,
+  jsonToTomlConverterToolInfo,
 
   // PDF Tools
   pdfToolsToolInfo,
