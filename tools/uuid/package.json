@@ -16,6 +16,7 @@
     "@utils/uuid": "workspace:*",
     "@vueuse/core": "catalog:",
     "naive-ui": "catalog:",
+    "ulid": "^3.0.1",
     "uuid": "catalog:",
     "vue": "catalog:",
     "vue-i18n": "catalog:",
