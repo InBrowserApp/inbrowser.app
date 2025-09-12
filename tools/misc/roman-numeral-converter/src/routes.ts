@@ -1,4 +1,4 @@
-import type { ToolRoute } from '@shared/tools'
+import type { ToolRoute } from '../../../../shared/tools/src'
 
 export const routes: ToolRoute[] = [
   {

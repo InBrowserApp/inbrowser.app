@@ -1,4 +1,4 @@
-export { Numbers as icon } from '@shared/icons/carbon'
+export { Information as icon } from '../../../../shared/icons/src/carbon'
 
 export const toolID = 'roman-numeral-converter'
 export const path = '/tools/roman-numeral-converter'
