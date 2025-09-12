@@ -363,6 +363,9 @@ importers:
       '@tools/ipv6-to-mac':
         specifier: workspace:*
         version: link:../../tools/network/ipv6-to-mac
+      '@tools/json-formatter':
+        specifier: workspace:*
+        version: link:../../tools/code/json-formatter
       '@tools/json-to-csv-converter':
         specifier: workspace:*
         version: link:../../tools/code/json-to-csv-converter
