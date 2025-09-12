@@ -31,7 +31,7 @@
       </n-flex>
     </n-flex>
   </ToolSection>
-  
+
   <ToolSection>
     <n-grid cols="1 s:2" responsive="screen" :x-gap="12" :y-gap="12">
       <n-form-item-gi :label="t('raw-json')" :show-feedback="false">
@@ -46,7 +46,7 @@
           <n-text type="error">{{ jsonError }}</n-text>
         </template>
       </n-form-item-gi>
-      
+
       <n-form-item-gi :label="t('formatted-json')" :show-feedback="false">
         <n-card size="small">
           <n-code :code="formattedJson" language="json" :hljs="hljs" word-wrap></n-code>
@@ -57,20 +57,20 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { ToolSection } from '@shared/ui/tool'
-import { 
-  NButton, 
-  NIcon, 
-  NCard, 
-  NFormItemGi, 
-  NGrid, 
-  NInput, 
-  NCode, 
-  NFlex, 
+import {
+  NButton,
+  NIcon,
+  NCard,
+  NFormItemGi,
+  NGrid,
+  NInput,
+  NCode,
+  NFlex,
   NText,
-  NInputNumber
+  NInputNumber,
 } from 'naive-ui'
 import { CopyToClipboardButton } from '@shared/ui/base'
 import { ArrowDownload16Regular, Document16Regular } from '@shared/icons/fluent'
@@ -96,19 +96,35 @@ const hasJsonError = computed(() => jsonError.value !== '')
 const formattedJson = computed<string>(() => {
   try {
     if (!jsonText.value.trim()) {
-      jsonError.value = ''
       return ''
     }
-    
+
     const parsed = JSON.parse(jsonText.value)
-    jsonError.value = ''
     return JSON.stringify(parsed, null, indentSize.value)
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : 'Unknown error'
-    jsonError.value = t('invalid-json') + ': ' + errorMessage
     return '# ' + t('invalid-json') + ': ' + errorMessage
   }
 })
+
+// Watch for changes to update error state separately
+watch(
+  [jsonText, indentSize],
+  () => {
+    try {
+      if (!jsonText.value.trim()) {
+        jsonError.value = ''
+        return
+      }
+      JSON.parse(jsonText.value)
+      jsonError.value = ''
+    } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+      jsonError.value = t('invalid-json') + ': ' + errorMessage
+    }
+  },
+  { immediate: true },
+)
 
 function downloadJson(): void {
   const blob = new Blob([formattedJson.value], { type: 'application/json;charset=utf-8' })
@@ -128,7 +144,7 @@ async function importFromFile(): Promise<void> {
       extensions: ['.json', '.txt'],
     })
     jsonText.value = await file.text()
-  } catch (error) {
+  } catch {
     // User cancelled file selection - this is normal
   }
 }

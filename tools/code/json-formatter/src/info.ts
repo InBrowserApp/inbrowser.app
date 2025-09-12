@@ -7,7 +7,8 @@ export const features = ['offline']
 export const meta = {
   en: {
     name: 'JSON Formatter',
-    description: 'Format and prettify JSON with proper indentation. Paste JSON or import a file; preview, copy, and download.',
+    description:
+      'Format and prettify JSON with proper indentation. Paste JSON or import a file; preview, copy, and download.',
   },
   zh: {
     name: 'JSON 格式化器',
@@ -77,7 +78,7 @@ export const meta = {
   tr: {
     name: 'JSON Biçimlendirici',
     description:
-      'JSON\'u uygun girinti ile biçimlendirin ve güzelleştirin. JSON yapıştırın veya dosya içe aktarın; önizleme, kopyalama ve indirme.',
+      "JSON'u uygun girinti ile biçimlendirin ve güzelleştirin. JSON yapıştırın veya dosya içe aktarın; önizleme, kopyalama ve indirme.",
   },
   nl: {
     name: 'JSON-formatter',
@@ -96,11 +97,13 @@ export const meta = {
   },
   vi: {
     name: 'Trình định dạng JSON',
-    description: 'Định dạng và làm đẹp JSON với thụt lề phù hợp. Dán JSON hoặc nhập tệp; xem trước, sao chép và tải xuống.',
+    description:
+      'Định dạng và làm đẹp JSON với thụt lề phù hợp. Dán JSON hoặc nhập tệp; xem trước, sao chép và tải xuống.',
   },
   th: {
     name: 'ตัวจัดรูปแบบ JSON',
-    description: 'จัดรูปแบบและทำให้ JSON สวยงามด้วยการเยื้องที่เหมาะสม วาง JSON หรือ นำเข้าไฟล์; ดูตัวอย่าง คัดลอก และดาวน์โหลด',
+    description:
+      'จัดรูปแบบและทำให้ JSON สวยงามด้วยการเยื้องที่เหมาะสม วาง JSON หรือ นำเข้าไฟล์; ดูตัวอย่าง คัดลอก และดาวน์โหลด',
   },
   id: {
     name: 'Pemformat JSON',
@@ -109,7 +112,8 @@ export const meta = {
   },
   he: {
     name: 'מעצב JSON',
-    description: 'עיצוב ויפוי JSON עם הזחות נכונות. הדביקו JSON או ייבאו קובץ; תצוגה מקדימה, העתקה והורדה.',
+    description:
+      'עיצוב ויפוי JSON עם הזחות נכונות. הדביקו JSON או ייבאו קובץ; תצוגה מקדימה, העתקה והורדה.',
   },
   ms: {
     name: 'Pemformat JSON',
