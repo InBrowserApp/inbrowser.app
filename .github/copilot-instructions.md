@@ -112,19 +112,23 @@ inbrowser.app/
 
 ## Tool Development Patterns
 
+First, read some tools as example.
+
 ### Creating New Tools (follow existing patterns exactly)
 1. **Directory structure:** `tools/<domain>/<tool-slug>/src/`
 2. **Required files:**
    - `info.ts` - Tool metadata with i18n
    - `routes.ts` - Vue Router routes
    - `<ToolName>View.vue` - Main component
+   - `components/**` - To store components, you need organize the components well. Don't let a component code too long.
    - `index.ts` - Exports toolInfo
    - `package.json` - Dependencies
 
 3. **Register in registry:**
 ```bash
 # Add tool to registry workspace
-pnpm -F @registry/tools add --workspace @tools/<domain>/<tool-name>
+# @tools/<tool-name> is defined in tool's package.json name
+pnpm -F @registry/tools add --workspace @tools/<tool-name>
 ```
 
 4. **Tool metadata pattern (info.ts):**
@@ -235,7 +239,8 @@ pnpm -F <package-name> add <dependency>
 
 ### Path Aliases
 - `@shared/*` → `shared/*` packages
-- `@tools/<package>` → `tools/<package>/src`
+- `@tools/<package>` → `tools/<package>/src/index.ts`
+- `@tools/<package>/route` → `tools/<package>/src/route.ts`
 - Registry aggregates all tool routes and info
 
 ## Validation Steps
