@@ -11,7 +11,7 @@
       <ColorDepth />
       <DevicePixelRatio />
       <ScreenOrientation />
-      <Fps />
+      <FpsInfo />
       <MultipleScreens />
     </InfosGrid>
   </ToolSection>
@@ -30,7 +30,7 @@ import ViewportSize from '../screen/ViewportSize.vue'
 import ColorDepth from '../screen/ColorDepth.vue'
 import DevicePixelRatio from '../screen/DevicePixelRatio.vue'
 import ScreenOrientation from '../screen/ScreenOrientation.vue'
-import Fps from '../screen/Fps.vue'
+import FpsInfo from '../screen/FpsInfo.vue'
 import MultipleScreens from '../screen/MultipleScreens.vue'
 
 const { t } = useI18n()

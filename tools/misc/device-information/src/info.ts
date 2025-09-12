@@ -48,7 +48,7 @@ export const meta = {
   it: {
     name: 'Informazioni Dispositivo',
     description:
-      "Visualizza informazioni complete del dispositivo e browser inclusa risoluzione schermo, profondità colore, dimensione finestra, user agent, dettagli piattaforma e capacità di sistema",
+      'Visualizza informazioni complete del dispositivo e browser inclusa risoluzione schermo, profondità colore, dimensione finestra, user agent, dettagli piattaforma e capacità di sistema',
   },
   ja: {
     name: 'デバイス情報',

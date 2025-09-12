@@ -8,8 +8,8 @@
       <PrimaryLanguage />
       <BrowserLanguages />
       <Architecture />
-      <Platform />
-      <Timezone />
+      <PlatformInfo />
+      <TimezoneInfo />
       <CookieEnabled />
       <UserAgent />
     </InfosGrid>
@@ -25,9 +25,9 @@ import InfosGrid from '../common/InfosGrid.vue'
 import BrowserName from '../browser/BrowserName.vue'
 import PrimaryLanguage from '../browser/PrimaryLanguage.vue'
 import BrowserLanguages from '../browser/BrowserLanguages.vue'
-import Architecture from '../browser/Architecture.vue'
-import Platform from '../browser/Platform.vue'
-import Timezone from '../browser/Timezone.vue'
+import Architecture from '../browser/ArchitectureInfo.vue'
+import PlatformInfo from '../browser/PlatformInfo.vue'
+import TimezoneInfo from '../browser/TimezoneInfo.vue'
 import CookieEnabled from '../browser/CookieEnabled.vue'
 import UserAgent from '../browser/UserAgent.vue'
 
