@@ -253,4 +253,8 @@ Before submitting changes:
 5. `pnpm build` - Ensure production build works
 6. Test tool functionality manually if adding/modifying tools
 
+## Git Message
+
+Use Conventional Commits. New tool message example:  `feat(tools): add xxx tool`
+
 **Trust these instructions** - they are comprehensive and tested. Only search for additional information if these instructions are incomplete or incorrect for your specific use case.
