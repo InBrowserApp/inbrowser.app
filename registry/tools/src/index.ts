@@ -57,6 +57,7 @@ import { toolInfo as xmlToJsonConverterToolInfo } from '@tools/xml-to-json-conve
 import { toolInfo as jsonToXmlConverterToolInfo } from '@tools/json-to-xml-converter'
 import { toolInfo as csvToJsonConverterToolInfo } from '@tools/csv-to-json-converter'
 import { toolInfo as jsonToCsvConverterToolInfo } from '@tools/json-to-csv-converter'
+// import { toolInfo as jsonFormatterToolInfo } from '@tools/json-formatter'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -95,6 +96,7 @@ export const tools: ToolInfo[] = [
   jsonToXmlConverterToolInfo,
   csvToJsonConverterToolInfo,
   jsonToCsvConverterToolInfo,
+  // jsonFormatterToolInfo,
 
   // PDF Tools
   pdfToolsToolInfo,

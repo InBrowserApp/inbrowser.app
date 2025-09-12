@@ -636,6 +636,39 @@ importers:
         specifier: ^5.3.16
         version: 5.3.16
 
+  tools/code/json-formatter:
+    dependencies:
+      '@shared/icons':
+        specifier: workspace:*
+        version: link:../../../shared/icons
+      '@shared/tools':
+        specifier: workspace:*
+        version: link:../../../shared/tools
+      '@shared/ui':
+        specifier: workspace:*
+        version: link:../../../shared/ui
+      '@vueuse/core':
+        specifier: 'catalog:'
+        version: 13.6.0(vue@3.5.18(typescript@5.8.3))
+      browser-fs-access:
+        specifier: ^0.38.0
+        version: 0.38.0
+      highlight.js:
+        specifier: 'catalog:'
+        version: 11.11.1
+      naive-ui:
+        specifier: 'catalog:'
+        version: 2.42.0(vue@3.5.18(typescript@5.8.3))
+      vue:
+        specifier: 'catalog:'
+        version: 3.5.18(typescript@5.8.3)
+      vue-i18n:
+        specifier: 'catalog:'
+        version: 11.1.11(vue@3.5.18(typescript@5.8.3))
+      vue-router:
+        specifier: 'catalog:'
+        version: 4.5.1(vue@3.5.18(typescript@5.8.3))
+
   tools/code/json-to-csv-converter:
     dependencies:
       '@shared/icons':
