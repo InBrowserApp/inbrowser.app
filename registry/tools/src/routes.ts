@@ -55,7 +55,8 @@ import { routes as xmlToJsonConverterRoutes } from '@tools/xml-to-json-converter
 import { routes as jsonToXmlConverterRoutes } from '@tools/json-to-xml-converter/routes'
 import { routes as csvToJsonConverterRoutes } from '@tools/csv-to-json-converter/routes'
 import { routes as jsonToCsvConverterRoutes } from '@tools/json-to-csv-converter/routes'
-// import { routes as jsonFormatterRoutes } from '@tools/json-formatter/routes'
+import { routes as jsonFormatterRoutes } from '@tools/json-formatter/routes'
+import { routes as deviceInformationRoutes } from '@tools/device-information/routes'
 
 export const routes: ToolRoute[] = [
   ...faviconAssetsGeneratorRoutes,
@@ -114,5 +115,6 @@ export const routes: ToolRoute[] = [
   ...jsonToXmlConverterRoutes,
   ...csvToJsonConverterRoutes,
   ...jsonToCsvConverterRoutes,
-  // ...jsonFormatterRoutes,
+  ...jsonFormatterRoutes,
+  ...deviceInformationRoutes,
 ]
