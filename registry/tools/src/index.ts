@@ -59,6 +59,7 @@ import { toolInfo as csvToJsonConverterToolInfo } from '@tools/csv-to-json-conve
 import { toolInfo as jsonToCsvConverterToolInfo } from '@tools/json-to-csv-converter'
 import { toolInfo as jsonFormatterToolInfo } from '@tools/json-formatter'
 import { toolInfo as deviceInformationToolInfo } from '@tools/device-information'
+import { toolInfo as romanNumeralConverterToolInfo } from '@tools/roman-numeral-converter'
 
 export const tools: ToolInfo[] = [
   // Network Tools
@@ -133,4 +134,5 @@ export const tools: ToolInfo[] = [
   // Other Tools
   ...redirectsTools,
   deviceInformationToolInfo,
+  romanNumeralConverterToolInfo,
 ]
