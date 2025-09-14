@@ -45,7 +45,12 @@ import * as toolInfo from './info'
 import { ToolDefaultPageLayout, ToolSectionHeader, ToolSection } from '@shared/ui/tool'
 import { CopyToClipboardButton } from '@shared/ui/base'
 import WhatIsRomanNumeral from './components/WhatIsRomanNumeral.vue'
-import { arabicToRoman, romanToArabic, isValidArabicNumber, isValidRomanNumeral } from './utils/conversion'
+import {
+  arabicToRoman,
+  romanToArabic,
+  isValidArabicNumber,
+  isValidRomanNumeral,
+} from './utils/conversion'
 
 const { t } = useI18n()
 
@@ -76,7 +81,7 @@ const arabicRule: FormItemRule = {
       }
     }
     return true
-  }
+  },
 }
 
 const romanRule: FormItemRule = {
@@ -87,13 +92,13 @@ const romanRule: FormItemRule = {
       return new Error(t('invalidRomanNumeral'))
     }
     return true
-  }
+  },
 }
 
 // Watch Arabic input and convert to Roman
 watch(arabicInput, (newValue) => {
   if (isUpdating) return
-  
+
   if (!newValue) {
     isUpdating = true
     romanInput.value = ''
@@ -101,9 +106,9 @@ watch(arabicInput, (newValue) => {
     isUpdating = false
     return
   }
-  
+
   const num = parseInt(newValue)
-  
+
   if (isValidArabicNumber(num)) {
     try {
       isUpdating = true
@@ -127,7 +132,7 @@ watch(arabicInput, (newValue) => {
 // Watch Roman input and convert to Arabic
 watch(romanInput, (newValue) => {
   if (isUpdating) return
-  
+
   if (!newValue) {
     isUpdating = true
     arabicInput.value = ''

@@ -14,7 +14,7 @@ const romanValues = [
   { value: 9, symbol: 'IX' },
   { value: 5, symbol: 'V' },
   { value: 4, symbol: 'IV' },
-  { value: 1, symbol: 'I' }
+  { value: 1, symbol: 'I' },
 ]
 
 /**
@@ -55,11 +55,11 @@ export function romanToArabic(roman: string): number {
     L: 50,
     C: 100,
     D: 500,
-    M: 1000
+    M: 1000,
   }
 
   const cleanRoman = roman.toUpperCase().trim()
-  
+
   // Validate Roman numeral format
   if (!/^[IVXLCDM]+$/.test(cleanRoman)) {
     throw new Error('Invalid Roman numeral format')
@@ -70,7 +70,7 @@ export function romanToArabic(roman: string): number {
 
   for (let i = cleanRoman.length - 1; i >= 0; i--) {
     const currentValue = romanMap[cleanRoman[i]]
-    
+
     if (!currentValue) {
       throw new Error('Invalid Roman numeral character')
     }
@@ -80,7 +80,7 @@ export function romanToArabic(roman: string): number {
     } else {
       result += currentValue
     }
-    
+
     prevValue = currentValue
   }
 
