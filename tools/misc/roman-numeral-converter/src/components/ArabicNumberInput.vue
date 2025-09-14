@@ -1,12 +1,14 @@
 <template>
   <ToolSectionHeader>{{ t('arabicNumber') }}</ToolSectionHeader>
   <ToolSection>
-    <n-input
-      :value="modelValue"
-      :placeholder="t('arabicPlaceholder')"
-      size="large"
-      @update:value="$emit('update:modelValue', $event)"
-    />
+    <n-form-item :rule="rule" :show-label="false">
+      <n-input
+        :value="modelValue"
+        :placeholder="t('arabicPlaceholder')"
+        size="large"
+        @update:value="$emit('update:modelValue', $event)"
+      />
+    </n-form-item>
   </ToolSection>
   <ToolSection>
     <CopyToClipboardButton :content="modelValue" />
@@ -14,21 +16,53 @@
 </template>
 
 <script setup lang="ts">
-import { NInput } from 'naive-ui'
+import { NInput, NFormItem, type FormItemRule } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
 import { ToolSectionHeader, ToolSection } from '@shared/ui/tool'
 import { CopyToClipboardButton } from '@shared/ui/base'
+import { isValidArabicNumber } from '../utils/conversion'
 
 interface Props {
   modelValue: string
 }
 
-defineProps<Props>()
+const props = defineProps<Props>()
 defineEmits<{
   'update:modelValue': [value: string]
 }>()
 
 const { t } = useI18n()
+
+const rule: FormItemRule = {
+  trigger: ['input', 'change', 'blur'],
+  validator() {
+    const value = props.modelValue.trim()
+
+    if (!value) {
+      return true // Empty is valid (let user clear the field)
+    }
+
+    const num = parseInt(value, 10)
+
+    if (isNaN(num)) {
+      return new Error(t('invalidNumber'))
+    }
+
+    if (num < 1) {
+      return new Error(t('numberTooSmall'))
+    }
+
+    if (num > 3999) {
+      return new Error(t('numberTooLarge'))
+    }
+
+    if (!isValidArabicNumber(num)) {
+      return new Error(t('invalidNumber'))
+    }
+
+    return true
+  },
+}
 </script>
 
 <i18n lang="json">
