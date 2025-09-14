@@ -54,6 +54,7 @@
     "@tools/remove-pdf-owner-password": "workspace:*",
     "@tools/reverse-ip-lookup": "workspace:*",
     "@tools/ripemd160-hash-text-or-file": "workspace:*",
+    "@tools/roman-numeral-converter": "workspace:*",
     "@tools/sha1-hash-text-or-file": "workspace:*",
     "@tools/sha256-hash-text-or-file": "workspace:*",
     "@tools/sha384-hash-text-or-file": "workspace:*",
