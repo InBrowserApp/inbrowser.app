@@ -28,8 +28,8 @@ function expandIPv6Address(address: string) {
   let fullAddress = ''
   const segments = address.split('::')
   if (segments.length === 2) {
-    const segment1 = segments[0].split(':')
-    const segment2 = segments[1].split(':')
+    const segment1 = segments[0]!.split(':')
+    const segment2 = segments[1]!.split(':')
     const missingZeroes = 8 - (segment1.length + segment2.length)
     fullAddress = segment1.join(':')
     for (let i = 0; i < missingZeroes; i++) {

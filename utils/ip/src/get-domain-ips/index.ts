@@ -3,7 +3,7 @@ import { makeDOHQuery, BUILTIN_DOH_SERVERS } from '@utils/dns'
 export async function getDomainIPs(domain: string): Promise<string[]> {
   for (const server in BUILTIN_DOH_SERVERS) {
     try {
-      const url = BUILTIN_DOH_SERVERS[server].url
+      const url = BUILTIN_DOH_SERVERS[server]!.url
       const AResponsePromise = makeDOHQuery(url, { name: domain, type: 'A' })
       const AAAAResponsePromise = makeDOHQuery(url, {
         name: domain,

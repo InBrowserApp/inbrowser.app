@@ -17,7 +17,7 @@ import { get } from '@vueuse/core'
 export function useSiteLanguage() {
   const route = useRoute()
   const language = computed<SupportedLanguage | undefined>(() => {
-    const lang = route.path.split('/')[1] || window.location.pathname.split('/')[1]
+    const lang = route.path.split('/')[1]! || window.location.pathname.split('/')[1]!
     if ((supportedLanguages as Readonly<string[]>).includes(lang)) {
       return lang as SupportedLanguage
     } else {
@@ -31,7 +31,7 @@ export function useSiteLanguage() {
 }
 
 export function getLocaleFromPath(path?: string) {
-  const lang = path?.split('/')[1] || window.location.pathname.split('/')[1]
+  const lang = path?.split('/')[1]! || window.location.pathname.split('/')[1]!
   if ((supportedLanguages as Readonly<string[]>).includes(lang)) {
     return lang as SupportedLanguage
   } else {

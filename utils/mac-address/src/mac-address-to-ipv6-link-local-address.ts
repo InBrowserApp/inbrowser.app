@@ -18,7 +18,7 @@ export function macAddressToIPv6LinkLocalAddress(mac: string): string {
   // Combine the bytes into two-byte pairs for IPv6 format
   const ipv6Pairs = []
   for (let i = 0; i < bytes.length; i += 2) {
-    ipv6Pairs.push(bytes[i] + bytes[i + 1])
+    ipv6Pairs.push(bytes[i]! + bytes[i + 1]!)
   }
 
   // Join the pairs with colons and format as IPv6 link-local

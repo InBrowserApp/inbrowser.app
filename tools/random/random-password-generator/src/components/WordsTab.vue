@@ -39,14 +39,14 @@ const WORDS: readonly string[] = englishWordlist as readonly string[]
 function getRandomInt(max: number): number {
   const buf = new Uint32Array(1)
   crypto.getRandomValues(buf)
-  return buf[0] % max
+  return buf[0]! % max
 }
 
 function generate(): string {
   const numWords = Math.max(1, wordCount.value)
   const parts: string[] = []
   for (let i = 0; i < numWords; i++) {
-    let w = WORDS[getRandomInt(WORDS.length)]
+    let w = WORDS[getRandomInt(WORDS.length)]!
     if (capitalize.value) w = w.charAt(0).toUpperCase() + w.slice(1)
     parts.push(w)
   }

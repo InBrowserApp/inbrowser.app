@@ -81,7 +81,7 @@ export function decode(uuid_: string): DecodeResult {
  */
 export function getVariant(uuid: UUID): number {
   const uuidBytes = uuid.split('-').join('')
-  const variantByte = parseInt(uuidBytes[16], 16)
+  const variantByte = parseInt(uuidBytes[16]!, 16)
 
   if (variantByte >= 8 && variantByte <= 11) {
     return 1
@@ -100,7 +100,7 @@ export function getVariant(uuid: UUID): number {
  */
 function extractMacAddressFromUUIDv1(uuid: UUIDv1) {
   return uuid
-    .split('-')[4]
+    .split('-')[4]!
     .toUpperCase()
     .match(/.{1,2}/g)
     ?.join(':')
@@ -113,7 +113,7 @@ function extractMacAddressFromUUIDv1(uuid: UUIDv1) {
  */
 function extractTimeFromUUIDv1(uuid: UUIDv1) {
   const uuidParts = uuid.split('-')
-  const timeStr = [uuidParts[2].substring(1), uuidParts[1], uuidParts[0]].join('')
+  const timeStr = [uuidParts[2]!.substring(1), uuidParts[1], uuidParts[0]].join('')
   const timeInt = BigInt('0x' + timeStr)
   const unixTime = Number((timeInt - 122192928000000000n) / 10000n)
   return unixTime

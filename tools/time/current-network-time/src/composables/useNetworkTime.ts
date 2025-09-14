@@ -45,7 +45,7 @@ export function useNetworkTime() {
         throw new Error('Failed to parse Cloudflare trace timestamp (ts=...)')
       }
 
-      const serverEpochMs = Math.round(parseFloat(match[1]) * 1000)
+      const serverEpochMs = Math.round(parseFloat(match[1]!) * 1000)
       const roundTrip = endTs - startTs
 
       // Calculate the midpoint time of network latency

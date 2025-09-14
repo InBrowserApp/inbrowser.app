@@ -8,7 +8,7 @@
           :type="props.result.Status === 0 ? 'success' : 'error'"
           size="small"
         >
-          {{ DNSRCODEs?.[props.result.Status].name ?? t('common.unknown') }}
+          {{ DNSRCODEs?.[props.result.Status]?.name ?? t('common.unknown') }}
           <template #icon>
             <n-icon :component="props.result.Status === 0 ? CheckmarkCircle : CloseCircle" />
           </template>

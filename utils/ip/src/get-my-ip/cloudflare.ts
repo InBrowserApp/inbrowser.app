@@ -8,8 +8,8 @@ export async function getMyIPUniversal(options?: RequestInit): Promise<string> {
   const data = await response.text()
   const ip = data
     .split('\n')
-    .filter((line) => line.startsWith('ip='))[0]
-    .split('=')[1]
+    .filter((line) => line.startsWith('ip='))[0]!
+    .split('=')[1]!
   if (!isIPv4(ip) && !isIPv6(ip)) {
     throw new Error(`Invalid IP: ${ip}`)
   }

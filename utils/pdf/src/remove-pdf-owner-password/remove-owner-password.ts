@@ -32,7 +32,9 @@ export async function removeOwnerPassword(blob: Blob): Promise<Blob> {
     encoding: 'binary',
   })
 
-  const resultBlob = new Blob([outputBuffer], { type: 'application/pdf' })
+  const resultBlob = new Blob([outputBuffer as Uint8Array<ArrayBuffer>], {
+    type: 'application/pdf',
+  })
 
   return resultBlob
 }

@@ -65,7 +65,7 @@ const hashFunction = computed(() => {
 
     const hashBytes = blake2bFinal(context)
 
-    return hashBytes.buffer
+    return hashBytes.buffer as ArrayBuffer
   }
 })
 </script>

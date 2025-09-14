@@ -12,7 +12,7 @@ export function uuidToBase64(uuid: UUID): string {
   // Convert the byte array to a binary string...
   let binary = ''
   for (let i = 0; i < bytes.length; i++) {
-    binary += String.fromCharCode(bytes[i])
+    binary += String.fromCharCode(bytes[i]!)
   }
 
   // …then Base64‐encode
@@ -92,7 +92,7 @@ export function base64ToUUID(base64: string): UUID {
   // Convert bytes to hex string
   let hexString = ''
   for (let i = 0; i < bytes.length; i++) {
-    hexString += bytes[i].toString(16).padStart(2, '0')
+    hexString += bytes[i]!.toString(16).padStart(2, '0')
   }
 
   // Add hyphens in the correct positions

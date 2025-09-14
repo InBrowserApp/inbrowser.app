@@ -31,7 +31,7 @@ const allowLeadingZero = useStorage<boolean>(
 function getRandomInt(max: number): number {
   const buf = new Uint32Array(1)
   crypto.getRandomValues(buf)
-  return buf[0] % max
+  return buf[0]! % max
 }
 
 function generate(): string {

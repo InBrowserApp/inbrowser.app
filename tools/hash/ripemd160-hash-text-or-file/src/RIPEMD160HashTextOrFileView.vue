@@ -21,7 +21,7 @@ async function hashFunction(blob: Blob): Promise<ArrayBuffer> {
   // Convert RIPEMD160 WordArray to ArrayBuffer more efficiently
   const hashBytes = new Uint8Array(hash.sigBytes)
   for (let i = 0; i < hash.sigBytes; i++) {
-    hashBytes[i] = (hash.words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff
+    hashBytes[i] = (hash.words[i >>> 2]! >>> (24 - (i % 4) * 8)) & 0xff
   }
   return hashBytes.buffer
 }

@@ -69,7 +69,7 @@ export function romanToArabic(roman: string): number {
   let prevValue = 0
 
   for (let i = cleanRoman.length - 1; i >= 0; i--) {
-    const currentValue = romanMap[cleanRoman[i]]
+    const currentValue = romanMap[cleanRoman[i]!]!
 
     if (!currentValue) {
       throw new Error('Invalid Roman numeral character')

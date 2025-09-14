@@ -71,7 +71,7 @@ export class PngIcoConverter {
     let imgPos = headersLen
     for (let i = 0; i < inputs.length; i++) {
       const currPos = FileHeaderSize + ImageHeaderSize * i,
-        input = inputs[i]
+        input = inputs[i]!
 
       const blob = this.toBlob(input.png),
         img = await this.loadImageAsync(blob),

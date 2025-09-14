@@ -25,12 +25,12 @@ export function ipv6AddressToMacAddress(ipv6: string): string {
 
     // Recover the original MAC: remove ff:fe and flip the U/L bit back
     const macBytes = [
-      interfaceIdBytes[0] ^ 0x02,
-      interfaceIdBytes[1],
-      interfaceIdBytes[2],
-      interfaceIdBytes[5],
-      interfaceIdBytes[6],
-      interfaceIdBytes[7],
+      interfaceIdBytes[0]! ^ 0x02,
+      interfaceIdBytes[1]!,
+      interfaceIdBytes[2]!,
+      interfaceIdBytes[5]!,
+      interfaceIdBytes[6]!,
+      interfaceIdBytes[7]!,
     ]
 
     return macBytes
@@ -58,10 +58,10 @@ function expandIPv6(input: string): string[] {
   let tailParts: string[] = []
 
   if (doubleColonSplit.length === 1) {
-    headParts = doubleColonSplit[0].split(':').filter(Boolean)
+    headParts = doubleColonSplit[0]!.split(':').filter(Boolean)
   } else if (doubleColonSplit.length === 2) {
-    headParts = doubleColonSplit[0].length ? doubleColonSplit[0].split(':').filter(Boolean) : []
-    tailParts = doubleColonSplit[1].length ? doubleColonSplit[1].split(':').filter(Boolean) : []
+    headParts = doubleColonSplit[0]!.length ? doubleColonSplit[0]!.split(':').filter(Boolean) : []
+    tailParts = doubleColonSplit[1]!.length ? doubleColonSplit[1]!.split(':').filter(Boolean) : []
   } else {
     return []
   }
@@ -69,12 +69,12 @@ function expandIPv6(input: string): string[] {
   // Handle embedded IPv4 (e.g., ::ffff:192.0.2.128)
   const replaceEmbeddedIPv4 = (parts: string[]): string[] => {
     if (parts.length === 0) return parts
-    const last = parts[parts.length - 1]
+    const last = parts[parts.length - 1]!
     if (/\./.test(last)) {
       const octets = last.split('.').map((n) => Number(n))
       if (octets.length === 4 && octets.every((n) => Number.isInteger(n) && n >= 0 && n <= 255)) {
-        const h1 = ((octets[0] << 8) | octets[1]).toString(16)
-        const h2 = ((octets[2] << 8) | octets[3]).toString(16)
+        const h1 = ((octets[0]! << 8) | octets[1]!).toString(16)
+        const h2 = ((octets[2]! << 8) | octets[3]!).toString(16)
         return parts.slice(0, -1).concat([h1, h2])
       }
     }

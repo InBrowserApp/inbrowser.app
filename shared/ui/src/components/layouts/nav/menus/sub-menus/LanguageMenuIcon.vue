@@ -132,7 +132,7 @@ function handleUpdateValue(value: string) {
   const currentPath = route.fullPath
   // Extract language from the first segment of the path
   const pathSegments = currentPath.split('/')
-  const firstSegment = pathSegments[1]
+  const firstSegment = pathSegments[1]!
   const hasLanguagePrefix = (supportedLanguages as readonly string[]).includes(firstSegment)
 
   if (value === 'auto') {

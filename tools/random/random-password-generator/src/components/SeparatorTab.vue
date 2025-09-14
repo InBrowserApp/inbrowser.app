@@ -76,7 +76,7 @@ const pool = computed(() => {
 function getRandomInt(max: number): number {
   const buffer = new Uint32Array(1)
   crypto.getRandomValues(buffer)
-  return buffer[0] % max
+  return buffer[0]! % max
 }
 
 function generate(): string {
