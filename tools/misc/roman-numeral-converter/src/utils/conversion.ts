@@ -105,12 +105,3 @@ export function isValidRomanNumeral(roman: string): boolean {
     return false
   }
 }
-
-/**
- * Validate if a number is in valid range for Roman numeral conversion
- * @param num - Number to validate
- * @returns true if valid, false otherwise
- */
-export function isValidArabicNumber(num: number): boolean {
-  return !isNaN(num) && num >= 1 && num <= 3999 && Number.isInteger(num)
-}

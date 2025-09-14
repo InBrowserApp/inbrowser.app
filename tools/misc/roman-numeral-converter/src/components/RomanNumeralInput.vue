@@ -2,16 +2,9 @@
   <ToolSectionHeader>{{ t('romanNumeral') }}</ToolSectionHeader>
   <ToolSection>
     <n-form-item :rule="rule" :show-label="false">
-      <n-input
-        :value="modelValue"
-        :placeholder="t('romanPlaceholder')"
-        size="large"
-        @update:value="$emit('update:modelValue', $event)"
-      />
+      <n-input v-model:value="internalValue" :placeholder="t('romanPlaceholder')" size="large" />
     </n-form-item>
-  </ToolSection>
-  <ToolSection>
-    <CopyToClipboardButton :content="modelValue" />
+    <CopyToClipboardButton :content="internalValue" />
   </ToolSection>
 </template>
 
@@ -21,14 +14,16 @@ import { useI18n } from 'vue-i18n'
 import { ToolSectionHeader, ToolSection } from '@shared/ui/tool'
 import { CopyToClipboardButton } from '@shared/ui/base'
 import { isValidRomanNumeral } from '../utils/conversion'
+import { ref, watch, computed } from 'vue'
 
-interface Props {
-  modelValue: string
-}
+const props = defineProps<{
+  value: string
+}>()
 
-const props = defineProps<Props>()
-defineEmits<{
-  'update:modelValue': [value: string]
+const internalValue = ref(props.value)
+
+const emit = defineEmits<{
+  'update:value': [value: string]
 }>()
 
 const { t } = useI18n()
@@ -36,7 +31,7 @@ const { t } = useI18n()
 const rule: FormItemRule = {
   trigger: ['input', 'change', 'blur'],
   validator() {
-    const value = props.modelValue.trim()
+    const value = internalValue.value.trim()
 
     if (!value) {
       return true // Empty is valid (let user clear the field)
@@ -49,6 +44,19 @@ const rule: FormItemRule = {
     return true
   },
 }
+
+watch(internalValue, (newValue) => {
+  if (isValidRomanNumeral(newValue)) {
+    emit('update:value', newValue)
+  }
+})
+
+watch(
+  computed(() => props.value),
+  (newValue) => {
+    internalValue.value = newValue
+  },
+)
 </script>
 
 <i18n lang="json">

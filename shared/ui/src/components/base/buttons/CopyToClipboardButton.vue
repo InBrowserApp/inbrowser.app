@@ -19,7 +19,7 @@ import { useCopyToClipboard } from '../../../composables/base/clipboard/useCopyT
 import { toRef } from 'vue'
 
 const props = defineProps<{
-  content?: string
+  content?: string | number
 }>()
 const content = toRef(props, 'content')
 
