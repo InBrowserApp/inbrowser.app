@@ -1,6 +1,4 @@
 import { ref, watch } from 'vue'
-import type { FormItemRule } from 'naive-ui'
-import { useI18n } from 'vue-i18n'
 import {
   arabicToRoman,
   romanToArabic,
@@ -9,7 +7,6 @@ import {
 } from '../utils/conversion'
 
 export function useRomanConversion() {
-  const { t } = useI18n()
   // State
   const arabicInput = ref('')
   const romanInput = ref('')
@@ -18,38 +15,6 @@ export function useRomanConversion() {
 
   // Flag to prevent infinite loop during programmatic updates
   let isUpdating = false
-
-  // Validation rules for form items
-  const arabicRule: FormItemRule = {
-    trigger: ['input', 'blur'],
-    validator() {
-      if (!arabicInput.value) return true // Allow empty input
-      const num = parseInt(arabicInput.value)
-      if (!isValidArabicNumber(num)) {
-        if (isNaN(num)) {
-          return new Error(t('invalidNumber'))
-        }
-        if (num < 1) {
-          return new Error(t('numberTooSmall'))
-        }
-        if (num > 3999) {
-          return new Error(t('numberTooLarge'))
-        }
-      }
-      return true
-    },
-  }
-
-  const romanRule: FormItemRule = {
-    trigger: ['input', 'blur'],
-    validator() {
-      if (!romanInput.value) return true // Allow empty input
-      if (!isValidRomanNumeral(romanInput.value)) {
-        return new Error(t('invalidRomanNumeral'))
-      }
-      return true
-    },
-  }
 
   // Watch Arabic input and convert to Roman
   watch(arabicInput, (newValue) => {
@@ -123,7 +88,5 @@ export function useRomanConversion() {
     romanInput,
     arabicInputStatus,
     romanInputStatus,
-    arabicRule,
-    romanRule,
   }
 }
