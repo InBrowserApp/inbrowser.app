@@ -1,5 +1,6 @@
 import { ref, watch } from 'vue'
 import type { FormItemRule } from 'naive-ui'
+import { useI18n } from 'vue-i18n'
 import {
   arabicToRoman,
   romanToArabic,
@@ -8,6 +9,7 @@ import {
 } from '../utils/conversion'
 
 export function useRomanConversion() {
+  const { t } = useI18n()
   // State
   const arabicInput = ref('')
   const romanInput = ref('')
@@ -25,13 +27,13 @@ export function useRomanConversion() {
       const num = parseInt(arabicInput.value)
       if (!isValidArabicNumber(num)) {
         if (isNaN(num)) {
-          return new Error('Please enter a valid number')
+          return new Error(t('invalidNumber'))
         }
         if (num < 1) {
-          return new Error('Number must be at least 1')
+          return new Error(t('numberTooSmall'))
         }
         if (num > 3999) {
-          return new Error('Number must be at most 3999')
+          return new Error(t('numberTooLarge'))
         }
       }
       return true
@@ -43,7 +45,7 @@ export function useRomanConversion() {
     validator() {
       if (!romanInput.value) return true // Allow empty input
       if (!isValidRomanNumeral(romanInput.value)) {
-        return new Error('Please enter a valid Roman numeral')
+        return new Error(t('invalidRomanNumeral'))
       }
       return true
     },
