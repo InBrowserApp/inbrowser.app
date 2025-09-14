@@ -1,15 +1,12 @@
 <template>
   <ToolSectionHeader>{{ t('arabicNumber') }}</ToolSectionHeader>
   <ToolSection>
-    <n-form-item :label="t('arabicNumber')" :rule="arabicRule" :show-label="false">
-      <n-input
-        :model-value="modelValue"
-        :placeholder="t('arabicPlaceholder')"
-        :status="status"
-        size="large"
-        @update:value="$emit('update:modelValue', $event)"
-      />
-    </n-form-item>
+    <n-input
+      :value="modelValue"
+      :placeholder="t('arabicPlaceholder')"
+      size="large"
+      @update:value="$emit('update:modelValue', $event)"
+    />
   </ToolSection>
   <ToolSection>
     <CopyToClipboardButton :content="modelValue" />
@@ -17,16 +14,13 @@
 </template>
 
 <script setup lang="ts">
-import { NInput, NFormItem, type FormItemRule } from 'naive-ui'
+import { NInput } from 'naive-ui'
 import { useI18n } from 'vue-i18n'
-import { computed } from 'vue'
 import { ToolSectionHeader, ToolSection } from '@shared/ui/tool'
 import { CopyToClipboardButton } from '@shared/ui/base'
-import { isValidArabicNumber } from '../utils/conversion'
 
 interface Props {
   modelValue: string
-  status?: 'success' | 'warning' | 'error' | undefined
 }
 
 defineProps<Props>()
@@ -35,29 +29,6 @@ defineEmits<{
 }>()
 
 const { t } = useI18n()
-
-// Validation rule for Arabic number input
-const arabicRule = computed(
-  (): FormItemRule => ({
-    trigger: ['input', 'blur'],
-    validator(_, value: string) {
-      if (!value) return true // Allow empty input
-      const num = parseInt(value)
-      if (!isValidArabicNumber(num)) {
-        if (isNaN(num)) {
-          return new Error(t('invalidNumber'))
-        }
-        if (num < 1) {
-          return new Error(t('numberTooSmall'))
-        }
-        if (num > 3999) {
-          return new Error(t('numberTooLarge'))
-        }
-      }
-      return true
-    },
-  }),
-)
 </script>
 
 <i18n lang="json">
